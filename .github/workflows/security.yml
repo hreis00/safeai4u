@@ -10,11 +10,12 @@ on:
     branches: [main, dev]
     paths-ignore:
       - "docs/**"
-      - "*.md"
+      - "**/*.md"
 
   # Dependency review on pull requests
   pull_request:
     branches: [main, dev]
+    types: [opened, synchronize, reopened]
     paths-ignore:
       - "docs/**"
       - "*.md"
