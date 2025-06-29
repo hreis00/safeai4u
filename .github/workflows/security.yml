@@ -10,6 +10,14 @@ on:
     branches: [main, dev]
     paths-ignore:
       - "docs/**"
+      - "**/*.md"
+
+  # Dependency review on pull requests
+  pull_request:
+    branches: [main, dev]
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - "docs/**"
       - "*.md"
 
   # Manual trigger for security scans
@@ -83,8 +91,8 @@ jobs:
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest
-    # Only run on GitHub (needs GitHub API), and only on push events
-    if: github.event_name == 'push' && github.actor != 'nektos/act'
+    # Only run on pull requests (needs base/head ref comparison)
+    if: github.event_name == 'pull_request' && github.actor != 'nektos/act'
 
     steps:
       - name: Checkout code
