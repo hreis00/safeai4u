@@ -18,7 +18,7 @@ on:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - "docs/**"
-      - "*.md"
+      - "**/*.md"
 
   # Manual trigger for security scans
   workflow_dispatch:
