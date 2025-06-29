@@ -1,0 +1,125 @@
+name: Security & Maintenance
+
+on:
+  # Weekly security scans
+  schedule:
+    - cron: "0 2 * * 1" # Every Monday at 2 AM UTC
+
+  # Security checks on main/dev pushes (actual deployed code)
+  push:
+    branches: [main, dev]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+
+  # Dependency review on pull requests
+  pull_request:
+    branches: [main, dev]
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
+
+  # Manual trigger for security scans
+  workflow_dispatch:
+
+jobs:
+  dependency-audit:
+    name: Dependency Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: |
+          echo "🔍 Running dependency security audit..."
+          npm audit --audit-level moderate
+
+      - name: Check for high severity vulnerabilities
+        run: |
+          echo "🚨 Checking for high/critical vulnerabilities..."
+          npm audit --audit-level high --dry-run
+
+  codeql-analysis:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    # Skip when running locally with act
+    if: github.actor != 'nektos/act'
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for analysis
+        run: npm run build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    # Only run on pull requests (needs base/head ref comparison)
+    if: github.event_name == 'pull_request' && github.actor != 'nektos/act'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  maintenance-summary:
+    name: Security Summary
+    needs: [dependency-audit, codeql-analysis]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Security scan summary
+        run: |
+          echo "🛡️ Security & Maintenance Summary"
+          echo "================================="
+          echo "✅ Dependency Audit: ${{ needs.dependency-audit.result }}"
+          echo "✅ CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
+          echo ""
+          if [[ "${{ needs.dependency-audit.result }}" == "success" && "${{ needs.codeql-analysis.result }}" == "success" ]]; then
+            echo "🎉 All security checks passed!"
+          else
+            echo "⚠️  Some security checks failed - please review"
+          fi
