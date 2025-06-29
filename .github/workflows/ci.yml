@@ -3,6 +3,10 @@ name: CI - Code Quality
 on:
   pull_request:
     branches: [main, dev]
+    paths-ignore:
+      - ".github/**"
+      - "*.md"
+      - "docs/**"
 
 jobs:
   quality:
