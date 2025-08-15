@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import {
   Card,
   CardDescription,
@@ -9,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import { generatePageMetadata, generateProjectStructuredData } from "@/lib/seo";
 
 // Animation Components
 import {
@@ -22,20 +22,24 @@ import {
 import { Hero } from "@/components/Hero";
 import { CallToAction } from "@/components/CallToAction";
 
-export const metadata: Metadata = {
-  title: "Featured Projects - SAFE AI [4U]",
-  description:
-    "Explore our innovative AI projects: METATRON, Space Medicine, and ISEKAI.",
-};
+export const metadata = generatePageMetadata("projects");
 
 export default function ProjectsPage() {
+  const projectStructuredData = generateProjectStructuredData();
+
   return (
     <div className="space-y-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(projectStructuredData),
+        }}
+      />
       {/* Hero Section */}
       <Hero
-        badgeText="Innovation in Action"
-        title="Featured Projects"
-        description="Discover how our AI solutions are transforming industries and creating real-world impact across healthcare, space exploration, and digital wellness."
+        badgeText="AI Research Projects • Healthcare & Innovation"
+        title="Featured AI Projects & Healthcare AI Solutions"
+        description="Explore our innovative AI research projects demonstrating responsible AI development in healthcare, space medicine, and wellness applications. Real-world examples of ethical AI implementation and healthcare AI solutions."
       />
 
       {/* METATRON Project */}
@@ -55,21 +59,24 @@ export default function ProjectsPage() {
                     <div>
                       <h2 className="text-3xl font-bold mb-4">METATRON</h2>
                       <p className="text-lg text-muted-foreground">
-                        An interconnected data and machine learning
-                        master-infrastructure that revolutionizes healthcare AI
-                        capabilities.
+                        A conceptual framework for interconnected data and
+                        machine learning infrastructure designed to enhance
+                        healthcare AI capabilities through responsible data
+                        integration.
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <div className="font-medium">Data Sources</div>
+                        <div className="font-medium">Architecture Focus</div>
                         <div className="text-muted-foreground">
-                          500+ Integrated
+                          Multi-source Integration
                         </div>
                       </div>
                       <div>
-                        <div className="font-medium">Privacy Level</div>
-                        <div className="text-muted-foreground">100% Secure</div>
+                        <div className="font-medium">Privacy Approach</div>
+                        <div className="text-muted-foreground">
+                          Privacy-First Design
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -80,34 +87,34 @@ export default function ProjectsPage() {
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Graph Network Integration</span>
-                          <span>95%</span>
+                          <span>Graph Network Research</span>
+                          <span>Ongoing</span>
                         </div>
-                        <Progress value={95} />
+                        <Progress value={75} />
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Synthetic Data Generation</span>
-                          <span>88%</span>
+                          <span>Privacy Framework Development</span>
+                          <span>Active</span>
                         </div>
-                        <Progress value={88} />
+                        <Progress value={80} />
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Privacy Preservation</span>
-                          <span>100%</span>
+                          <span>Ethical AI Integration</span>
+                          <span>Core Focus</span>
                         </div>
-                        <Progress value={100} />
+                        <Progress value={90} />
                       </div>
                     </div>
                     <Separator />
                     <div className="space-y-3">
-                      <h4 className="font-medium">Technical Highlights</h4>
+                      <h4 className="font-medium">Research Areas</h4>
                       <ul className="text-sm text-muted-foreground space-y-1">
-                        <li>• Graph neural networks for data connectivity</li>
-                        <li>• Federated learning architecture</li>
-                        <li>• Advanced synthetic data algorithms</li>
-                        <li>• Real-time privacy monitoring</li>
+                        <li>• Graph-based data relationship modeling</li>
+                        <li>• Distributed learning methodologies</li>
+                        <li>• Privacy-preserving data techniques</li>
+                        <li>• Ethical AI framework development</li>
                       </ul>
                     </div>
                   </div>
@@ -135,34 +142,34 @@ export default function ProjectsPage() {
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Microgravity Adaptation</span>
-                          <span>92%</span>
+                          <span>Remote Monitoring Research</span>
+                          <span>Exploring</span>
                         </div>
-                        <Progress value={92} />
+                        <Progress value={60} />
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Remote Diagnostics</span>
-                          <span>87%</span>
+                          <span>AI Diagnostic Framework</span>
+                          <span>Developing</span>
                         </div>
-                        <Progress value={87} />
+                        <Progress value={45} />
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Emergency Response</span>
-                          <span>96%</span>
+                          <span>Ethical Guidelines</span>
+                          <span>Priority Focus</span>
                         </div>
-                        <Progress value={96} />
+                        <Progress value={85} />
                       </div>
                     </div>
                     <Separator />
                     <div className="space-y-3">
-                      <h4 className="font-medium">Research Applications</h4>
+                      <h4 className="font-medium">Research Areas</h4>
                       <ul className="text-sm text-muted-foreground space-y-1">
-                        <li>• Physiological monitoring in microgravity</li>
-                        <li>• Automated medical intervention systems</li>
-                        <li>• Radiation exposure assessment</li>
-                        <li>• Psychological health support</li>
+                        <li>• Remote physiological monitoring systems</li>
+                        <li>• AI-assisted diagnostic tools for isolation</li>
+                        <li>• Telemedicine infrastructure design</li>
+                        <li>• Mental health support technologies</li>
                       </ul>
                     </div>
                   </div>
@@ -180,22 +187,23 @@ export default function ProjectsPage() {
                         SPACE MEDICINE
                       </h2>
                       <p className="text-lg text-muted-foreground">
-                        Pioneering healthcare solutions for the unique
-                        challenges of microgravity environments and space
-                        exploration.
+                        Research initiative exploring AI applications for
+                        healthcare challenges in extreme environments, with
+                        potential applications for remote and resource-limited
+                        settings.
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <div className="font-medium">Mission Support</div>
+                        <div className="font-medium">Research Focus</div>
                         <div className="text-muted-foreground">
-                          24/7 Monitoring
+                          Remote Healthcare AI
                         </div>
                       </div>
                       <div>
-                        <div className="font-medium">Research Impact</div>
+                        <div className="font-medium">Application Scope</div>
                         <div className="text-muted-foreground">
-                          Global Scale
+                          Extreme Environments
                         </div>
                       </div>
                     </div>
@@ -224,19 +232,21 @@ export default function ProjectsPage() {
                     <div>
                       <h2 className="text-3xl font-bold mb-4">ISEKAI</h2>
                       <p className="text-lg text-muted-foreground">
-                        Transform your physical activity into an engaging RPG
-                        adventure with personalized goals and real-world
-                        rewards.
+                        A conceptual gamification platform exploring how AI can
+                        enhance physical wellness through personalized, engaging
+                        experiences that promote healthy lifestyle choices.
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <div className="font-medium">Active Users</div>
-                        <div className="text-muted-foreground">10,000+</div>
+                        <div className="font-medium">Development Stage</div>
+                        <div className="text-muted-foreground">
+                          Prototype Phase
+                        </div>
                       </div>
                       <div>
-                        <div className="font-medium">Engagement Rate</div>
-                        <div className="text-muted-foreground">85% Daily</div>
+                        <div className="font-medium">Focus Area</div>
+                        <div className="text-muted-foreground">Wellness AI</div>
                       </div>
                     </div>
                   </div>
@@ -247,34 +257,34 @@ export default function ProjectsPage() {
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Motivation Boost</span>
-                          <span>94%</span>
+                          <span>AI Personalization Research</span>
+                          <span>Active</span>
                         </div>
-                        <Progress value={94} />
+                        <Progress value={70} />
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>Goal Achievement</span>
-                          <span>78%</span>
+                          <span>Gamification Framework</span>
+                          <span>Developing</span>
                         </div>
-                        <Progress value={78} />
+                        <Progress value={55} />
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>User Retention</span>
-                          <span>85%</span>
+                          <span>Ethical Design Principles</span>
+                          <span>Core Focus</span>
                         </div>
-                        <Progress value={85} />
+                        <Progress value={90} />
                       </div>
                     </div>
                     <Separator />
                     <div className="space-y-3">
-                      <h4 className="font-medium">Gaming Elements</h4>
+                      <h4 className="font-medium">Research Concepts</h4>
                       <ul className="text-sm text-muted-foreground space-y-1">
-                        <li>• Real-world quest mapping</li>
-                        <li>• Personalized activity goals</li>
-                        <li>• Achievement and reward systems</li>
-                        <li>• Social challenges and competition</li>
+                        <li>• AI-driven personalization algorithms</li>
+                        <li>• Behavioral psychology integration</li>
+                        <li>• Responsible gamification design</li>
+                        <li>• Privacy-preserving wellness tracking</li>
                       </ul>
                     </div>
                   </div>
@@ -291,9 +301,10 @@ export default function ProjectsPage() {
           <StaggerContainer>
             <FadeInUp>
               <div className="text-center space-y-6 mb-12">
-                <h2 className="text-3xl font-bold">Project Impact</h2>
+                <h2 className="text-3xl font-bold">Research Foundation</h2>
                 <p className="max-w-2xl mx-auto text-muted-foreground">
-                  Measuring the real-world impact of our innovative AI solutions
+                  Building responsible AI solutions through dedicated research
+                  and ethical development
                 </p>
               </div>
             </FadeInUp>
@@ -303,13 +314,13 @@ export default function ProjectsPage() {
                 <Card className="text-center p-6">
                   <CardHeader>
                     <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                      <AnimatedCounter value={500} suffix="+" />
+                      <AnimatedCounter value={15} suffix="+" />
                     </div>
                     <CardTitle className="text-lg">
-                      Healthcare Institutions
+                      Years of AI Research
                     </CardTitle>
                     <CardDescription>
-                      Using METATRON infrastructure
+                      Dedicated to responsible AI development
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -319,11 +330,13 @@ export default function ProjectsPage() {
                 <Card className="text-center p-6">
                   <CardHeader>
                     <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
-                      <AnimatedCounter value={15} />
+                      <AnimatedCounter value={3} />
                     </div>
-                    <CardTitle className="text-lg">Space Missions</CardTitle>
+                    <CardTitle className="text-lg">
+                      Core Research Areas
+                    </CardTitle>
                     <CardDescription>
-                      Supported by our medical AI
+                      Healthcare, Education, and Society
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -333,11 +346,11 @@ export default function ProjectsPage() {
                 <Card className="text-center p-6">
                   <CardHeader>
                     <div className="text-3xl font-bold text-green-600 dark:text-green-400">
-                      <AnimatedCounter value={2.5} suffix="M" />
+                      <AnimatedCounter value={100} suffix="%" />
                     </div>
-                    <CardTitle className="text-lg">Steps Gamified</CardTitle>
+                    <CardTitle className="text-lg">Ethical Focus</CardTitle>
                     <CardDescription>
-                      Through ISEKAI platform daily
+                      Committed to responsible AI practices
                     </CardDescription>
                   </CardHeader>
                 </Card>

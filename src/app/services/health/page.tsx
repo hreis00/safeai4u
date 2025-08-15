@@ -148,18 +148,18 @@ export default function HealthPage() {
             badge: "Data Infrastructure",
             title: "METATRON",
             description:
-              "Interconnected data and machine learning master-infrastructure",
+              "Research framework for responsible data and ML infrastructure",
             content:
-              "An advanced infrastructure that increases ML model capabilities using graph networks, connecting multiple data sources while guaranteeing patient privacy.",
+              "A research framework exploring advanced infrastructure approaches to enhance ML model capabilities through responsible data integration and privacy-preserving methodologies.",
             buttonText: "Learn More",
             buttonHref: "/projects#metatron",
           },
           {
             badge: "Space Medicine",
             title: "SPACE MEDICINE",
-            description: "Healthcare solutions for microgravity environments",
+            description: "Research into AI healthcare for extreme environments",
             content:
-              "Specialized tools to aid healthcare research and development of procedures for the unique challenges of microgravity settings.",
+              "Exploring AI applications for healthcare challenges in remote and resource-limited environments, with research applications for extreme conditions.",
             buttonText: "Learn More",
             buttonHref: "/projects#space-medicine",
           },
