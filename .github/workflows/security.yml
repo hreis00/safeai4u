@@ -1,10 +1,6 @@
 name: Security & Maintenance
 
 on:
-  # Weekly security scans
-  schedule:
-    - cron: "0 2 * * 1" # Every Monday at 2 AM UTC
-
   # Security checks on main/dev pushes (actual deployed code)
   push:
     branches: [main, dev]
@@ -24,33 +20,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  dependency-audit:
-    name: Dependency Security Audit
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run security audit
-        continue-on-error: true
-        run: |
-          echo "🔍 Running dependency security audit..."
-          npm audit --audit-level moderate
-
-      - name: Check for high severity vulnerabilities
-        run: |
-          echo "🚨 Checking for high/critical vulnerabilities..."
-          npm audit --audit-level high --dry-run
+  # Removed dependency-audit job - dependabot handles this better
 
   codeql-analysis:
     name: CodeQL Security Analysis
@@ -107,7 +77,7 @@ jobs:
 
   maintenance-summary:
     name: Security Summary
-    needs: [dependency-audit, codeql-analysis]
+    needs: [codeql-analysis]
     runs-on: ubuntu-latest
     if: always()
 
@@ -116,11 +86,11 @@ jobs:
         run: |
           echo "🛡️ Security & Maintenance Summary"
           echo "================================="
-          echo "✅ Dependency Audit: ${{ needs.dependency-audit.result }}"
           echo "✅ CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
           echo ""
-          if [[ "${{ needs.dependency-audit.result }}" == "success" && "${{ needs.codeql-analysis.result }}" == "success" ]]; then
-            echo "🎉 All security checks passed!"
+          if [[ "${{ needs.codeql-analysis.result }}" == "success" ]]; then
+            echo "🎉 Security checks passed!"
+            echo "ℹ️  Dependency scanning handled by dependabot"
           else
-            echo "⚠️  Some security checks failed - please review"
+            echo "⚠️  Security check failed - please review"
           fi
