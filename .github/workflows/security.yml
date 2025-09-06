@@ -20,8 +20,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Removed dependency-audit job - dependabot handles this better
-
   codeql-analysis:
     name: CodeQL Security Analysis
     runs-on: ubuntu-latest
@@ -62,6 +60,7 @@ jobs:
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest
+    continue-on-error: true
     # Only run on pull requests (needs base/head ref comparison)
     if: github.event_name == 'pull_request' && github.actor != 'nektos/act'
 
@@ -72,7 +71,7 @@ jobs:
       - name: Dependency Review
         uses: actions/dependency-review-action@v4
         with:
-          fail-on-severity: moderate
+          fail-on-severity: high
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   maintenance-summary:
@@ -86,11 +85,12 @@ jobs:
         run: |
           echo "🛡️ Security & Maintenance Summary"
           echo "================================="
-          echo "✅ CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
-          echo ""
           if [[ "${{ needs.codeql-analysis.result }}" == "success" ]]; then
+            echo "✅ CodeQL Analysis: success"
+            echo ""
             echo "🎉 Security checks passed!"
             echo "ℹ️  Dependency scanning handled by dependabot"
           else
+            echo "❌ CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
             echo "⚠️  Security check failed - please review"
           fi

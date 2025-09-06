@@ -19,6 +19,9 @@ on:
   # Manual performance testing
   workflow_dispatch:
 
+concurrency:
+  group: perf-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build-performance:
     name: Build Performance Analysis
@@ -41,15 +44,13 @@ jobs:
         run: |
           echo "📦 Bundle Size Analysis"
           echo "======================="
-
-          # Build and analyze
-          npm run build
-
-          # Get build info
-          echo "📊 Build completed successfully!"
+          export NEXT_TELEMETRY_DISABLED=1
+          SECONDS=0
+          npm run build 2>&1 | tee build.log
+          build_time=$SECONDS
+          echo "📊 Build completed successfully in ${build_time}s"
           echo "📁 Build directory size:"
           du -sh .next/ || echo "Build directory not found"
-
           echo ""
           echo "📈 Bundle analysis complete!"
 
@@ -58,19 +59,17 @@ jobs:
           echo "⏱️ Build Performance Metrics"
           echo "============================="
 
-          # Time the build process
-          start_time=$(date +%s)
-          npm run build
-          end_time=$(date +%s)
-          build_time=$((end_time - start_time))
-
-          echo "🚀 Build completed in ${build_time} seconds"
-
-          # Check for build warnings
-          if npm run build 2>&1 | grep -i warning; then
-            echo "⚠️ Build warnings detected - please review"
+          if [ -f build.log ]; then
+            bt=$(awk '/completed successfully in/{print $NF}' <(echo "completed successfully in ${build_time}s"))
+            echo "🚀 Build time: ${build_time:-unknown}s"
+            echo "🔎 Checking build warnings from build.log"
+            if grep -i warning build.log; then
+              echo "⚠️ Build warnings detected - please review"
+            else
+              echo "✅ No build warnings detected"
+            fi
           else
-            echo "✅ No build warnings detected"
+            echo "ℹ️ build.log not found; consider inspecting the previous step."
           fi
 
   core-web-vitals:
@@ -100,7 +99,7 @@ jobs:
 
           echo "📊 Core Web Vitals targets for excellent UX:"
           echo "  • LCP (Largest Contentful Paint): ≤ 2.5s"
-          echo "  • FID (First Input Delay): ≤ 100ms" 
+          echo "  • INP (Interaction to Next Paint): ≤ 200ms"
           echo "  • CLS (Cumulative Layout Shift): ≤ 0.1"
           echo ""
           echo "🔍 Built application ready for performance testing"
@@ -127,7 +126,7 @@ jobs:
             echo ""
             echo "🚀 Your SAFE AI [4U] website performance is optimized!"
             echo "✅ Build performance: Excellent"
-            echo "✅ Core Web Vitals: Checked" 
+            echo "✅ Core Web Vitals: Checked"
           else
             echo "⚠️ Some performance checks need attention"
             echo ""

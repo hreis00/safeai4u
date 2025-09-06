@@ -22,10 +22,10 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Contributing
 
-When commiting, follow the conventional commits rules:
+When committing, follow the Conventional Commits rules:
 
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta/)
-- [Conventional Commits CheatSheet](https://kapeli.com/cheat_sheets/Conventional_Commits.docset/Contents/Resources/Documents/index)
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Conventional Commits Cheat Sheet](https://kapeli.com/cheat_sheets/Conventional_Commits.docset/Contents/Resources/Documents/index)
 
 | Type     | Emoji                 | code                    |
 | :------- | :-------------------- | :---------------------- |
@@ -39,3 +39,12 @@ When commiting, follow the conventional commits rules:
 | build    | :package:             | `:package:`             |
 | ci       | :construction_worker: | `:construction_worker:` |
 | chore    | :wrench:              | `:wrench:`              |
+| revert   | :rewind:              | `:rewind:`              |
+
+Include breaking changes with an exclamation after the type/scope and a footer:
+
+```
+feat!: drop legacy auth
+
+BREAKING CHANGE: removes basic auth in favor of OAuth2
+```
