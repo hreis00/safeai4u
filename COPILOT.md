@@ -189,20 +189,17 @@ Located in `src/components/animations/`:
 ### Completed Features
 
 1. **Animation System** (✅ Complete)
-
    - Added animations to all remaining pages
    - Consistent FadeInUp, StaggerContainer, and FloatingCard usage
    - Smooth page transitions and interactive elements
 
 2. **Cyberpunk Theme** (✅ Complete)
-
    - Complete visual transformation from default to cyberpunk
    - OKLCH color system implementation
    - Light/dark mode variants with strong contrast
    - Custom CSS effects (neon glows, animated borders)
 
 3. **UI/UX Improvements** (✅ Complete)
-
    - Fixed button readability issues in dark mode
    - Improved navigation hover states
    - Enhanced color contrast for accessibility
@@ -243,17 +240,14 @@ Located in `src/components/animations/`:
 ### Common Issues & Solutions
 
 1. **Button Visibility in Dark Mode**
-
    - **Issue**: Buttons using `dark:bg-input/30` were barely visible
    - **Solution**: Increased `--input` brightness in dark mode
 
 2. **Avatar Image Display**
-
    - **Issue**: Nesting Next.js Image inside AvatarImage
    - **Solution**: Pass src and alt directly to AvatarImage
 
 3. **Theme Consistency**
-
    - **Issue**: Color inconsistencies across components
    - **Solution**: Centralized color system in globals.css
 
