@@ -41,6 +41,7 @@ jobs:
         run: npm ci
 
       - name: Analyze bundle size
+        id: analyze
         run: |
           echo "📦 Bundle Size Analysis"
           echo "======================="
@@ -49,6 +50,7 @@ jobs:
           npm run build 2>&1 | tee build.log
           build_time=$SECONDS
           echo "📊 Build completed successfully in ${build_time}s"
+          echo "build_time=${build_time}" >> "$GITHUB_OUTPUT"
           echo "📁 Build directory size:"
           du -sh .next/ || echo "Build directory not found"
           echo ""
@@ -60,8 +62,7 @@ jobs:
           echo "============================="
 
           if [ -f build.log ]; then
-            bt=$(awk '/completed successfully in/{print $NF}' <(echo "completed successfully in ${build_time}s"))
-            echo "🚀 Build time: ${build_time:-unknown}s"
+            echo "🚀 Build time: ${{ steps.analyze.outputs.build_time }}s"
             echo "🔎 Checking build warnings from build.log"
             if grep -i warning build.log; then
               echo "⚠️ Build warnings detected - please review"
