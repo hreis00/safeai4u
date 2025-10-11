@@ -24,9 +24,8 @@ export const quotes: Quote[] = [
 
 // Helper to get specific quotes
 export const getQuoteById = (id: string): Quote | undefined => {
-  return quotes.find((quote) => quote.id === id);
+  return quotes.find(quote => quote.id === id);
 };
 
 // Commonly used quotes
 export const founderQuote = quotes[0]; // Primary founder quote
-

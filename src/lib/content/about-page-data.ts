@@ -157,4 +157,3 @@ export const closingSection = {
   heading: "SAFE AI [4U]",
   subheading: "We make things happen",
 };
-

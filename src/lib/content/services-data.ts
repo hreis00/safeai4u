@@ -70,4 +70,3 @@ export const servicesMetadata = {
   background: "default" as const,
   columns: 3 as const,
 };
-

@@ -46,7 +46,8 @@ export const contactHero = {
 // Form Section Title
 export const formSection = {
   title: "SEND US A MESSAGE",
-  description: "Fill out the form below and we'll get back to you within 24 hours.",
+  description:
+    "Fill out the form below and we'll get back to you within 24 hours.",
 };
 
 // Closing Quote
@@ -54,4 +55,3 @@ export const closingQuote = {
   text: "We are optimists who love to work together",
   icon: "💬",
 };
-
