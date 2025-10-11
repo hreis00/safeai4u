@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Rajdhani } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 import { Navigation } from "@/components/navigation/Navigation";
 import { Footer } from "@/components/navigation/Footer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Toaster } from "react-hot-toast";
 import { BASE_SEO, generateOrganizationStructuredData } from "@/lib/seo";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +16,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const rajdhani = Rajdhani({
+  variable: "--font-rajdhani",
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -70,16 +78,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const organizationStructuredData = generateOrganizationStructuredData();
 
+  // Get theme from cookie for server-side rendering
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get("theme");
+  const theme = themeCookie?.value || "light";
+
   return (
-    <html lang="en">
+    <html lang="en" className={theme} suppressHydrationWarning>
       <head>
+        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -88,38 +102,45 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rajdhani.variable} antialiased`}
       >
-        <ErrorBoundary>
-          <div className="min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: "hsl(var(--background))",
-                color: "hsl(var(--foreground))",
-                border: "1px solid hsl(var(--border))",
-              },
-              success: {
-                iconTheme: {
-                  primary: "hsl(var(--primary))",
-                  secondary: "hsl(var(--primary-foreground))",
+        <ThemeProvider
+          attribute="class"
+          defaultTheme={theme}
+          enableSystem={theme === "system"}
+          disableTransitionOnChange
+        >
+          <ErrorBoundary>
+            <div className="min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: "hsl(var(--background))",
+                  color: "hsl(var(--foreground))",
+                  border: "1px solid hsl(var(--border))",
                 },
-              },
-              error: {
-                iconTheme: {
-                  primary: "hsl(var(--destructive))",
-                  secondary: "hsl(var(--destructive-foreground))",
+                success: {
+                  iconTheme: {
+                    primary: "hsl(var(--primary))",
+                    secondary: "hsl(var(--primary-foreground))",
+                  },
                 },
-              },
-            }}
-          />
-        </ErrorBoundary>
+                error: {
+                  iconTheme: {
+                    primary: "hsl(var(--destructive))",
+                    secondary: "hsl(var(--destructive-foreground))",
+                  },
+                },
+              }}
+            />
+          </ErrorBoundary>
+        </ThemeProvider>
       </body>
     </html>
   );

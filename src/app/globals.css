@@ -8,6 +8,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-rajdhani);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -43,88 +44,118 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* CYBERPUNK THEME - Light Mode (Bright backgrounds with neon accents) */
+/* CYBERPUNK THEME - Light Mode (Clean, modern with electric accents) */
 :root {
   --radius: 0.5rem;
-  /* Light backgrounds with subtle blue tints */
-  --background: oklch(0.96 0.02 220); /* Very light blue-gray */
-  --foreground: oklch(0.12 0.05 220); /* Dark blue-gray text */
-  --card: oklch(0.98 0.01 220); /* Very light card background */
-  --card-foreground: oklch(0.15 0.05 220);
-  --popover: oklch(0.99 0.01 220);
-  --popover-foreground: oklch(0.12 0.05 220);
-  /* Bright cyan primary */
-  --primary: oklch(0.55 0.25 180); /* Bright cyan */
-  --primary-foreground: oklch(0.98 0.02 220);
-  /* Dark neon purple secondary */
-  --secondary: oklch(0.92 0.03 290); /* Light purple background */
-  --secondary-foreground: oklch(0.45 0.2 290); /* Dark purple text */
-  --muted: oklch(0.94 0.02 220);
-  --muted-foreground: oklch(0.45 0.08 290);
-  /* Purple accent for navigation hover */
-  --accent: oklch(0.88 0.08 290); /* Light purple */
-  --accent-foreground: oklch(0.5 0.25 290); /* Dark purple */
-  /* Dark neon purple destructive */
-  --destructive: oklch(0.45 0.25 290); /* Dark purple */
-  --border: oklch(0.85 0.05 200 / 60%); /* Light blue border */
-  --input: oklch(0.94 0.02 220);
-  --ring: oklch(0.55 0.25 180); /* Cyan focus ring */
-  /* Cyberpunk chart colors - more blue emphasis */
-  --chart-1: oklch(0.55 0.25 180); /* Cyan */
-  --chart-2: oklch(0.5 0.25 290); /* Purple */
-  --chart-3: oklch(0.6 0.25 290); /* Purple */
-  --chart-4: oklch(0.55 0.22 120); /* Green */
-  --chart-5: oklch(0.6 0.2 60); /* Yellow */
+  
+  /* Clean white/light backgrounds */
+  --background: oklch(0.98 0.005 220); /* Almost white with hint of blue */
+  --foreground: oklch(0.2 0.02 220); /* Dark readable text */
+  
+  /* Cards with subtle elevation */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.2 0.02 220);
+  
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.02 220);
+  
+  /* Electric cyan primary - the cyberpunk signature */
+  --primary: oklch(0.55 0.22 195); /* Vibrant cyan */
+  --primary-foreground: oklch(0.98 0.01 220); /* White text on primary */
+  
+  /* Purple secondary for contrast */
+  --secondary: oklch(0.92 0.04 275); /* Light purple tint */
+  --secondary-foreground: oklch(0.3 0.1 275); /* Purple text */
+  
+  /* Muted with more presence */
+  --muted: oklch(0.96 0.01 220); /* Light gray */
+  --muted-foreground: oklch(0.5 0.03 220); /* Medium gray text */
+  
+  /* Accent with neon feel */
+  --accent: oklch(0.9 0.06 300); /* Light magenta */
+  --accent-foreground: oklch(0.3 0.15 300); /* Dark magenta */
+  
+  /* Vibrant but not alarming destructive */
+  --destructive: oklch(0.55 0.22 20); /* Bright red-orange */
+  --destructive-foreground: oklch(0.98 0.01 20);
+  
+  /* Subtle borders */
+  --border: oklch(0.88 0.01 220); /* Light border */
+  --input: oklch(0.96 0.01 220);
+  --ring: oklch(0.55 0.22 195); /* Cyan focus ring */
+  
+  /* Chart colors */
+  --chart-1: oklch(0.55 0.22 195); /* Cyan */
+  --chart-2: oklch(0.55 0.22 300); /* Magenta */
+  --chart-3: oklch(0.55 0.22 275); /* Purple */
+  --chart-4: oklch(0.55 0.18 145); /* Green */
+  --chart-5: oklch(0.6 0.18 60); /* Yellow */
+  
   /* Sidebar */
-  --sidebar: oklch(0.97 0.02 220);
-  --sidebar-foreground: oklch(0.15 0.05 220);
-  --sidebar-primary: oklch(0.55 0.25 180);
-  --sidebar-primary-foreground: oklch(0.98 0.02 220);
-  --sidebar-accent: oklch(0.5 0.25 290);
-  --sidebar-accent-foreground: oklch(0.98 0.02 220);
-  --sidebar-border: oklch(0.85 0.05 200 / 60%);
-  --sidebar-ring: oklch(0.55 0.25 180);
+  --sidebar: oklch(0.98 0.005 220);
+  --sidebar-foreground: oklch(0.2 0.02 220);
+  --sidebar-primary: oklch(0.55 0.22 195);
+  --sidebar-primary-foreground: oklch(0.98 0.01 220);
+  --sidebar-accent: oklch(0.55 0.22 300);
+  --sidebar-accent-foreground: oklch(0.98 0.01 300);
+  --sidebar-border: oklch(0.88 0.01 220);
+  --sidebar-ring: oklch(0.55 0.22 195);
 }
 
-/* CYBERPUNK THEME - Dark Mode (Ultra dark with intense neon) */
+/* CYBERPUNK THEME - Dark Mode (Deep space with neon glow) */
 .dark {
-  --background: oklch(0.02 0.02 240); /* Nearly pure black */
-  --foreground: oklch(0.98 0.15 180); /* Intense cyan-white */
-  --card: oklch(0.04 0.03 240); /* Ultra dark cards */
-  --card-foreground: oklch(0.96 0.12 180);
-  --popover: oklch(0.03 0.03 240);
-  --popover-foreground: oklch(0.98 0.15 180);
-  /* Ultra intense neon cyan */
-  --primary: oklch(0.45 0.2 290);
-  --primary-foreground: oklch(0.98 0.02 220); /* White text for readability */
-  /* Intense purple secondary */
-  --secondary: oklch(0.08 0.1 290); /* Very dark purple background */
-  --secondary-foreground: oklch(0.85 0.3 290); /* Bright purple text */
-  --muted: oklch(0.06 0.03 240);
-  --muted-foreground: oklch(0.75 0.15 180);
-  /* Intense purple accent for navigation hover */
-  --accent: oklch(0.25 0.15 290); /* Dark purple background */
-  --accent-foreground: oklch(0.85 0.3 290); /* Bright purple text */
-  /* Bright neon purple destructive */
-  --destructive: oklch(0.8 0.35 290);
-  --border: oklch(0.15 0.2 180 / 50%); /* More visible cyan borders */
-  --input: oklch(0.18 0.1 240); /* Brighter for better button visibility */
-  --ring: oklch(0.85 0.35 180); /* Intense cyan focus */
-  /* Enhanced chart colors - blue dominant */
-  --chart-1: oklch(0.85 0.35 180); /* Intense Cyan */
-  --chart-2: oklch(0.8 0.35 290); /* Intense Purple */
-  --chart-3: oklch(0.75 0.35 290); /* Intense Purple */
-  --chart-4: oklch(0.7 0.3 220); /* Deep Blue */
-  --chart-5: oklch(0.8 0.25 60); /* Bright Yellow */
-  /* Enhanced sidebar */
-  --sidebar: oklch(0.03 0.03 240);
-  --sidebar-foreground: oklch(0.96 0.12 180);
-  --sidebar-primary: oklch(0.85 0.35 180);
-  --sidebar-primary-foreground: oklch(0.01 0.01 240);
-  --sidebar-accent: oklch(0.25 0.15 290);
-  --sidebar-accent-foreground: oklch(0.85 0.3 290);
-  --sidebar-border: oklch(0.15 0.2 180 / 50%);
-  --sidebar-ring: oklch(0.85 0.35 180);
+  /* Rich dark background, not pure black */
+  --background: oklch(0.12 0.02 240); /* Deep navy-black */
+  --foreground: oklch(0.95 0.05 195); /* Bright cyan-tinted white */
+  
+  /* Cards with more depth */
+  --card: oklch(0.18 0.02 240); /* Elevated dark surface */
+  --card-foreground: oklch(0.95 0.05 195);
+  
+  --popover: oklch(0.15 0.02 240);
+  --popover-foreground: oklch(0.95 0.05 195);
+  
+  /* Neon cyan primary - the star of dark mode */
+  --primary: oklch(0.7 0.20 195); /* Bright neon cyan */
+  --primary-foreground: oklch(0.15 0.02 240); /* Dark text on neon */
+  
+  /* Electric purple secondary */
+  --secondary: oklch(0.25 0.06 275); /* Dark purple surface */
+  --secondary-foreground: oklch(0.8 0.18 275); /* Bright purple text */
+  
+  /* Muted but visible */
+  --muted: oklch(0.22 0.02 240); /* Slightly lighter than background */
+  --muted-foreground: oklch(0.65 0.04 200); /* Medium bright text */
+  
+  /* Magenta accent for highlights */
+  --accent: oklch(0.3 0.10 300); /* Dark magenta surface */
+  --accent-foreground: oklch(0.85 0.20 300); /* Bright magenta text */
+  
+  /* Neon red-orange for alerts */
+  --destructive: oklch(0.60 0.20 25); /* Bright warning red */
+  --destructive-foreground: oklch(0.98 0.01 25);
+  
+  /* Visible borders with neon hint */
+  --border: oklch(0.3 0.04 200); /* Cyan-tinted border */
+  --input: oklch(0.22 0.02 240);
+  --ring: oklch(0.7 0.20 195); /* Bright cyan focus ring */
+  
+  /* Chart colors - all neon bright */
+  --chart-1: oklch(0.7 0.20 195); /* Neon cyan */
+  --chart-2: oklch(0.75 0.22 300); /* Neon magenta */
+  --chart-3: oklch(0.7 0.20 275); /* Neon purple */
+  --chart-4: oklch(0.7 0.18 150); /* Neon green */
+  --chart-5: oklch(0.75 0.18 80); /* Neon yellow */
+  
+  /* Sidebar */
+  --sidebar: oklch(0.15 0.02 240);
+  --sidebar-foreground: oklch(0.95 0.05 195);
+  --sidebar-primary: oklch(0.7 0.20 195);
+  --sidebar-primary-foreground: oklch(0.15 0.02 240);
+  --sidebar-accent: oklch(0.75 0.22 300);
+  --sidebar-accent-foreground: oklch(0.15 0.02 240);
+  --sidebar-border: oklch(0.3 0.04 200);
+  --sidebar-ring: oklch(0.7 0.20 195);
 }
 
 @layer base {
@@ -133,24 +164,83 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Cyberpunk background pattern - adapts to light/dark */
+    /* Subtle cyberpunk background pattern - adapts to light/dark */
     background-image:
       radial-gradient(
-        circle at 25% 25%,
-        oklch(0.7 0.25 180 / 4%) 0%,
-        transparent 50%
+        circle at 20% 30%,
+        var(--primary) / 0.03,
+        transparent 40%
       ),
       radial-gradient(
-        circle at 75% 75%,
-        oklch(0.65 0.25 200 / 3%) 0%,
-        transparent 50%
+        circle at 80% 70%,
+        var(--accent) / 0.02,
+        transparent 40%
       );
     background-attachment: fixed;
+  }
+  
+  /* Cyberpunk headings with Rajdhani font */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-rajdhani), var(--font-geist-sans), sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  
+  h1 {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  
+  h2 {
+    font-weight: 600;
   }
 }
 
 /* CYBERPUNK CUSTOM STYLES */
 @layer components {
+  /* Standardized background colors with proper opacity */
+  .bg-section-muted {
+    background-color: oklch(from var(--muted) l c h / 0.5);
+  }
+  
+  .bg-section-subtle {
+    background-color: oklch(from var(--muted) l c h / 0.3);
+  }
+  
+  .bg-section-accent {
+    background-color: oklch(from var(--accent) l c h / 0.1);
+  }
+  
+  .bg-section-card {
+    background-color: oklch(from var(--card) l c h / 0.5);
+  }
+  
+  /* Standardized border colors */
+  .border-section {
+    border-color: var(--border);
+  }
+  
+  .border-primary-subtle {
+    border-color: oklch(from var(--primary) l c h / 0.2);
+  }
+  
+  /* Standardized hover states */
+  .hover-primary {
+    transition: background-color 0.2s ease;
+  }
+  
+  .hover-primary:hover {
+    background-color: oklch(from var(--primary) l c h / 0.9);
+  }
+  
+  .hover-muted {
+    transition: background-color 0.2s ease;
+  }
+  
+  .hover-muted:hover {
+    background-color: oklch(from var(--muted) l c h / 0.3);
+  }
+  
   /* Neon glow effect */
   .neon-glow {
     box-shadow:
@@ -162,10 +252,10 @@
   /* Subtle glow for cards */
   .cyberpunk-card {
     background: var(--card);
-    border: 1px solid oklch(0.3 0.15 180 / 40%);
+    border: 1px solid var(--border);
     box-shadow:
-      0 0 20px oklch(0.7 0.25 180 / 10%),
-      inset 0 1px 0 oklch(0.7 0.25 180 / 20%);
+      0 0 20px var(--primary) / 0.08,
+      inset 0 1px 0 var(--primary) / 0.1;
   }
 
   /* Animated border glow */
@@ -183,10 +273,10 @@
     bottom: -1px;
     background: linear-gradient(
       45deg,
-      oklch(0.7 0.25 180),
-      oklch(0.65 0.25 200),
-      oklch(0.6 0.25 220),
-      oklch(0.7 0.25 180)
+      var(--primary),
+      var(--accent),
+      var(--secondary),
+      var(--primary)
     );
     border-radius: inherit;
     z-index: -1;
@@ -205,68 +295,54 @@
     }
   }
 
-  /* Text glow effects - More blue/cyan focus */
+  /* Text glow effects - using theme colors */
   .text-neon-cyan {
-    color: oklch(0.8 0.3 180);
+    color: var(--primary);
     text-shadow:
-      0 0 5px currentColor,
-      0 0 10px currentColor;
-  }
-
-  .text-neon-blue {
-    color: oklch(0.75 0.3 200);
-    text-shadow:
-      0 0 5px currentColor,
-      0 0 10px currentColor;
-  }
-
-  .text-neon-electric {
-    color: oklch(0.8 0.35 190);
-    text-shadow:
-      0 0 5px currentColor,
-      0 0 10px currentColor;
-  }
-
-  .text-neon-orange {
-    color: oklch(0.75 0.3 30);
-    text-shadow:
-      0 0 5px currentColor,
-      0 0 10px currentColor;
+      0 0 5px var(--primary) / 0.5,
+      0 0 10px var(--primary) / 0.3;
   }
 
   .text-neon-purple {
-    color: oklch(0.8 0.35 290);
+    color: var(--accent);
     text-shadow:
-      0 0 5px currentColor,
-      0 0 10px currentColor;
+      0 0 5px var(--accent) / 0.5,
+      0 0 10px var(--accent) / 0.3;
+  }
+
+  .text-neon-glow {
+    color: var(--primary);
+    text-shadow:
+      0 0 7px var(--primary) / 0.6,
+      0 0 10px var(--primary) / 0.4,
+      0 0 21px var(--primary) / 0.2;
   }
 
   /* Cyberpunk button enhancement */
   .cyberpunk-button {
     background: linear-gradient(
-      45deg,
-      oklch(0.7 0.25 180 / 80%),
-      oklch(0.65 0.25 30 / 80%)
+      135deg,
+      var(--primary),
+      var(--accent)
     );
-    border: 1px solid oklch(0.8 0.3 180);
-    color: oklch(0.02 0.01 240);
+    border: 1px solid var(--primary);
+    color: var(--primary-foreground);
     text-shadow: none;
     transition: all 0.3s ease;
   }
 
   .cyberpunk-button:hover {
-    background: linear-gradient(45deg, oklch(0.8 0.3 180), oklch(0.75 0.3 30));
     box-shadow:
-      0 0 15px oklch(0.7 0.25 180 / 50%),
-      0 0 30px oklch(0.65 0.25 30 / 30%);
-    transform: translateY(-1px);
+      0 0 15px var(--primary) / 0.5,
+      0 0 30px var(--accent) / 0.3;
+    transform: translateY(-1px) scale(1.02);
   }
 
   /* Cyberpunk grid pattern */
   .cyber-grid {
     background-image:
-      linear-gradient(oklch(0.3 0.15 180 / 10%) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.3 0.15 180 / 10%) 1px, transparent 1px);
+      linear-gradient(var(--primary) / 0.08 1px, transparent 1px),
+      linear-gradient(90deg, var(--primary) / 0.08 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
@@ -286,7 +362,7 @@
     background: linear-gradient(
       90deg,
       transparent,
-      oklch(0.8 0.3 180),
+      var(--primary),
       transparent
     );
     animation: scan 2s linear infinite;
@@ -305,10 +381,10 @@
   .holo-text {
     background: linear-gradient(
       45deg,
-      oklch(0.7 0.25 180),
-      oklch(0.65 0.25 200),
-      oklch(0.6 0.25 220),
-      oklch(0.7 0.25 180)
+      var(--primary),
+      var(--accent),
+      var(--secondary),
+      var(--primary)
     );
     background-size: 400% 400%;
     -webkit-background-clip: text;
