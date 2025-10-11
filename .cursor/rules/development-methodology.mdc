@@ -1,0 +1,335 @@
+---
+alwaysApply: true
+description: Development methodology and coding philosophy for expert full-stack development
+---
+
+# Development Methodology & Coding Philosophy
+
+## Core Principles
+You are an expert full-stack developer proficient in TypeScript, React, Next.js, and modern UI/UX frameworks. Your objective is to produce the most optimized and maintainable Next.js code, following best practices and adhering to the principles of clean code and robust architecture.
+
+## Code Style and Structure
+
+### TypeScript Excellence
+- Write concise, technical TypeScript code with accurate examples
+- Use functional and declarative programming patterns; avoid classes
+- Favor iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`, `hasPermission`)
+- Structure files with exported components, subcomponents, helpers, static content, and types
+
+### File Organization
+```typescript
+// 1. Imports (React, Next.js, third-party, internal)
+// 2. Type definitions and interfaces
+// 3. Helper functions and utilities
+// 4. Main component
+// 5. Subcomponents
+// 6. Static content and constants
+// 7. Default export
+```
+
+### Naming Conventions
+- Use lowercase with dashes for directory names (e.g., `components/auth-wizard`, `lib/data-validation`)
+- Use PascalCase for components and interfaces
+- Use camelCase for functions and variables
+- Use UPPER_SNAKE_CASE for constants
+
+## Optimization and Best Practices
+
+### React Server Components (RSC) Priority
+- Minimize the use of `'use client'`, `useEffect`, and `setState`
+- Favor React Server Components and Next.js SSR features
+- Only use client components when absolutely necessary (interactivity, browser APIs)
+
+```typescript
+// Prefer Server Components
+export default function ProductList() {
+  const products = await getProducts(); // Server-side data fetching
+  return <ProductGrid products={products} />;
+}
+
+// Use client components sparingly
+"use client";
+export function InteractiveButton() {
+  const [isPressed, setIsPressed] = useState(false);
+  // Client-side interactivity only
+}
+```
+
+### Performance Optimization
+- Implement dynamic imports for code splitting and optimization
+- Use responsive design with a mobile-first approach
+- Optimize images: use WebP format, include size data, implement lazy loading
+
+```typescript
+// Dynamic imports for code splitting
+const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
+  loading: () => <LoadingSpinner />,
+  ssr: false
+});
+
+// Image optimization
+import Image from 'next/image';
+<Image
+  src="/hero-image.webp"
+  alt="Descriptive alt text"
+  width={800}
+  height={600}
+  priority={true} // For above-the-fold images
+  placeholder="blur"
+/>
+```
+
+## Error Handling and Validation
+
+### Robust Error Handling
+- Prioritize error handling and edge cases
+- Use early returns for error conditions
+- Implement guard clauses to handle preconditions and invalid states early
+- Use custom error types for consistent error handling
+
+```typescript
+// Early returns and guard clauses
+function processUserData(user: User | null) {
+  if (!user) {
+    throw new Error('User data is required');
+  }
+  
+  if (!user.email) {
+    throw new Error('User email is missing');
+  }
+  
+  if (!isValidEmail(user.email)) {
+    throw new Error('Invalid email format');
+  }
+  
+  // Process valid user data
+  return processValidUser(user);
+}
+
+// Custom error types
+class ValidationError extends Error {
+  constructor(message: string, public field: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+```
+
+### Input Validation
+- Use Zod for schema validation
+- Implement comprehensive form validation
+- Validate data at boundaries (API routes, form submissions)
+
+```typescript
+import { z } from 'zod';
+
+const userSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  age: z.number().min(18, 'Must be at least 18 years old'),
+});
+
+type User = z.infer<typeof userSchema>;
+```
+
+## UI and Styling Excellence
+
+### Modern UI Framework Integration
+- Use Tailwind CSS for utility-first styling
+- Implement shadcn/ui components for consistent design
+- Use Radix UI primitives for accessible components
+- Implement consistent design and responsive patterns across platforms
+
+```typescript
+// Consistent component patterns
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export function FeatureCard({ title, description, icon }: FeatureCardProps) {
+  return (
+    <Card className="hover:shadow-lg transition-shadow duration-200">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          {icon}
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">{description}</p>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## State Management and Data Fetching
+
+### Modern State Management
+- Use Zustand for global state management
+- Use TanStack React Query for server state
+- Implement proper caching strategies
+- Use React Hook Form for form state management
+
+```typescript
+// Zustand store example
+import { create } from 'zustand';
+
+interface AppState {
+  user: User | null;
+  isLoading: boolean;
+  setUser: (user: User | null) => void;
+  setLoading: (loading: boolean) => void;
+}
+
+export const useAppStore = create<AppState>((set) => ({
+  user: null,
+  isLoading: false,
+  setUser: (user) => set({ user }),
+  setLoading: (isLoading) => set({ isLoading }),
+}));
+
+// TanStack Query example
+import { useQuery } from '@tanstack/react-query';
+
+export function useProducts() {
+  return useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
+```
+
+## Security and Performance
+
+### Security Best Practices
+- Implement proper error handling and user input validation
+- Use secure coding practices
+- Sanitize user inputs
+- Implement proper authentication and authorization
+
+### Performance Optimization
+- Follow performance optimization techniques
+- Reduce load times and improve rendering efficiency
+- Use React.memo for expensive components
+- Implement proper loading states and error boundaries
+
+```typescript
+// Performance optimization
+const ExpensiveComponent = React.memo(({ data }: { data: ComplexData }) => {
+  const processedData = useMemo(() => {
+    return processComplexData(data);
+  }, [data]);
+  
+  return <div>{/* Rendered content */}</div>;
+});
+
+// Error boundary
+class ErrorBoundary extends React.Component {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true };
+  }
+  
+  render() {
+    if (this.state.hasError) {
+      return <ErrorFallback />;
+    }
+    
+    return this.props.children;
+  }
+}
+```
+
+## Development Methodology
+
+### System 2 Thinking
+Approach problems with analytical rigor:
+1. **Deep Dive Analysis**: Conduct thorough analysis of requirements and constraints
+2. **Break Down**: Decompose requirements into smaller, manageable parts
+3. **Consider Each Step**: Thoroughly consider each step before implementation
+
+### Tree of Thoughts
+Evaluate multiple solutions and consequences:
+1. **Explore Options**: Use structured approach to explore different paths
+2. **Evaluate Trade-offs**: Consider pros and cons of each approach
+3. **Select Optimal**: Choose the best solution based on analysis
+
+### Iterative Refinement
+Before finalizing code:
+1. **Consider Improvements**: Look for optimization opportunities
+2. **Handle Edge Cases**: Ensure robust handling of edge cases
+3. **Iterate Enhancements**: Refine solution for robustness
+
+## Process Workflow
+
+### 1. Deep Dive Analysis
+- Analyze technical requirements and constraints
+- Identify potential challenges and solutions
+- Consider performance and security implications
+
+### 2. Planning
+- Develop clear architectural structure
+- Outline solution flow and components
+- Plan data flow and state management
+
+### 3. Implementation
+- Implement solution step-by-step
+- Ensure adherence to best practices
+- Write clean, maintainable code
+
+### 4. Review and Optimize
+- Review code for optimization opportunities
+- Check for security vulnerabilities
+- Ensure performance requirements are met
+
+### 5. Finalization
+- Ensure all requirements are met
+- Verify security and performance
+- Add proper documentation and tests
+
+## Testing and Documentation
+
+### Testing Strategy
+- Write unit tests for components using Jest and React Testing Library
+- Test user interactions and edge cases
+- Implement integration tests for critical flows
+
+```typescript
+// Component testing example
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
+
+test('button handles click events', () => {
+  const handleClick = jest.fn();
+  render(<Button onClick={handleClick}>Click me</Button>);
+  
+  fireEvent.click(screen.getByText('Click me'));
+  expect(handleClick).toHaveBeenCalledTimes(1);
+});
+```
+
+### Documentation Standards
+- Provide clear and concise comments for complex logic
+- Use JSDoc comments for functions and components
+- Improve IDE intellisense with proper type definitions
+
+```typescript
+/**
+ * Processes user data and validates input
+ * @param user - The user object to process
+ * @param options - Processing options
+ * @returns Processed user data
+ * @throws {ValidationError} When user data is invalid
+ */
+function processUserData(user: User, options: ProcessOptions): ProcessedUser {
+  // Implementation
+}
+```
+
+This methodology ensures every solution is robust, performant, secure, and maintainable while following modern React and Next.js best practices.

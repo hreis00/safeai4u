@@ -1,0 +1,156 @@
+---
+globs: *.css,*.tsx,*.jsx
+description: Tailwind CSS and cyberpunk theme guidelines
+---
+
+# Styling & Theme Guidelines
+
+## Tailwind CSS v4 Configuration
+The project uses Tailwind CSS v4 with the new `@theme inline` directive in [src/app/globals.css](mdc:src/app/globals.css).
+
+## Cyberpunk Theme System
+The project implements a complete cyberpunk theme with OKLCH color space for consistent theming.
+
+### Color System
+Use the predefined color variables from the theme:
+
+```css
+/* Primary Colors */
+--color-primary: oklch(0.7 0.15 280); /* Electric purple */
+--color-primary-foreground: oklch(0.98 0.02 220);
+
+/* Secondary Colors */
+--color-secondary: oklch(0.9 0.05 220);
+--color-secondary-foreground: oklch(0.2 0.05 220);
+
+/* Accent Colors */
+--color-accent: oklch(0.6 0.2 160); /* Neon green */
+--color-accent-foreground: oklch(0.98 0.02 220);
+
+/* Background Colors */
+--color-background: oklch(0.96 0.02 220); /* Light mode */
+--color-foreground: oklch(0.1 0.02 220);
+```
+
+### Dark Mode Support
+The theme includes comprehensive dark mode variants:
+
+```css
+.dark {
+  --color-background: oklch(0.05 0.02 220); /* Dark backgrounds */
+  --color-foreground: oklch(0.95 0.02 220);
+  --color-primary: oklch(0.8 0.2 280); /* Brighter purple in dark */
+}
+```
+
+## Tailwind Class Usage
+
+### Container and Layout
+```tsx
+<section className="container mx-auto px-4 py-16 relative z-10">
+  <div className="max-w-4xl mx-auto text-center space-y-6">
+    {/* Content */}
+  </div>
+</section>
+```
+
+### Typography
+```tsx
+<h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+  Main Heading
+</h1>
+<p className="text-xl text-muted-foreground">
+  Subtitle text
+</p>
+```
+
+### Button Styling
+```tsx
+<Button size="lg" variant="outline" className="hover:bg-primary/10">
+  Button Text
+</Button>
+```
+
+### Card Components
+```tsx
+<Card className="border-2 border-primary/20 hover:border-primary/40 transition-colors">
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+  </CardHeader>
+  <CardContent>
+    Card content
+  </CardContent>
+</Card>
+```
+
+## Custom CSS Effects
+The theme includes custom cyberpunk effects:
+
+### Neon Glow Effects
+```css
+.neon-glow {
+  box-shadow: 
+    0 0 5px var(--color-primary),
+    0 0 10px var(--color-primary),
+    0 0 15px var(--color-primary);
+}
+
+.neon-text {
+  text-shadow: 
+    0 0 5px var(--color-primary),
+    0 0 10px var(--color-primary);
+}
+```
+
+### Animated Borders
+```css
+.animated-border {
+  position: relative;
+  background: linear-gradient(45deg, 
+    var(--color-primary), 
+    var(--color-accent), 
+    var(--color-primary)
+  );
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+```
+
+## Responsive Design
+Always use responsive classes:
+
+```tsx
+<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+  <div className="w-full sm:w-auto">
+    Content
+  </div>
+</div>
+```
+
+## Theme Toggle Integration
+The project includes a [ThemeToggle](mdc:src/components/ThemeToggle.tsx) component that:
+- Switches between light and dark modes
+- Persists preference in localStorage
+- Uses the `dark` class on the root element
+
+## Color Accessibility
+- Maintain WCAG AA contrast ratios
+- Test both light and dark modes
+- Use semantic color names (primary, secondary, accent)
+- Avoid hardcoded color values
+
+## Animation Integration
+Combine Tailwind classes with Framer Motion:
+
+```tsx
+<motion.div
+  className="bg-card border border-border rounded-lg p-6"
+  whileHover={{ 
+    scale: 1.02,
+    boxShadow: "0 0 20px var(--color-primary)"
+  }}
+  transition={{ duration: 0.2 }}
+>
+  Content
+</motion.div>
+```

@@ -1,0 +1,204 @@
+---
+globs: *.tsx,*.jsx
+description: React component patterns and best practices
+---
+
+# React Component Patterns
+
+## Component Structure
+Follow this consistent structure for all components:
+
+### Server Components (Preferred)
+```typescript
+// No "use client" directive
+import { ComponentImports } from "@/components/ui/component";
+import { AnimationImports } from "@/components/animations";
+import type { BaseComponentProps } from "@/lib/types";
+
+interface ComponentProps extends BaseComponentProps {
+  // Props definition
+}
+
+export function Component({ prop1, prop2, className }: ComponentProps) {
+  return (
+    <AnimationWrapper>
+      {/* Component JSX */}
+    </AnimationWrapper>
+  );
+}
+```
+
+### Client Components (When Needed)
+```typescript
+"use client"; // Only when needed
+
+import { useState, useCallback } from "react";
+import { ComponentImports } from "@/components/ui/component";
+import { AnimationImports } from "@/components/animations";
+import type { InteractiveComponentProps } from "@/lib/types";
+
+interface ComponentProps extends InteractiveComponentProps {
+  // Props definition
+}
+
+export function Component({ prop1, prop2, className, disabled }: ComponentProps) {
+  const [state, setState] = useState(initialValue);
+  
+  const handleAction = useCallback(() => {
+    // Action logic
+  }, [dependencies]);
+  
+  return (
+    <AnimationWrapper>
+      {/* Component JSX */}
+    </AnimationWrapper>
+  );
+}
+```
+
+## Animation Integration
+All components should use Framer Motion animations from [src/components/animations](mdc:src/components/animations):
+
+```typescript
+import { FadeInUp, StaggerContainer, FloatingCard } from "@/components/animations";
+
+// Wrap content sections
+<FadeInUp delay={0.1}>
+  <div>Content</div>
+</FadeInUp>
+
+// Use staggered animations for lists
+<StaggerContainer>
+  {items.map((item, index) => (
+    <FadeInUp key={item.id} delay={index * 0.1}>
+      <ItemComponent item={item} />
+    </FadeInUp>
+  ))}
+</StaggerContainer>
+```
+
+## UI Component Usage
+Always use shadcn/ui components from [src/components/ui](mdc:src/components/ui):
+
+```typescript
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+// Button variants
+<Button size="lg" asChild>
+  <Link href="/path">Button Text</Link>
+</Button>
+
+<Button variant="outline" size="sm">
+  Secondary Action
+</Button>
+```
+
+## Interactive Elements
+Use Framer Motion for hover and tap interactions:
+
+```typescript
+import { motion } from "framer-motion";
+
+<motion.div
+  whileHover={{
+    scale: 1.05,
+    y: -2,
+    transition: { duration: 0.2 },
+  }}
+  whileTap={{ scale: 0.95 }}
+>
+  <Button>Interactive Button</Button>
+</motion.div>
+```
+
+## Reusable Components
+Create reusable components following these patterns:
+
+### Hero Component Pattern
+```typescript
+interface HeroProps {
+  badgeText: string;
+  title: string;
+  description: string;
+  primaryButton?: { text: string; href: string };
+  secondaryButton?: { text: string; href: string };
+}
+```
+
+### Call-to-Action Pattern
+```typescript
+interface CallToActionProps {
+  title: string;
+  description: string;
+  primaryButton: { text: string; href: string };
+  secondaryButton?: { text: string; href: string };
+}
+```
+
+## Form Components
+Use React Hook Form with Zod validation and error handling:
+
+```typescript
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import toast from "react-hot-toast";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
+import type { BaseComponentProps, FormValidationResult } from "@/lib/types";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+interface FormProps extends BaseComponentProps {
+  onSubmit?: (data: FormData) => Promise<void>;
+  onValidationChange?: (result: FormValidationResult) => void;
+}
+
+export function FormComponent({ onSubmit, onValidationChange, className }: FormProps) {
+  const { handleError } = useErrorHandler({ context: { component: 'FormComponent' } });
+  
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+    },
+  });
+
+  const handleSubmit = async (data: FormData) => {
+    try {
+      await onSubmit?.(data);
+      toast.success('Form submitted successfully!');
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className={className}>
+        {/* Form fields */}
+      </form>
+    </Form>
+  );
+}
+```
+
+## Accessibility
+- Use semantic HTML elements
+- Include proper ARIA labels
+- Ensure keyboard navigation works
+- Maintain color contrast ratios
+- Use proper heading hierarchy (h1, h2, h3, etc.)
+
+## Performance
+- Use `React.memo` for expensive components
+- Implement proper loading states
+- Use `useCallback` and `useMemo` when appropriate
+- Lazy load heavy components when possible

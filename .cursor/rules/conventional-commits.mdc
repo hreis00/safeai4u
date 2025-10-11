@@ -1,0 +1,214 @@
+---
+description: Conventional Commits guidelines with emojis and formatting rules for commit messages
+---
+
+# Conventional Commits Guide
+
+## Overview
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. All commits must follow this format to maintain a clear and structured history.
+
+## Commit Message Format
+
+### Basic Structure
+
+```
+<type>[optional scope]: <emoji> <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Type and Emoji Reference
+
+| Type     | Emoji | Code                    | Description                                    |
+| :------- | :---- | :---------------------- | :--------------------------------------------- |
+| feat     | ✨    | `:sparkles:`            | New feature or functionality                   |
+| fix      | 🐛    | `:bug:`                 | Bug fix                                        |
+| docs     | 📚    | `:books:`               | Documentation changes only                     |
+| style    | 💎    | `:gem:`                 | Code style changes (formatting, whitespace)    |
+| refactor | 🔨    | `:hammer:`              | Code refactoring without feature/fix           |
+| perf     | 🚀    | `:rocket:`              | Performance improvements                       |
+| test     | 🚨    | `:rotating_light:`      | Adding or updating tests                       |
+| build    | 📦    | `:package:`             | Build system or dependencies changes           |
+| ci       | 👷    | `:construction_worker:` | CI/CD configuration changes                    |
+| chore    | 🔧    | `:wrench:`              | Other changes that don't modify src/test files |
+| revert   | ⏪    | `:rewind:`              | Revert a previous commit                       |
+
+## Examples from This Project
+
+### Feature Additions
+
+```
+feat: ✨ complete content replacement with professional AI consulting content (#9)
+feat: ✨ add performance monitoring workflow and improve actions robustness (#8)
+```
+
+### Bug Fixes
+
+```
+fix: 🐛 correct build time output in performance analysis step (#16)
+```
+
+### Chores
+
+```
+chore: 🔧 improve workflows, formatting, and documentation consistency (#15)
+chore: 🔧 remove deprecated dependency audit job and streamline security workflow (#14)
+chore: 🔧 update dependencies in package.json (#12)
+```
+
+### Documentation
+
+```
+docs: 📚 update contributing guidelines and add conventional commits table (#13)
+```
+
+## Breaking Changes
+
+### Format
+
+Include an exclamation mark after the type/scope and add a `BREAKING CHANGE:` footer:
+
+```
+feat!: drop legacy auth
+
+BREAKING CHANGE: removes basic auth in favor of OAuth2
+```
+
+Or with scope:
+
+```
+feat(api)!: remove deprecated endpoints
+
+BREAKING CHANGE: /api/v1/old-endpoint has been removed, use /api/v2/endpoint instead
+```
+
+## Best Practices
+
+### Do's ✅
+
+- Use lowercase for type and description
+- Include the appropriate emoji after the colon
+- Keep the description concise (50 characters or less)
+- Use imperative mood ("add" not "added" or "adds")
+- Reference issue/PR numbers when applicable (e.g., `(#123)`)
+- Add body text for complex changes
+- Use scope when the change affects a specific part of the codebase
+
+### Don'ts ❌
+
+- Don't use past tense ("added", "fixed")
+- Don't end the description with a period
+- Don't omit the emoji
+- Don't use vague descriptions ("update stuff", "fix things")
+- Don't mix multiple unrelated changes in one commit
+
+## Scopes (Optional but Recommended)
+
+Common scopes in this project:
+
+- `api` - API routes and endpoints
+- `ui` - UI components and styling
+- `docs` - Documentation files
+- `deps` - Dependencies updates
+- `config` - Configuration files
+- `ci` - CI/CD workflows
+- `seo` - SEO-related changes
+- `a11y` - Accessibility improvements
+
+### Examples with Scopes
+
+```
+feat(api): ✨ add contact form validation endpoint
+fix(ui): 🐛 resolve theme toggle not persisting
+docs(readme): 📚 update installation instructions
+chore(deps): 🔧 upgrade Next.js to v15.3.4
+```
+
+## Commit Body Guidelines
+
+Use the body to explain:
+
+- **What** changed
+- **Why** the change was necessary
+- **How** it solves the problem
+
+```
+feat(auth): ✨ implement OAuth2 authentication
+
+Replace basic authentication with OAuth2 to improve security
+and enable social login integrations. This change includes:
+- OAuth2 provider configuration
+- Social login buttons (Google, GitHub)
+- Updated user session management
+
+Closes #45
+```
+
+## Footers
+
+Common footer types:
+
+- `Closes #123` - Closes an issue
+- `Fixes #123` - Fixes an issue
+- `Refs #123` - References an issue
+- `BREAKING CHANGE:` - Describes breaking changes
+- `Co-authored-by:` - Credits co-authors
+
+## Quick Reference
+
+### Simple Commit
+
+```bash
+git commit -m "feat: ✨ add dark mode toggle"
+```
+
+### With Body and Footer
+
+```bash
+git commit -m "fix: 🐛 resolve navigation menu overflow
+
+The mobile menu was overflowing on small screens.
+Updated responsive breakpoints and added scroll behavior.
+
+Fixes #78"
+```
+
+### Breaking Change
+
+```bash
+git commit -m "feat!: ✨ migrate to TypeScript 5.0
+
+BREAKING CHANGE: requires Node.js 18+ for TypeScript 5.0 support"
+```
+
+## Tools and Automation
+
+### Commitlint (If Added)
+
+The project can optionally use commitlint to enforce these rules automatically. Configuration would be in `.commitlintrc.json`.
+
+### Git Hooks (If Added)
+
+Use Husky to run commitlint on commit messages automatically.
+
+## Validation Checklist
+
+Before committing, verify:
+
+- [ ] Correct type chosen
+- [ ] Appropriate emoji included
+- [ ] Description is clear and concise
+- [ ] Using imperative mood
+- [ ] Scope added if applicable
+- [ ] Issue/PR referenced if applicable
+- [ ] Breaking changes clearly marked
+- [ ] No trailing period in description
+
+## Additional Resources
+
+- [Conventional Commits Official Site](https://www.conventionalcommits.org/)
+- [Conventional Commits Cheat Sheet](https://kapeli.com/cheat_sheets/Conventional_Commits.docset/Contents/Resources/Documents/index)
+- Project README: [README.md](mdc:README.md)
