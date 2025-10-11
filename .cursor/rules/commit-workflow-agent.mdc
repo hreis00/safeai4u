@@ -1,0 +1,416 @@
+---
+description: Guide for organizing changes and creating logical, well-structured commits
+---
+
+# Commit Workflow Agent
+
+## Purpose
+
+This rule provides step-by-step guidance for organizing uncommitted changes into logical groups and creating well-structured commits following the project's conventions.
+
+## When to Use
+
+Invoke this rule when you have multiple uncommitted changes and need to:
+
+- Organize changes into logical groups
+- Create multiple commits with proper conventional commit format
+- Ensure each commit represents a single logical change
+
+## Workflow Steps
+
+### Step 0: Run Quality Checks (MANDATORY)
+
+**Before organizing any commits, verify everything passes:**
+
+```bash
+npm run ci
+```
+
+This command runs:
+
+- ESLint checks
+- Prettier formatting checks
+- TypeScript type checking
+- Production build
+
+**If this fails:**
+
+1. Fix all errors and warnings
+2. Run `npm run format` to auto-fix formatting
+3. Run `npm run ci` again until it passes
+4. Only proceed with commits after all checks pass
+
+✅ **All checks must pass before proceeding with commits!**
+
+---
+
+### Step 1: Analyze Uncommitted Changes
+
+After CI passes, get a comprehensive view of all changes:
+
+```bash
+git status --short
+```
+
+### Step 2: Categorize Changes
+
+Group changes into logical categories based on their purpose:
+
+**Common Categories:**
+
+1. **Documentation** (`docs: 📚`)
+   - README updates
+   - Cursor rules changes
+   - Documentation file updates
+   - Comments and JSDoc updates
+
+2. **New Features** (`feat: ✨`)
+   - New components
+   - New pages
+   - New functionality
+   - New utilities/hooks
+
+3. **Refactoring** (`refactor: 🔨`)
+   - Code reorganization
+   - Component restructuring
+   - Moving files
+   - Data structure changes
+
+4. **Bug Fixes** (`fix: 🐛`)
+   - Bug corrections
+   - Error handling improvements
+   - UI fixes
+
+5. **Styling** (`style: 💎`)
+   - CSS/styling changes
+   - Theme updates
+   - Formatting fixes
+   - Prettier/ESLint auto-fixes
+
+6. **Performance** (`perf: 🚀`)
+   - Performance optimizations
+   - Code splitting
+   - Lazy loading implementations
+
+7. **Tests** (`test: 🚨`)
+   - New tests
+   - Test updates
+   - Test configuration
+
+8. **Build/Config** (`build: 📦` or `chore: 🔧`)
+   - Build system changes
+   - Configuration updates
+   - Dependency updates
+   - Package.json changes
+
+### Step 3: Create Branch (if needed)
+
+If not already on a feature branch:
+
+```bash
+git checkout -b <prefix>-<descriptive-name>
+```
+
+**Branch Prefixes:**
+
+- `feature-` - New features
+- `fix-` - Bug fixes
+- `refactor-` - Code refactoring
+- `docs-` - Documentation
+- `perf-` - Performance
+- `test-` - Tests
+- `chore-` - Maintenance
+
+### Step 4: Stage and Commit by Category
+
+For each logical group:
+
+**A. Stage files for the group:**
+
+```bash
+git add <file1> <file2> <file3>
+```
+
+**B. Create commit with proper format:**
+
+```bash
+git commit -m "<type>: <emoji> <short description>
+
+<detailed body explaining what and why>
+
+<optional footer with references>"
+```
+
+**Commit Format Rules:**
+
+- Use lowercase for type and description
+- Include appropriate emoji after colon and space
+- Keep first line under 72 characters
+- Use imperative mood ("add" not "added")
+- Add detailed body for complex changes
+- Reference issues/PRs when applicable
+
+### Step 5: Verify Commits
+
+After all commits are created:
+
+```bash
+# Check all commits were created
+git log --oneline --graph -<number>
+
+# Verify working tree is clean
+git status
+```
+
+## Commit Message Templates
+
+### Template 1: Simple Commit
+
+```
+<type>: <emoji> <description>
+```
+
+Example:
+
+```
+docs: 📚 update README with new installation steps
+```
+
+### Template 2: Commit with Body
+
+```
+<type>: <emoji> <description>
+
+<detailed explanation of changes>
+<why the changes were made>
+<how they solve the problem>
+```
+
+Example:
+
+```
+feat: ✨ add dark mode toggle component
+
+Created ThemeToggle component with:
+- Light/dark mode switching
+- Persistent theme preference in localStorage
+- Smooth transition animations
+- Accessible keyboard navigation
+
+This implements the user-requested dark mode feature.
+```
+
+### Template 3: Commit with Scope
+
+```
+<type>(<scope>): <emoji> <description>
+```
+
+Example:
+
+```
+feat(api): ✨ add rate limiting to contact endpoint
+```
+
+### Template 4: Breaking Change
+
+```
+<type>!: <emoji> <description>
+
+<explanation>
+
+BREAKING CHANGE: <description of breaking change>
+```
+
+Example:
+
+```
+feat!: ✨ migrate to new authentication system
+
+BREAKING CHANGE: requires users to re-authenticate after upgrade
+```
+
+## Type and Emoji Reference
+
+| Type     | Emoji | When to Use                                         |
+| :------- | :---- | :-------------------------------------------------- |
+| feat     | ✨    | New feature or functionality                        |
+| fix      | 🐛    | Bug fix                                             |
+| docs     | 📚    | Documentation only                                  |
+| style    | 💎    | Code style/formatting (no logic change)             |
+| refactor | 🔨    | Code change that neither fixes bug nor adds feature |
+| perf     | 🚀    | Performance improvement                             |
+| test     | 🚨    | Adding or updating tests                            |
+| build    | 📦    | Build system or external dependencies               |
+| ci       | 👷    | CI/CD configuration                                 |
+| chore    | 🔧    | Other changes (tooling, config)                     |
+| revert   | ⏪    | Revert previous commit                              |
+
+## Example: Multi-Commit Workflow
+
+Given these uncommitted changes:
+
+```
+M  src/components/Button.tsx
+M  src/components/Card.tsx
+A  src/components/Modal.tsx
+M  README.md
+M  package.json
+M  .cursor/rules/component-patterns.mdc
+```
+
+**Logical Grouping:**
+
+**Commit 1 - Documentation:**
+
+```bash
+git add README.md .cursor/rules/component-patterns.mdc
+git commit -m "docs: 📚 update component documentation
+
+- Updated README with Modal component example
+- Added Modal patterns to cursor rules"
+```
+
+**Commit 2 - New Feature:**
+
+```bash
+git add src/components/Modal.tsx
+git commit -m "feat: ✨ add Modal component
+
+Created reusable Modal component with:
+- Backdrop click to close
+- ESC key to close
+- Focus trap for accessibility
+- Portal rendering
+- Animation support with Framer Motion"
+```
+
+**Commit 3 - Refactoring:**
+
+```bash
+git add src/components/Button.tsx src/components/Card.tsx
+git commit -m "refactor: 🔨 update Button and Card for consistency
+
+- Standardized prop interfaces
+- Unified className handling
+- Improved TypeScript types"
+```
+
+**Commit 4 - Configuration:**
+
+```bash
+git add package.json
+git commit -m "chore: 🔧 add framer-motion dependency
+
+Added framer-motion@12.19.2 for Modal animations"
+```
+
+## Best Practices
+
+### ✅ DO:
+
+- Keep commits focused on a single logical change
+- Write clear, descriptive commit messages
+- Group related changes together
+- Use conventional commit format consistently
+- Include detailed explanations in commit bodies
+- Reference related issues/PRs
+- Verify all changes are committed before pushing
+
+### ❌ DON'T:
+
+- Mix unrelated changes in one commit
+- Use vague commit messages ("update stuff", "fix things")
+- Commit broken/non-working code
+- Skip commit bodies for complex changes
+- Forget to include emojis
+- Use past tense in commit messages
+
+## Common Patterns
+
+### Pattern 1: Content + Component
+
+When adding both content data and components that use it:
+
+1. First commit: Add content data files
+2. Second commit: Add/update components using the data
+
+### Pattern 2: Component + Page
+
+When creating components and pages that use them:
+
+1. First commit: Create reusable components
+2. Second commit: Update pages to use components
+
+### Pattern 3: Config + Implementation
+
+When configuration changes enable new features:
+
+1. First commit: Configuration updates
+2. Second commit: Feature implementation
+
+### Pattern 4: Refactor + Cleanup
+
+When refactoring creates cleanup opportunities:
+
+1. First commit: Main refactoring changes
+2. Second commit: Formatting/linting cleanup
+
+## Verification Checklist
+
+Before pushing commits:
+
+- [ ] ✅ **npm run ci passed** (REQUIRED FIRST STEP)
+- [ ] All changes are committed (git status clean)
+- [ ] Each commit message follows conventional format
+- [ ] Each commit has appropriate emoji
+- [ ] Commit messages are descriptive and clear
+- [ ] Related changes are grouped logically
+- [ ] No commit mixes unrelated changes
+- [ ] Branch name follows conventions
+
+## After Committing
+
+### Push Branch
+
+```bash
+git push origin <branch-name>
+```
+
+### Create Pull Request
+
+Include in PR description:
+
+- Summary of all commits
+- Why changes were made
+- Screenshots (if UI changes)
+- Related issues/tickets
+- Testing notes
+
+### PR Title Format
+
+Use the same conventional commit format for PR titles:
+
+```
+<type>: <emoji> <brief summary of all changes>
+```
+
+Example:
+
+```
+refactor: 🔨 implement design system with reusable components
+```
+
+## Tips for Efficiency
+
+1. **Use git add -p**: Stage changes interactively to split files into multiple commits
+2. **Use git commit --amend**: Fix the last commit if you forgot something
+3. **Use git reset HEAD~1**: Undo last commit but keep changes (if needed)
+4. **Use git log --oneline**: Quickly review commit history
+5. **Use git diff --staged**: Review staged changes before committing
+
+## Related Rules
+
+- [workflow.mdc](mdc:.cursor/rules/workflow.mdc) - Git workflow and conventions
+- [component-system.mdc](mdc:.cursor/rules/component-system.mdc) - Component patterns
+- [typescript-guide.mdc](mdc:.cursor/rules/typescript-guide.mdc) - TypeScript conventions
