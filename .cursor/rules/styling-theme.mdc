@@ -1,79 +1,244 @@
 ---
-globs: *.css,*.tsx,*.jsx
+alwaysApply: true
 description: Tailwind CSS and cyberpunk theme guidelines
 ---
 
 # Styling & Theme Guidelines
 
 ## Tailwind CSS v4 Configuration
+
 The project uses Tailwind CSS v4 with the new `@theme inline` directive in [src/app/globals.css](mdc:src/app/globals.css).
 
 ## Cyberpunk Theme System
-The project implements a complete cyberpunk theme with OKLCH color space for consistent theming.
 
-### Color System
-Use the predefined color variables from the theme:
+The project implements a complete cyberpunk theme with OKLCH color space for consistent theming across both light (Safe Mode) and dark (Cyber Mode) themes.
+
+### Theme Management
+
+- **Package**: `next-themes` for robust theme switching
+- **Provider**: [ThemeProvider.tsx](mdc:src/components/ThemeProvider.tsx) wraps the application
+- **Toggle**: [ThemeToggle.tsx](mdc:src/components/ThemeToggle.tsx) provides theme switching UI
+- **Modes**:
+  - **Safe Mode** (Light): Clean, professional, accessible
+  - **Cyber Mode** (Dark): Vibrant cyberpunk aesthetic with neon accents
+
+### Color System (OKLCH)
+
+All colors use OKLCH color space for perceptually uniform colors and smooth transitions.
+
+#### Safe Mode (Light Theme)
 
 ```css
-/* Primary Colors */
---color-primary: oklch(0.7 0.15 280); /* Electric purple */
---color-primary-foreground: oklch(0.98 0.02 220);
-
-/* Secondary Colors */
---color-secondary: oklch(0.9 0.05 220);
---color-secondary-foreground: oklch(0.2 0.05 220);
-
-/* Accent Colors */
---color-accent: oklch(0.6 0.2 160); /* Neon green */
---color-accent-foreground: oklch(0.98 0.02 220);
-
-/* Background Colors */
---color-background: oklch(0.96 0.02 220); /* Light mode */
---color-foreground: oklch(0.1 0.02 220);
+--primary: oklch(0.45 0.15 280); /* Deep purple */
+--secondary: oklch(0.85 0.02 280); /* Light purple-gray */
+--accent: oklch(0.65 0.2 160); /* Vibrant green */
+--background: oklch(0.98 0.005 280); /* Off-white */
+--foreground: oklch(0.15 0.02 280); /* Near black */
+--card: oklch(1 0 0); /* Pure white */
+--muted: oklch(0.92 0.01 280); /* Soft gray */
+--border: oklch(0.85 0.01 280); /* Subtle border */
 ```
 
-### Dark Mode Support
-The theme includes comprehensive dark mode variants:
+#### Cyber Mode (Dark Theme)
 
 ```css
-.dark {
-  --color-background: oklch(0.05 0.02 220); /* Dark backgrounds */
-  --color-foreground: oklch(0.95 0.02 220);
-  --color-primary: oklch(0.8 0.2 280); /* Brighter purple in dark */
+--primary: oklch(0.75 0.25 280); /* Bright electric purple */
+--secondary: oklch(0.25 0.05 280); /* Dark purple-gray */
+--accent: oklch(0.75 0.25 160); /* Neon green */
+--background: oklch(0.1 0.015 280); /* Deep dark purple */
+--foreground: oklch(0.95 0.01 280); /* Bright white */
+--card: oklch(0.15 0.02 280); /* Dark card */
+--muted: oklch(0.25 0.02 280); /* Muted dark */
+--border: oklch(0.3 0.05 280); /* Subtle neon border */
+```
+
+## Typography System
+
+The project uses a dual-font system for optimal readability and cyberpunk aesthetic.
+
+### Body Text (Geist Sans)
+
+- **Variable**: `--font-geist-sans`
+- **Usage**: Body text, UI elements, general content
+- **Characteristics**: Clean, modern, highly readable
+- **Fallback**: `sans-serif`
+
+### Headings (Rajdhani)
+
+- **Variable**: `--font-rajdhani`
+- **Usage**: All headings (h1-h6)
+- **Weights**: 300 (Light), 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold)
+- **Style**: Condensed, geometric, perfect for cyberpunk aesthetic
+- **Characteristics**: Sharp, futuristic, attention-grabbing
+- **Fallback**: `sans-serif`
+
+```css
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-weight: 600;
 }
+```
+
+### Typography Scale
+
+```tsx
+// Hero heading
+<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+  Main Heading
+</h1>
+
+// Section heading
+<h2 className="text-3xl font-bold">Section Title</h2>
+
+// Subsection heading
+<h3 className="text-2xl font-semibold">Subsection</h3>
+
+// Card title
+<h3 className="text-xl font-semibold">Card Title</h3>
+
+// Body text (standard)
+<p className="text-base text-muted-foreground leading-relaxed">
+  Regular body text
+</p>
+
+// Body text (large, for important sections)
+<p className="text-lg text-muted-foreground leading-relaxed">
+  Important content
+</p>
+
+// Small text (metadata, captions)
+<p className="text-sm text-muted-foreground">
+  Supporting text
+</p>
+```
+
+## Centralized Color Classes
+
+**CRITICAL: Never use inline opacity modifiers in components (e.g., `bg-muted/50`, `border-primary/20`)**
+
+All color and opacity decisions are centralized in [globals.css](mdc:src/app/globals.css). This prevents color entropy and ensures consistency.
+
+### Background Colors
+
+```tsx
+// Standard muted background (50% opacity)
+<section className="bg-section-muted">
+  Content
+</section>
+
+// Subtle background (30% opacity)
+<section className="bg-section-subtle">
+  Content
+</section>
+
+// Accent background (10% opacity)
+<section className="bg-section-accent">
+  Content
+</section>
+
+// Card background (50% opacity)
+<Card className="bg-section-card">
+  Content
+</Card>
+```
+
+### Border Colors
+
+```tsx
+// Primary border with 20% opacity
+<div className="border-2 border-primary-subtle">
+  Content
+</div>
+
+// Standard border
+<div className="border border-section">
+  Content
+</div>
+```
+
+### Hover States
+
+```tsx
+// Primary hover effect (transitions to 90% opacity)
+<Button className="hover-primary">
+  Button Text
+</Button>
+
+// Muted hover effect (transitions to 30% opacity)
+<div className="hover-muted">
+  Interactive Element
+</div>
+```
+
+### Semantic Colors
+
+Always use semantic Tailwind classes that adapt to the active theme:
+
+```tsx
+// Text colors
+<p className="text-primary">Primary text</p>
+<p className="text-muted-foreground">Secondary text</p>
+<p className="text-foreground">Main text</p>
+<p className="text-accent">Accent text</p>
+
+// Background colors
+<div className="bg-background">Main background</div>
+<div className="bg-card">Card background</div>
+<div className="bg-muted">Muted background</div>
+<div className="bg-primary">Primary background</div>
+
+// Border colors
+<div className="border-border">Standard border</div>
+<div className="border-primary">Primary border</div>
 ```
 
 ## Tailwind Class Usage
 
 ### Container and Layout
+
 ```tsx
-<section className="container mx-auto px-4 py-16 relative z-10">
+// Standard section container
+<section className="container mx-auto px-4 py-16">
   <div className="max-w-4xl mx-auto text-center space-y-6">
     {/* Content */}
   </div>
 </section>
-```
 
-### Typography
-```tsx
-<h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-  Main Heading
-</h1>
-<p className="text-xl text-muted-foreground">
-  Subtitle text
-</p>
+// With background
+<section className="container mx-auto px-4 py-16 bg-section-muted">
+  {/* Content */}
+</section>
 ```
 
 ### Button Styling
+
 ```tsx
-<Button size="lg" variant="outline" className="hover:bg-primary/10">
+// Primary button
+<Button size="lg" asChild>
+  <Link href="/path">Button Text</Link>
+</Button>
+
+// Outline button with hover effect
+<Button size="lg" variant="outline" className="hover-primary">
   Button Text
+</Button>
+
+// Secondary button
+<Button size="lg" variant="secondary">
+  Secondary Action
 </Button>
 ```
 
 ### Card Components
+
 ```tsx
-<Card className="border-2 border-primary/20 hover:border-primary/40 transition-colors">
+// Standard card
+<Card>
   <CardHeader>
     <CardTitle>Card Title</CardTitle>
   </CardHeader>
@@ -81,76 +246,180 @@ The theme includes comprehensive dark mode variants:
     Card content
   </CardContent>
 </Card>
+
+// Card with custom styling
+<Card className="border-2 border-primary-subtle hover-muted transition-colors">
+  <CardHeader>
+    <CardTitle>Enhanced Card</CardTitle>
+  </CardHeader>
+  <CardContent>
+    Card content with custom borders
+  </CardContent>
+</Card>
 ```
 
-## Custom CSS Effects
-The theme includes custom cyberpunk effects:
+## Custom Cyberpunk Effects
 
-### Neon Glow Effects
-```css
-.neon-glow {
-  box-shadow: 
-    0 0 5px var(--color-primary),
-    0 0 10px var(--color-primary),
-    0 0 15px var(--color-primary);
-}
+The theme includes custom cyberpunk effects in [globals.css](mdc:src/app/globals.css):
 
-.neon-text {
-  text-shadow: 
-    0 0 5px var(--color-primary),
-    0 0 10px var(--color-primary);
-}
+### Available Custom Classes
+
+```tsx
+// Neon glow effect
+<div className="neon-glow">Glowing element</div>
+
+// Cyberpunk card with border glow
+<Card className="cyberpunk-card border-glow">
+  Card with cyber styling
+</Card>
+
+// Neon text effects
+<h2 className="text-neon-cyan">Cyan neon text</h2>
+<h2 className="text-neon-pink">Pink neon text</h2>
+<h2 className="text-neon-green">Green neon text</h2>
+
+// Cyberpunk button with animations
+<Button className="cyberpunk-button">
+  Cyber styled button
+</Button>
+
+// Background effects
+<div className="cyber-grid">Grid background</div>
+<div className="scan-line">Scan line effect</div>
+
+// Holographic text
+<h1 className="holo-text">Holographic text</h1>
 ```
 
-### Animated Borders
-```css
-.animated-border {
-  position: relative;
-  background: linear-gradient(45deg, 
-    var(--color-primary), 
-    var(--color-accent), 
-    var(--color-primary)
+**Note**: All these effects use CSS variables and adapt automatically to the active theme.
+
+## Theme Integration
+
+### ThemeProvider Setup
+
+Wrap your application with [ThemeProvider](mdc:src/components/ThemeProvider.tsx):
+
+```tsx
+import { ThemeProvider } from "@/components/ThemeProvider";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
   );
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
+}
+```
+
+### Theme Toggle Component
+
+Use [ThemeToggle](mdc:src/components/ThemeToggle.tsx) for theme switching:
+
+```tsx
+import { ThemeToggle } from "@/components/ThemeToggle";
+
+<ThemeToggle />;
+```
+
+### Accessing Theme in Components
+
+```tsx
+"use client";
+import { useTheme } from "next-themes";
+
+export function MyComponent() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      Current theme: {theme}
+    </button>
+  );
 }
 ```
 
 ## Responsive Design
-Always use responsive classes:
+
+Always use responsive classes for mobile-first design:
 
 ```tsx
+// Flex layout
 <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
   <div className="w-full sm:w-auto">
     Content
   </div>
 </div>
+
+// Grid layout
+<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+  {items.map(item => <Card key={item.id}>{item.content}</Card>)}
+</div>
+
+// Typography
+<h1 className="text-4xl md:text-5xl lg:text-6xl">
+  Responsive Heading
+</h1>
 ```
 
-## Theme Toggle Integration
-The project includes a [ThemeToggle](mdc:src/components/ThemeToggle.tsx) component that:
-- Switches between light and dark modes
-- Persists preference in localStorage
-- Uses the `dark` class on the root element
+## Color System Rules
+
+### ✅ DO
+
+- Use standardized classes from `globals.css`: `.bg-section-muted`, `.border-primary-subtle`, etc.
+- Use semantic Tailwind classes: `text-primary`, `text-muted-foreground`, `bg-card`
+- Define new color patterns in `globals.css` first, then use them in components
+- Use CSS variables: `var(--primary)`, `var(--accent)`, etc.
+- Test colors in both Safe Mode and Cyber Mode
+- Use Rajdhani for all headings, Geist Sans for body text
+
+### ❌ DON'T
+
+- Use inline opacity modifiers: `bg-muted/50`, `border-primary/20`, `text-accent/80`
+- Hardcode color values in components: `#a855f7`, `rgb(168, 85, 247)`
+- Create ad-hoc color combinations without centralizing them
+- Mix hardcoded colors with CSS variables
+- Override the font-family for headings (Rajdhani) or body (Geist Sans)
 
 ## Color Accessibility
-- Maintain WCAG AA contrast ratios
-- Test both light and dark modes
-- Use semantic color names (primary, secondary, accent)
-- Avoid hardcoded color values
+
+- All colors maintain WCAG AA contrast ratios (4.5:1 for text, 3:1 for UI)
+- Safe Mode optimized for readability and accessibility
+- Cyber Mode maintains sufficient contrast despite vibrant aesthetics
+- Always use semantic color names for clarity
+- Test with color blindness simulators
+- Verify keyboard navigation works with focus states
 
 ## Animation Integration
+
 Combine Tailwind classes with Framer Motion:
 
 ```tsx
+import { motion } from "framer-motion";
+
 <motion.div
   className="bg-card border border-border rounded-lg p-6"
-  whileHover={{ 
+  whileHover={{
     scale: 1.02,
-    boxShadow: "0 0 20px var(--color-primary)"
+    boxShadow: "0 0 20px var(--primary)",
   }}
   transition={{ duration: 0.2 }}
 >
   Content
-</motion.div>
+</motion.div>;
 ```
+
+## Related Documentation
+
+- [Component Consistency](.cursor/rules/component-consistency.mdc) - Reusable component patterns
+- [Section Layout Patterns](.cursor/rules/section-layout-patterns.mdc) - Layout standards
+- [Animation Patterns](.cursor/rules/animation-patterns.mdc) - Framer Motion usage
+- [COLOR_SYSTEM_NORMALIZATION.md](mdc:COLOR_SYSTEM_NORMALIZATION.md) - Detailed color system guide

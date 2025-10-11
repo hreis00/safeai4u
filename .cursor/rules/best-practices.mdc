@@ -1,0 +1,335 @@
+---
+alwaysApply: true
+description: Error handling, SEO, accessibility, and animation best practices
+---
+
+# Best Practices
+
+## Error Handling
+
+### Custom Error Types
+
+Located in [src/lib/errors.ts](mdc:src/lib/errors.ts):
+
+```typescript
+// Custom error classes
+export class AppError extends Error {
+  public readonly isOperational: boolean;
+  public readonly statusCode: number;
+  public readonly context?: ErrorContext;
+}
+
+export class ValidationError extends AppError {}
+export class APIError extends AppError {}
+export class NetworkError extends AppError {}
+```
+
+### Error Handling Hooks
+
+```typescript
+import { useErrorHandler } from "@/hooks/useErrorHandler";
+
+const { handleError } = useErrorHandler({
+  context: { component: "MyComponent" },
+});
+
+try {
+  // Operation
+} catch (error) {
+  handleError(error);
+}
+```
+
+### API Error Handling
+
+```typescript
+import { apiRequest } from "@/lib/api-client";
+
+const response = await apiRequest<User>("/api/users", {
+  method: "GET",
+  timeout: 5000,
+  retries: 3,
+});
+```
+
+### Error Boundary
+
+```typescript
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <ErrorBoundary>
+      {children}
+    </ErrorBoundary>
+  );
+}
+```
+
+## SEO & Accessibility
+
+### Metadata Structure
+
+```typescript
+import type { Metadata } from "next";
+import { BASE_SEO } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: {
+    default: BASE_SEO.defaultTitle,
+    template: BASE_SEO.titleTemplate,
+  },
+  description: BASE_SEO.defaultDescription,
+  openGraph: {
+    title: BASE_SEO.defaultTitle,
+    description: BASE_SEO.defaultDescription,
+    images: [{ url: `${BASE_SEO.siteUrl}/og-image.jpg` }],
+  },
+};
+```
+
+### Semantic HTML
+
+```tsx
+<main>
+  <header>
+    <nav aria-label="Main navigation">{/* Navigation */}</nav>
+  </header>
+
+  <section aria-labelledby="hero-heading">
+    <h1 id="hero-heading">Page Title</h1>
+  </section>
+
+  <footer>{/* Footer */}</footer>
+</main>
+```
+
+### ARIA Labels
+
+```tsx
+<Button
+  aria-label="Contact us for AI consulting services"
+  aria-describedby="contact-description"
+>
+  Contact Us
+</Button>
+<div id="contact-description" className="sr-only">
+  Get in touch to discuss your AI project requirements
+</div>
+```
+
+### Form Accessibility
+
+```tsx
+<form onSubmit={handleSubmit}>
+  <Label htmlFor="name">Full Name</Label>
+  <Input
+    id="name"
+    type="text"
+    aria-required="true"
+    aria-describedby="name-error"
+    {...register("name")}
+  />
+  {errors.name && (
+    <p id="name-error" className="text-destructive">
+      {errors.name.message}
+    </p>
+  )}
+</form>
+```
+
+### Image Optimization
+
+```tsx
+import Image from "next/image";
+
+<Image
+  src="/hero-image.jpg"
+  alt="SAFE AI team working on ethical AI solutions"
+  width={800}
+  height={600}
+  priority={true} // For above-the-fold images
+  placeholder="blur"
+/>;
+```
+
+## Animation Patterns
+
+### Core Animation Components
+
+From [src/components/animations](mdc:src/components/animations):
+
+```typescript
+import {
+  FadeInUp,
+  StaggerContainer,
+  FloatingCard,
+} from "@/components/animations";
+```
+
+### Page Entry Animations
+
+```tsx
+<FadeInUp>
+  <section className="container mx-auto px-4 py-16">
+    <FadeInUp delay={0.1}>
+      <Badge variant="secondary">BADGE</Badge>
+    </FadeInUp>
+
+    <FadeInUp delay={0.2}>
+      <h1 className="text-4xl font-bold">Title</h1>
+    </FadeInUp>
+
+    <FadeInUp delay={0.3}>
+      <p className="text-muted-foreground">Description</p>
+    </FadeInUp>
+  </section>
+</FadeInUp>
+```
+
+### Staggered List Animations
+
+```tsx
+<StaggerContainer>
+  {items.map((item, index) => (
+    <FadeInUp key={item.id} delay={index * 0.1}>
+      <Card>
+        <CardContent>{item.content}</CardContent>
+      </Card>
+    </FadeInUp>
+  ))}
+</StaggerContainer>
+```
+
+### Interactive Animations
+
+```tsx
+import { motion } from "framer-motion";
+
+<motion.div
+  whileHover={{
+    scale: 1.05,
+    y: -2,
+    transition: { duration: 0.2 },
+  }}
+  whileTap={{ scale: 0.95 }}
+>
+  <Button>Interactive Button</Button>
+</motion.div>;
+```
+
+### Animation Timing
+
+- Initial content: `delay={0.1}`
+- Secondary content: `delay={0.2}`
+- Tertiary content: `delay={0.3}`
+- List items: `delay={index * 0.1}`
+
+- Quick interactions: `duration: 0.2`
+- Page transitions: `duration: 0.3`
+
+## Performance Best Practices
+
+### Code Splitting
+
+```typescript
+// Dynamic imports
+const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
+  loading: () => <LoadingSpinner />,
+  ssr: false
+});
+```
+
+### React.memo for Expensive Components
+
+```typescript
+const ExpensiveComponent = React.memo(({ data }: { data: ComplexData }) => {
+  const processedData = useMemo(() => {
+    return processComplexData(data);
+  }, [data]);
+
+  return <div>{/* Rendered content */}</div>;
+});
+```
+
+### Loading States
+
+```typescript
+export function Component() {
+  const { data, isLoading, error } = useQuery('key', fetchData);
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+
+  return <div>{data}</div>;
+}
+```
+
+## Security Best Practices
+
+### Input Validation
+
+```typescript
+import { z } from "zod";
+
+const formSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+```
+
+### Sanitize User Input
+
+- Use Zod for schema validation
+- Validate data at boundaries (API routes, form submissions)
+- Never trust client-side data
+
+### Error Messages
+
+```typescript
+// ✅ Good - Generic message for users
+toast.error("Something went wrong. Please try again.");
+
+// ❌ Bad - Exposes internal details
+toast.error("Database connection failed: Connection refused on port 5432");
+```
+
+## Toast Notifications
+
+```typescript
+import toast from "react-hot-toast";
+
+// Success
+toast.success("Form submitted successfully!");
+
+// Error
+toast.error("Failed to submit form. Please try again.");
+
+// Loading
+const toastId = toast.loading("Processing...");
+toast.success("Done!", { id: toastId });
+```
+
+## Keyboard Navigation
+
+```tsx
+<Button
+  onKeyDown={e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
+    }
+  }}
+  tabIndex={0}
+>
+  Interactive Element
+</Button>
+```
+
+## Color Accessibility
+
+- All colors maintain WCAG AA contrast ratios (4.5:1 for text, 3:1 for UI)
+- Safe Mode optimized for readability
+- Cyber Mode maintains sufficient contrast
+- Test with color blindness simulators
+- Verify keyboard navigation works with focus states

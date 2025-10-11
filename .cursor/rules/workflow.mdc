@@ -1,0 +1,284 @@
+---
+alwaysApply: true
+description: Development workflow, Git conventions, and commit message guidelines
+---
+
+# Development & Git Workflow
+
+## npm Scripts
+
+```bash
+# Development
+npm run dev              # Start development server
+npm run dev:turbo        # Start with Turbopack (faster)
+
+# Building and Production
+npm run build            # Build for production
+npm run start            # Start production server
+
+# Code Quality
+npm run lint             # Run ESLint
+npm run format           # Format code with Prettier
+npm run format:check     # Check formatting
+npm run type-check       # Run TypeScript type checking
+npm run check-all        # Run all quality checks
+npm run ci               # CI pipeline (lint + format + type-check + build)
+
+# Maintenance
+npm run clean            # Clean build artifacts
+```
+
+## Code Quality
+
+### Pre-commit Checks
+
+Always run before committing:
+
+```bash
+npm run check-all
+```
+
+### Tools
+
+- **ESLint**: Next.js core web vitals + TypeScript strict mode
+- **Prettier**: Automatic formatting on save
+- **TypeScript**: Strict mode enabled
+
+## Git Branch Naming
+
+### Format
+
+```
+<prefix>/<descriptive-name>
+```
+
+### Prefixes
+
+| Prefix   | Use Case                      | Example                         |
+| :------- | :---------------------------- | :------------------------------ |
+| feature  | New features or functionality | `feature-user-authentication`   |
+| fix      | Bug fixes and corrections     | `fix-navigation-overflow`       |
+| refactor | Code refactoring              | `refactor-service-architecture` |
+| docs     | Documentation updates         | `docs-update-api-reference`     |
+| perf     | Performance improvements      | `perf-optimize-image-loading`   |
+| test     | Adding or updating tests      | `test-add-component-tests`      |
+| chore    | Maintenance tasks             | `chore-update-dependencies`     |
+
+### Naming Guidelines
+
+✅ **DO:**
+
+- Use lowercase letters
+- Use hyphens to separate words
+- Be descriptive but concise
+- Use imperative mood ("add" not "adding")
+
+❌ **DON'T:**
+
+- Use spaces or special characters
+- Use vague names like `fix-bug`
+- Include issue numbers in branch name
+
+## Commit Message Format
+
+### Structure
+
+```
+<type>[optional scope]: <emoji> <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Type and Emoji Reference
+
+| Type     | Emoji | Description                  |
+| :------- | :---- | :--------------------------- |
+| feat     | ✨    | New feature or functionality |
+| fix      | 🐛    | Bug fix                      |
+| docs     | 📚    | Documentation changes only   |
+| style    | 💎    | Code style changes           |
+| refactor | 🔨    | Code refactoring             |
+| perf     | 🚀    | Performance improvements     |
+| test     | 🚨    | Adding or updating tests     |
+| build    | 📦    | Build system changes         |
+| ci       | 👷    | CI/CD configuration changes  |
+| chore    | 🔧    | Other maintenance tasks      |
+| revert   | ⏪    | Revert a previous commit     |
+
+### Examples
+
+```bash
+# Feature
+git commit -m "feat: ✨ add dark mode toggle"
+
+# Bug fix
+git commit -m "fix: 🐛 resolve navigation menu overflow"
+
+# Documentation
+git commit -m "docs: 📚 update installation instructions"
+
+# With scope
+git commit -m "feat(api): ✨ add contact form validation endpoint"
+
+# With body and footer
+git commit -m "fix: 🐛 resolve mobile menu overflow
+
+The mobile menu was overflowing on small screens.
+Updated responsive breakpoints and added scroll behavior.
+
+Fixes #78"
+```
+
+### Breaking Changes
+
+Include an exclamation mark and `BREAKING CHANGE:` footer:
+
+```bash
+git commit -m "feat!: ✨ migrate to TypeScript 5.0
+
+BREAKING CHANGE: requires Node.js 18+ for TypeScript 5.0 support"
+```
+
+## Workflow Steps
+
+### 1. Create Branch
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/my-awesome-feature
+```
+
+### 2. Make Changes
+
+- Write clean, maintainable code
+- Follow project conventions
+- Add tests if applicable
+- Update documentation if needed
+
+### 3. Commit Changes
+
+```bash
+git add .
+git commit -m "feat: ✨ add awesome feature"
+```
+
+### 4. Keep Updated
+
+```bash
+# Rebase on main
+git fetch origin
+git rebase origin/main
+
+# Or merge if you prefer
+git merge origin/main
+```
+
+### 5. Push
+
+```bash
+git push origin feature/my-awesome-feature
+```
+
+### 6. Open Pull Request
+
+**PR Requirements:**
+
+- Clear title following conventional commit format
+- Summary of changes
+- Screenshots for UI changes
+- Links to related issues
+- All CI checks pass
+
+## Common Scenarios
+
+### Working on Multiple Features
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/second-feature
+```
+
+### Fixing Production Bugs
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b fix/critical-security-issue
+# After fixing
+git push origin fix/critical-security-issue
+# Open PR to main
+```
+
+### Resolving Conflicts
+
+```bash
+# During rebase/merge
+# 1. Fix conflicts in your editor
+# 2. Stage resolved files
+git add .
+# 3. Continue rebase
+git rebase --continue
+```
+
+## Best Practices
+
+### Commit Frequency
+
+- Commit often with meaningful messages
+- Each commit represents a logical unit of work
+- Don't commit broken code to shared branches
+
+### Branch Lifespan
+
+- Keep branches short-lived (days, not weeks)
+- Delete merged branches
+- Merge or close stale branches
+
+### Scopes (Optional)
+
+Common scopes in this project:
+
+- `api` - API routes and endpoints
+- `ui` - UI components and styling
+- `docs` - Documentation files
+- `deps` - Dependencies updates
+- `config` - Configuration files
+- `ci` - CI/CD workflows
+- `seo` - SEO-related changes
+- `a11y` - Accessibility improvements
+
+## IDE Configuration
+
+### Recommended VS Code Extensions
+
+- TypeScript and JavaScript Language Features
+- Tailwind CSS IntelliSense
+- ESLint
+- Prettier
+- Auto Rename Tag
+
+## Environment
+
+### Node.js Version
+
+- Minimum: Node.js 18.18.0
+- Recommended: Latest LTS version
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Build Errors**: Run `npm run clean` then `npm run build`
+2. **Type Errors**: Run `npm run type-check` for detailed errors
+3. **Lint Errors**: Run `npm run lint` and fix issues
+4. **Animation Issues**: Check Framer Motion version compatibility
+
+### Performance Issues
+
+- Use React DevTools Profiler
+- Monitor bundle size with `npm run build`
+- Check Core Web Vitals in production

@@ -47,7 +47,7 @@ export function ServiceShowcase({
   background = "muted",
 }: ServiceShowcaseProps) {
   const gridClass = columns === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
-  const sectionClass = background === "muted" ? "bg-muted/50" : "";
+  const sectionClass = background === "muted" ? "bg-section-muted" : "";
 
   return (
     <section className={`container mx-auto px-4 py-16 ${sectionClass}`}>

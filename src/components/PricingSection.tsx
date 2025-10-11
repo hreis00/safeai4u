@@ -167,7 +167,7 @@ export function PricingSection({
 
         {/* Free Consultation */}
         <FadeInUp delay={0.6}>
-          <Card className="bg-muted/50">
+          <Card className="bg-section-muted">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <span>💬</span>
