@@ -1,0 +1,179 @@
+---
+alwaysApply: true
+description: Project structure, technologies, and development philosophy for SAFE AI [4U]
+---
+
+# Project Overview
+
+## Core Technologies
+
+- **Framework**: Next.js 15.3.4 with TypeScript
+- **Styling**: Tailwind CSS v4 with @theme inline directive
+- **UI Components**: shadcn/ui (Radix UI primitives)
+- **Animations**: Framer Motion 12.19.2
+- **Forms**: React Hook Form with Zod validation
+- **Color System**: OKLCH color space for cyberpunk theming
+- **Theme**: next-themes (Safe Mode/Cyber Mode)
+- **Fonts**: Rajdhani (headings), Geist Sans (body)
+
+## File Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── globals.css        # Main theming system (cyberpunk colors)
+│   ├── layout.tsx         # Root layout with navigation and error boundary
+│   ├── page.tsx           # Home page
+│   ├── about/page.tsx     # About page with team info
+│   ├── contact/page.tsx   # Contact form page
+│   ├── projects/page.tsx  # Projects showcase
+│   ├── services/page.tsx  # Services overview
+│   ├── workshops/page.tsx # Educational workshops
+│   └── api/              # API routes
+│       └── contact/      # Contact form API endpoint
+├── components/
+│   ├── animations/        # Framer Motion animation components
+│   ├── navigation/        # Navigation components
+│   ├── ui/               # shadcn/ui components
+│   ├── ContentSection.tsx # Text-heavy content sections
+│   ├── CTASection.tsx    # Call-to-action sections with social links
+│   ├── Hero.tsx          # Hero section component (server component)
+│   ├── QuoteSection.tsx  # Quote display component
+│   ├── ServiceShowcase.tsx # Grid showcase for services/projects
+│   ├── TeamMemberCard.tsx # Team member profile card
+│   ├── ThemeToggle.tsx   # Light/dark mode toggle
+│   └── WorkshopContactForm.tsx # Enhanced contact form
+├── hooks/
+│   └── useErrorHandler.ts # Custom error handling hooks
+└── lib/
+    ├── api-client.ts     # Enhanced API client with error handling
+    ├── errors.ts         # Custom error types and utilities
+    ├── types.ts          # Centralized type definitions
+    ├── type-utils.ts     # TypeScript utility functions
+    ├── seo.ts            # SEO configuration and structured data
+    ├── utils.ts          # Utility functions
+    └── content/          # Centralized content data files
+        ├── healthcare-projects.ts  # Healthcare project data
+        ├── services-data.ts        # Homepage services data
+        ├── quotes-data.ts          # Founder quotes
+        ├── social-links-data.tsx   # Social media links
+        ├── services-page-data.ts   # Services page content
+        ├── workshops-page-data.ts  # Workshops page content
+        ├── about-page-data.ts      # About page content
+        └── contact-page-data.ts    # Contact page content
+```
+
+## Pages Overview
+
+1. **Home** (`/`): Hero, core services showcase, healthcare projects, mission statement, founder quote, contact CTA
+2. **About** (`/about`): Mission & values, team profiles with images, detailed experience, closing CTA
+3. **Services** (`/services`): Hero, FAQ categories, "What to Expect" showcase, instructor profile, YouTube videos
+4. **Projects** (`/projects`): Case studies and implementations showcase
+5. **Workshops** (`/workshops`): Workshop offerings grid with pricing, enhanced contact form, instructor profile, YouTube videos
+6. **Contact** (`/contact`): Hero, two-column layout (contact info + form), closing quote
+
+## Development Philosophy
+
+### Code Style Principles
+
+- **Functional & Declarative**: Use functional programming patterns; avoid classes
+- **Server-First**: Minimize `'use client'`, favor React Server Components (RSC)
+- **Modular**: Favor iteration and modularization over code duplication
+- **TypeScript Excellence**: Write concise, technical TypeScript code with accurate examples
+- **Descriptive Naming**: Use auxiliary verbs (e.g., `isLoading`, `hasError`)
+
+### File Organization Pattern
+
+```typescript
+// 1. Imports (React, Next.js, third-party, internal)
+// 2. Type definitions and interfaces
+// 3. Helper functions and utilities
+// 4. Main component
+// 5. Subcomponents
+// 6. Static content and constants
+// 7. Default export
+```
+
+### Naming Conventions
+
+- **Directories**: lowercase-with-dashes (e.g., `components/auth-wizard`)
+- **Components/Interfaces**: PascalCase
+- **Functions/Variables**: camelCase
+- **Constants**: UPPER_SNAKE_CASE
+
+## Best Practices
+
+### React Server Components (RSC) Priority
+
+```typescript
+// ✅ Prefer Server Components
+export default function ProductList() {
+  const products = await getProducts(); // Server-side data fetching
+  return <ProductGrid products={products} />;
+}
+
+// ✅ Use client components sparingly
+"use client";
+export function InteractiveButton() {
+  const [isPressed, setIsPressed] = useState(false);
+  // Client-side interactivity only
+}
+```
+
+### Error Handling
+
+- Use early returns for error conditions
+- Implement guard clauses
+- Use custom error types
+
+```typescript
+function processUserData(user: User | null) {
+  if (!user) throw new Error("User data is required");
+  if (!user.email) throw new Error("User email is missing");
+  if (!isValidEmail(user.email)) throw new Error("Invalid email format");
+
+  return processValidUser(user);
+}
+```
+
+### Performance Optimization
+
+- Implement dynamic imports for code splitting
+- Use responsive design with mobile-first approach
+- Optimize images: WebP format, include size data, lazy loading
+- Use React.memo for expensive components
+
+## Development Methodology
+
+### System 2 Thinking
+
+1. **Deep Dive Analysis**: Conduct thorough analysis of requirements
+2. **Break Down**: Decompose into smaller, manageable parts
+3. **Consider Each Step**: Think through each step before implementation
+
+### Tree of Thoughts
+
+1. **Explore Options**: Use structured approach to explore paths
+2. **Evaluate Trade-offs**: Consider pros and cons
+3. **Select Optimal**: Choose the best solution
+
+### Iterative Refinement
+
+1. **Consider Improvements**: Look for optimization opportunities
+2. **Handle Edge Cases**: Ensure robust handling
+3. **Iterate Enhancements**: Refine for robustness
+
+## Path Aliases
+
+- `@/*` maps to `./src/*`
+- `@/components` for component imports
+- `@/lib` for utility functions
+- `@/hooks` for custom hooks
+
+## Theme System
+
+- **Safe Mode** (Light): Clean, professional, high-contrast
+- **Cyber Mode** (Dark): Vibrant cyberpunk aesthetic with neon accents
+- **Fonts**: Rajdhani (headings), Geist Sans (body)
+- **Colors**: OKLCH color space for perceptually uniform theming
+- **Toggle**: Navbar theme switcher with next-themes integration

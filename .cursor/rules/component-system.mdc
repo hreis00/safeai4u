@@ -1,0 +1,361 @@
+---
+alwaysApply: true
+description: Reusable components, layout patterns, and data-driven content management
+---
+
+# Component System & Layout Patterns
+
+## Reusable Components
+
+### 1. ServiceShowcase Component
+
+**Location:** [ServiceShowcase.tsx](mdc:src/components/ServiceShowcase.tsx)
+
+**Purpose:** Display services, features, or items in a consistent grid layout with cards.
+
+**Usage:**
+
+```tsx
+<ServiceShowcase
+  title="Our Core Solutions"
+  description="Description text"
+  background="default"
+  columns={3}
+  items={[
+    {
+      icon: "🎯",
+      title: "Service Title",
+      description: "Short description",
+      features: ["Feature 1", "Feature 2"],
+      buttonText: "Learn More",
+      buttonHref: "/path",
+    },
+  ]}
+/>
+```
+
+### 2. ContentSection Component
+
+**Location:** [ContentSection.tsx](mdc:src/components/ContentSection.tsx)
+
+**Purpose:** Display text-heavy content sections with consistent styling. Uses `text-base` for body text.
+
+**Usage:**
+
+```tsx
+<ContentSection
+  badge="SECTION BADGE"
+  title="Section Title"
+  maxWidth="4xl"
+  buttons={[
+    { text: "Primary Action", href: "/path" },
+    { text: "Secondary", href: "/other", variant: "outline" },
+  ]}
+>
+  <p>
+    Content with <strong>emphasis</strong>.
+  </p>
+</ContentSection>
+```
+
+### 3. QuoteSection Component
+
+**Location:** [QuoteSection.tsx](mdc:src/components/QuoteSection.tsx)
+
+**Purpose:** Display quotes with attribution.
+
+**Usage:**
+
+```tsx
+<QuoteSection
+  quote="The quote text here."
+  author="Author Name"
+  role="Job Title"
+  organization="Company Name"
+/>
+```
+
+### 4. CTASection Component
+
+**Location:** [CTASection.tsx](mdc:src/components/CTASection.tsx)
+
+**Purpose:** Call-to-action sections with optional social links. Add `mb-16` when used as last section.
+
+**Usage:**
+
+```tsx
+<CTASection
+  title="QUESTIONS?"
+  primaryButton={{ text: "Contact us", href: "/contact" }}
+  socialLinks={[
+    {
+      name: "LinkedIn",
+      href: "https://...",
+      ariaLabel: "LinkedIn",
+      icon: <LinkedInIcon />,
+    },
+  ]}
+/>
+```
+
+### 5. TeamMemberCard Component
+
+**Location:** [TeamMemberCard.tsx](mdc:src/components/TeamMemberCard.tsx)
+
+**Purpose:** Display team member profiles with images and details.
+
+**Usage:**
+
+```tsx
+<TeamMemberCard member={teamMemberData} />
+```
+
+### 6. WorkshopContactForm Component
+
+**Location:** [WorkshopContactForm.tsx](mdc:src/components/WorkshopContactForm.tsx)
+
+**Purpose:** Enhanced contact form with multi-select checkboxes for interests.
+
+**Usage:**
+
+```tsx
+<WorkshopContactForm />
+```
+
+## Layout Standards
+
+### Standard Section Wrapper
+
+```tsx
+<section className="container mx-auto px-4 py-16">{/* Content */}</section>
+```
+
+### Background Variants
+
+**CRITICAL: Use standardized classes from `globals.css`, never inline opacity modifiers**
+
+```tsx
+// Muted background (50% opacity)
+<section className="container mx-auto px-4 py-16 bg-section-muted">
+
+// Subtle background (30% opacity)
+<section className="container mx-auto px-4 py-16 bg-section-subtle">
+
+// Accent background (10% opacity)
+<section className="container mx-auto px-4 py-16 bg-section-accent">
+
+// No background
+<section className="container mx-auto px-4 py-16">
+```
+
+## Spacing Standards
+
+- **Section padding**: `py-16` (4rem top/bottom)
+- **Page container spacing**: `space-y-16` (4rem between sections)
+- **Content spacing**: `space-y-4` or `space-y-6` (1rem or 1.5rem between paragraphs)
+- **Button groups**: `gap-4`
+- **Grid gaps**: `gap-8`
+- **Footer spacing**: Add `mb-16` to the last section on a page
+
+## Typography Scale
+
+```tsx
+// Hero heading
+<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+
+// Section heading
+<h2 className="text-3xl font-bold">
+
+// Subsection heading
+<h3 className="text-2xl font-semibold">
+
+// Card title
+<h3 className="text-xl font-semibold">
+
+// Large body text (hero descriptions)
+<p className="text-lg text-muted-foreground leading-relaxed">
+
+// Standard body text (default for ContentSection)
+<p className="text-base text-muted-foreground leading-relaxed">
+
+// Small text (metadata, captions)
+<p className="text-sm text-muted-foreground">
+```
+
+## Grid Layouts
+
+```tsx
+// 3-column grid (desktop)
+<div className="grid gap-8 md:grid-cols-3">
+
+// 2-column grid (desktop)
+<div className="grid gap-8 md:grid-cols-2">
+
+// 4-column grid (desktop)
+<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+```
+
+## Data-Driven Content
+
+### Location
+
+All content data files are in [src/lib/content/](mdc:src/lib/content/):
+
+- `services-data.ts` - Homepage services
+- `healthcare-projects.ts` - Homepage projects
+- `quotes-data.ts` - Founder quotes
+- `social-links-data.tsx` - Social media links
+- `services-page-data.ts` - Services page content
+- `workshops-page-data.ts` - Workshops page content
+- `about-page-data.ts` - About page content
+- `contact-page-data.ts` - Contact page content
+
+### Data File Pattern
+
+```typescript
+// 1. Define TypeScript Interfaces
+export interface Service {
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+  buttonText?: string;
+  buttonHref?: string;
+}
+
+// 2. Export Data Objects
+export const services: Service[] = [
+  {
+    icon: "🎯",
+    title: "AI Consulting",
+    description: "Strategic guidance",
+    features: ["Feature 1", "Feature 2"],
+    buttonText: "Learn More",
+    buttonHref: "/services",
+  },
+];
+
+// 3. Use in Components
+import { services } from "@/lib/content/services-data";
+
+export default function HomePage() {
+  return <ServiceShowcase items={services} />;
+}
+```
+
+## Animation Patterns
+
+```typescript
+import { FadeInUp, StaggerContainer } from "@/components/animations";
+
+<StaggerContainer>
+  <FadeInUp>
+    <div className="text-center space-y-6">{/* Header */}</div>
+  </FadeInUp>
+
+  <FadeInUp delay={0.2}>
+    <div className="mt-8">{/* Main content */}</div>
+  </FadeInUp>
+
+  <FadeInUp delay={0.3}>
+    <div className="mt-8">{/* CTA buttons */}</div>
+  </FadeInUp>
+</StaggerContainer>
+```
+
+## Component Patterns
+
+### Server Components (Preferred)
+
+```typescript
+// No "use client" directive
+import type { BaseComponentProps } from "@/lib/types";
+
+interface ComponentProps extends BaseComponentProps {
+  title: string;
+}
+
+export function Component({ title, className }: ComponentProps) {
+  return (
+    <div className={className}>
+      <h2>{title}</h2>
+    </div>
+  );
+}
+```
+
+### Client Components (When Needed)
+
+```typescript
+"use client";
+
+import { useState } from "react";
+import type { InteractiveComponentProps } from "@/lib/types";
+
+interface ComponentProps extends InteractiveComponentProps {
+  initialValue: string;
+}
+
+export function Component({ initialValue, disabled }: ComponentProps) {
+  const [value, setValue] = useState(initialValue);
+
+  return (
+    <button disabled={disabled} onClick={() => setValue("new")}>
+      {value}
+    </button>
+  );
+}
+```
+
+## Form Components
+
+```typescript
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+export function FormComponent() {
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { name: '', email: '' },
+  });
+
+  const handleSubmit = async (data: FormData) => {
+    // Handle submission
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        {/* Form fields */}
+      </form>
+    </Form>
+  );
+}
+```
+
+## Best Practices
+
+### ✅ DO
+
+- Use existing reusable components for new sections
+- Maintain consistent spacing and typography
+- Centralize all content in data files under `src/lib/content/`
+- Use standardized classes from `globals.css` (`.bg-section-muted`, etc.)
+- Use semantic HTML with proper heading hierarchy
+- Add `mb-16` to the last section on a page for footer spacing
+
+### ❌ DON'T
+
+- Create custom section layouts when a reusable component exists
+- Use inline opacity modifiers (`bg-muted/50`, `border-primary/20`)
+- Hardcode content in components - always use data files
+- Mix different spacing patterns
+- Skip animations on new sections
