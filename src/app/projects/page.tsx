@@ -37,9 +37,9 @@ export default function ProjectsPage() {
       />
       {/* Hero Section */}
       <Hero
-        badgeText="AI Research Projects • Healthcare & Innovation"
-        title="Featured AI Projects & Healthcare AI Solutions"
-        description="Explore our innovative AI research projects demonstrating responsible AI development in healthcare, space medicine, and wellness applications. Real-world examples of ethical AI implementation and healthcare AI solutions."
+        badgeText="AI Innovation Projects • Healthcare & Society"
+        title="Solutions for Healthcare, Space Medicine & Wellness"
+        description="Discover our groundbreaking AI projects: METATRON's interconnected healthcare data infrastructure, SPACE MEDICINE tools for extreme environments, and ISEKAI's gamified wellness platform. Real-world examples of responsible AI serving humanity."
       />
 
       {/* METATRON Project */}
@@ -59,10 +59,12 @@ export default function ProjectsPage() {
                     <div>
                       <h2 className="text-3xl font-bold mb-4">METATRON</h2>
                       <p className="text-lg text-muted-foreground">
-                        A conceptual framework for interconnected data and
-                        machine learning infrastructure designed to enhance
-                        healthcare AI capabilities through responsible data
-                        integration.
+                        An interconnected data and machine learning
+                        master-infrastructure, increasing the capabilities of
+                        machine learning models using graph networks. By
+                        connecting data from multiple sources and integrating
+                        synthetic data, gives rise to models with more informed
+                        outputs, while guaranteeing patients' privacy.
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
@@ -187,10 +189,11 @@ export default function ProjectsPage() {
                         SPACE MEDICINE
                       </h2>
                       <p className="text-lg text-muted-foreground">
-                        Research initiative exploring AI applications for
-                        healthcare challenges in extreme environments, with
-                        potential applications for remote and resource-limited
-                        settings.
+                        This project aims to provide tools to aid healthcare
+                        research and development of procedures to face the
+                        specific challenges of microgravity settings. Developing
+                        AI solutions for extreme environments and isolated
+                        conditions.
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
@@ -232,9 +235,11 @@ export default function ProjectsPage() {
                     <div>
                       <h2 className="text-3xl font-bold mb-4">ISEKAI</h2>
                       <p className="text-lg text-muted-foreground">
-                        A conceptual gamification platform exploring how AI can
-                        enhance physical wellness through personalized, engaging
-                        experiences that promote healthy lifestyle choices.
+                        Gamify your physical activity! Set your personalized
+                        activity goals and boost your motivation to exercise by
+                        seeing them integrated as real-world quests with
+                        engaging gameplay and great in-game rewards. Train for
+                        battle, explore your surroundings, get the loot!
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">

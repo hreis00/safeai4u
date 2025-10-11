@@ -31,9 +31,9 @@ export default function ContactPage() {
     <div className="space-y-16">
       {/* Hero Section */}
       <Hero
-        badgeText="AI Consulting Contact • Portugal & Europe"
-        title="Contact Our AI Consulting Experts"
-        description="Ready to implement responsible AI solutions? Contact our expert AI consulting team for healthcare AI projects, AI training programs, and strategic AI implementation services across Portugal and Europe."
+        badgeText="Contact SAFE AI [4U] • Portugal & Europe"
+        title="Questions? Let's Shape the Future Together"
+        description="Ready to explore responsible AI solutions? Contact our team for healthcare AI innovations, educational AI programs, and ethical AI implementation. Join us in creating technology that serves humanity with conscience across Portugal and Europe."
       />
 
       {/* Contact Form & Info */}

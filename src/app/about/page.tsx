@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { generatePageMetadata, generatePersonStructuredData } from "@/lib/seo";
 
 // Animation Components
@@ -35,9 +35,9 @@ export default function AboutPage() {
       />
       {/* Hero Section */}
       <Hero
-        badgeText="Leading AI Consulting Firm • Portugal"
-        title="Expert AI Research & Responsible AI Development"
-        description="Founded by AI expert David Belo with 15+ years of AI research experience. Our mission: delivering responsible AI consulting services and healthcare AI solutions that serve organizations ethically across Portugal and Europe."
+        badgeText="Pioneers in Responsible AI • Portugal"
+        title="Shaping the Future of Technology with Conscience"
+        description="Founded by AI expert David Belo, we are pioneers in developing responsible AI solutions that shape the future of technology. Our mission: creating innovative and ethical AI solutions that positively impact healthcare, education, and society across Portugal and Europe."
       />
 
       {/* Company Story */}
@@ -48,23 +48,25 @@ export default function AboutPage() {
               <div className="text-center space-y-6">
                 <h2 className="text-3xl font-bold">Our Story</h2>
                 <p className="text-lg text-muted-foreground">
-                  SAFE AI [4U] was founded on the conviction that artificial
-                  intelligence must serve humanity with conscience and
-                  responsibility. Our journey began with a simple yet powerful
-                  realization: the world needs AI solutions that prioritize
-                  human welfare, ethical implementation, and societal benefit
-                  over pure technological advancement.
+                  We are pioneers in developing responsible AI solutions that
+                  are shaping the future of technology. With our cutting-edge
+                  expertise, we harness the power of artificial intelligence to
+                  create innovative and ethical solutions that positively impact
+                  various industries. Embracing responsible AI practices, we
+                  ensure that our solutions are not only powerful but also safe,
+                  unbiased, and inclusive.
                 </p>
                 <blockquote className="text-xl italic font-medium text-primary border-l-4 border-primary pl-6 mx-auto max-w-2xl">
                   &ldquo;We should stop playing with AI and use it with
                   conscience.&rdquo;
                 </blockquote>
                 <p className="text-muted-foreground">
-                  This philosophy drives everything we do, from our research and
-                  development to our consulting services and educational
-                  programs. We believe that responsible AI implementation is not
-                  just an option—it&apos;s an imperative for creating a better
-                  future for all.
+                  This philosophy drives everything we do as we lead the way
+                  towards a more responsible and sustainable AI future, making a
+                  difference in the world through cutting-edge technology. We
+                  believe that responsible AI implementation is not just an
+                  option—it&apos;s an imperative for creating a better future
+                  for all.
                 </p>
               </div>
             </FadeInUp>
@@ -150,10 +152,11 @@ export default function AboutPage() {
             <div className="max-w-2xl mx-auto">
               <Card className="text-center p-8">
                 <CardContent className="space-y-6">
-                  <Avatar className="h-24 w-24 mx-auto">
+                  <Avatar className="mx-auto h-24 w-24">
                     <AvatarImage
                       src="https://safe-ai-4u.eu/wp-content/uploads/2023/10/Untitled-7-1-768x768.png"
-                      alt="David Belo"
+                      alt="David Belo - AI Research Expert and SAFE AI [4U] Founder"
+                      priority={true}
                     />
                     <AvatarFallback className="text-2xl">DB</AvatarFallback>
                   </Avatar>
@@ -360,15 +363,15 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <CallToAction
-        title="Join Our Mission"
-        description="Whether you're looking to implement AI solutions, learn about responsible AI, or partner with us, we'd love to hear from you."
+        title="Join Us in This Journey of Transformation"
+        description="Ready to shape a better future together? Let's harmonize innovation with social consciousness and create AI solutions that serve humanity with conscience and responsibility."
         primaryButton={{
-          text: "Get in Touch",
+          text: "Shape the Future",
           href: "/contact",
           variant: "default",
         }}
         secondaryButton={{
-          text: "Explore Services",
+          text: "Explore Our Solutions",
           href: "/services",
           variant: "outline",
         }}

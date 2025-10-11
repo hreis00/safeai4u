@@ -65,16 +65,16 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-background via-muted/20 to-background">
         <Hero
-          badgeText="Expert AI Consulting Services • Portugal & Europe"
-          title="Professional AI Consulting, Development & Training Services"
-          description="Comprehensive AI consulting services including strategic planning, custom AI development, and professional training programs. Specialized in healthcare AI, responsible AI implementation, and AI governance for organizations across Europe."
+          badgeText="Our AI Solutions • Healthcare, Education & Ethics"
+          title="SAI [4Health] • SAI [4Mind] • SAI [4Trust]"
+          description="Comprehensive AI solutions spanning healthcare innovation, educational empowerment, and responsible AI development. From cutting-edge medical possibilities to AI education programs and ethical technology frameworks that serve humanity with conscience."
           primaryButton={{
-            text: "Schedule AI Consultation",
-            href: "/contact",
+            text: "Explore Our Solutions",
+            href: "#services",
           }}
           secondaryButton={{
-            text: "View AI Projects",
-            href: "/projects",
+            text: "Start Your Journey",
+            href: "/contact",
           }}
         />
       </div>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
       {/* Services Overview */}
       <ServiceShowcase
         title="Our Core Services"
-        description="Comprehensive AI solutions designed to transform your organization while maintaining the highest standards of ethical AI development and deployment."
+        description="From healthcare innovation to educational empowerment and responsible AI development, we create solutions that harmonize cutting-edge technology with social consciousness and ethical principles."
         items={showcaseItems}
         columns={3}
         background="muted"
@@ -119,14 +119,14 @@ export default function ServicesPage() {
 
       {/* Call to Action */}
       <CallToAction
-        title="Questions About Our Services?"
-        description="Schedule a free consultation to discuss your specific needs and learn how we can help you succeed with responsible AI."
+        title="Ready to Transform Your Future with AI?"
+        description="Join us in this journey of transformation as we lead the way towards a more responsible and sustainable AI future, making a difference in the world through cutting-edge technology with conscience."
         primaryButton={{
-          text: "Schedule Free Consultation",
+          text: "Start Your AI Journey",
           href: "/contact",
         }}
         secondaryButton={{
-          text: "View Our Projects",
+          text: "Explore Our Projects",
           href: "/projects",
         }}
       />
