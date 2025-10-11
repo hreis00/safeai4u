@@ -1,14 +1,40 @@
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { ServiceTabs } from '../ServiceTabs';
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { ServiceTabs } from "../ServiceTabs";
+
+interface Tab {
+  value: string;
+  label: string;
+  cards: Array<{
+    icon: string;
+    title: string;
+    description: string;
+    content: string;
+    progress: { label: string; value: number };
+    badges: string[];
+  }>;
+}
+
+interface ServiceTabsInteractiveProps {
+  tabs: Tab[];
+  defaultTab?: string | null;
+}
+
+interface AnimationProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
 // Mock the ServiceTabsInteractive component
-jest.mock('../ServiceTabsInteractive', () => ({
-  ServiceTabsInteractive: ({ tabs, defaultTab }: any) => (
+jest.mock("../ServiceTabsInteractive", () => ({
+  ServiceTabsInteractive: ({
+    tabs,
+    defaultTab,
+  }: ServiceTabsInteractiveProps) => (
     <div data-testid="service-tabs-interactive">
       <div data-testid="tabs-count">{tabs.length}</div>
-      <div data-testid="default-tab">{defaultTab || 'none'}</div>
-      {tabs.map((tab: any) => (
+      <div data-testid="default-tab">{defaultTab || "none"}</div>
+      {tabs.map(tab => (
         <div key={tab.value} data-testid={`tab-${tab.value}`}>
           {tab.label}
         </div>
@@ -18,62 +44,62 @@ jest.mock('../ServiceTabsInteractive', () => ({
 }));
 
 // Mock the FadeInUp animation component
-jest.mock('../animations/FadeInUp', () => ({
-  FadeInUp: ({ children, className }: any) => (
+jest.mock("../animations/FadeInUp", () => ({
+  FadeInUp: ({ children, className }: AnimationProps) => (
     <div className={className} data-testid="fade-in-up">
       {children}
     </div>
   ),
 }));
 
-describe('ServiceTabs', () => {
+describe("ServiceTabs", () => {
   const mockTabs = [
     {
-      value: 'consulting',
-      label: 'AI Consulting',
+      value: "consulting",
+      label: "AI Consulting",
       cards: [
         {
-          icon: '🎯',
-          title: 'Strategic Planning',
-          description: 'AI strategy development',
-          content: 'Comprehensive AI strategy planning',
-          progress: { label: 'Strategy Completion', value: 85 },
-          badges: ['Strategy', 'Planning'],
+          icon: "🎯",
+          title: "Strategic Planning",
+          description: "AI strategy development",
+          content: "Comprehensive AI strategy planning",
+          progress: { label: "Strategy Completion", value: 85 },
+          badges: ["Strategy", "Planning"],
         },
       ],
     },
     {
-      value: 'development',
-      label: 'AI Development',
+      value: "development",
+      label: "AI Development",
       cards: [
         {
-          icon: '⚙️',
-          title: 'Custom Solutions',
-          description: 'Tailored AI development',
-          content: 'Custom AI solution development',
-          progress: { label: 'Development Progress', value: 70 },
-          badges: ['Development', 'Custom'],
+          icon: "⚙️",
+          title: "Custom Solutions",
+          description: "Tailored AI development",
+          content: "Custom AI solution development",
+          progress: { label: "Development Progress", value: 70 },
+          badges: ["Development", "Custom"],
         },
       ],
     },
     {
-      value: 'education',
-      label: 'AI Education',
+      value: "education",
+      label: "AI Education",
       cards: [
         {
-          icon: '📚',
-          title: 'Training Programs',
-          description: 'Professional AI training',
-          content: 'Comprehensive AI education programs',
-          progress: { label: 'Training Completion', value: 90 },
-          badges: ['Education', 'Training'],
+          icon: "📚",
+          title: "Training Programs",
+          description: "Professional AI training",
+          content: "Comprehensive AI education programs",
+          progress: { label: "Training Completion", value: 90 },
+          badges: ["Education", "Training"],
         },
       ],
     },
   ];
 
-  describe('Component Rendering', () => {
-    it('should render with title and description', () => {
+  describe("Component Rendering", () => {
+    it("should render with title and description", () => {
       render(
         <ServiceTabs
           title="Our AI Services"
@@ -82,11 +108,13 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByText('Our AI Services')).toBeInTheDocument();
-      expect(screen.getByText('Comprehensive AI solutions for your business')).toBeInTheDocument();
+      expect(screen.getByText("Our AI Services")).toBeInTheDocument();
+      expect(
+        screen.getByText("Comprehensive AI solutions for your business")
+      ).toBeInTheDocument();
     });
 
-    it('should render ServiceTabsInteractive with correct props', () => {
+    it("should render ServiceTabsInteractive with correct props", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -95,12 +123,14 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByTestId('service-tabs-interactive')).toBeInTheDocument();
-      expect(screen.getByTestId('tabs-count')).toHaveTextContent('3');
-      expect(screen.getByTestId('default-tab')).toHaveTextContent('none');
+      expect(
+        screen.getByTestId("service-tabs-interactive")
+      ).toBeInTheDocument();
+      expect(screen.getByTestId("tabs-count")).toHaveTextContent("3");
+      expect(screen.getByTestId("default-tab")).toHaveTextContent("none");
     });
 
-    it('should pass defaultTab to ServiceTabsInteractive when provided', () => {
+    it("should pass defaultTab to ServiceTabsInteractive when provided", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -110,10 +140,12 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByTestId('default-tab')).toHaveTextContent('development');
+      expect(screen.getByTestId("default-tab")).toHaveTextContent(
+        "development"
+      );
     });
 
-    it('should render all tabs', () => {
+    it("should render all tabs", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -122,14 +154,20 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByTestId('tab-consulting')).toHaveTextContent('AI Consulting');
-      expect(screen.getByTestId('tab-development')).toHaveTextContent('AI Development');
-      expect(screen.getByTestId('tab-education')).toHaveTextContent('AI Education');
+      expect(screen.getByTestId("tab-consulting")).toHaveTextContent(
+        "AI Consulting"
+      );
+      expect(screen.getByTestId("tab-development")).toHaveTextContent(
+        "AI Development"
+      );
+      expect(screen.getByTestId("tab-education")).toHaveTextContent(
+        "AI Education"
+      );
     });
   });
 
-  describe('Layout and Structure', () => {
-    it('should have proper container structure', () => {
+  describe("Layout and Structure", () => {
+    it("should have proper container structure", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -139,12 +177,12 @@ describe('ServiceTabs', () => {
       );
 
       // Check for section element
-      const section = screen.getByRole('region', { hidden: true });
+      const section = screen.getByRole("region", { hidden: true });
       expect(section).toBeInTheDocument();
-      expect(section).toHaveClass('container', 'mx-auto', 'px-4', 'py-16');
+      expect(section).toHaveClass("container", "mx-auto", "px-4", "py-16");
     });
 
-    it('should have proper content wrapper', () => {
+    it("should have proper content wrapper", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -153,11 +191,11 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const wrapper = screen.getByTestId('fade-in-up');
-      expect(wrapper).toHaveClass('max-w-6xl', 'mx-auto');
+      const wrapper = screen.getByTestId("fade-in-up");
+      expect(wrapper).toHaveClass("max-w-6xl", "mx-auto");
     });
 
-    it('should have proper spacing and layout classes', () => {
+    it("should have proper spacing and layout classes", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -166,13 +204,13 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const titleSection = screen.getByText('Test Title').closest('div');
-      expect(titleSection).toHaveClass('text-center', 'space-y-6', 'mb-12');
+      const titleSection = screen.getByText("Test Title").closest("div");
+      expect(titleSection).toHaveClass("text-center", "space-y-6", "mb-12");
     });
   });
 
-  describe('Content Display', () => {
-    it('should display title with proper styling', () => {
+  describe("Content Display", () => {
+    it("should display title with proper styling", () => {
       render(
         <ServiceTabs
           title="Custom AI Services"
@@ -181,12 +219,12 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const title = screen.getByText('Custom AI Services');
+      const title = screen.getByText("Custom AI Services");
       expect(title).toBeInTheDocument();
-      expect(title).toHaveClass('text-3xl', 'font-bold');
+      expect(title).toHaveClass("text-3xl", "font-bold");
     });
 
-    it('should display description with proper styling', () => {
+    it("should display description with proper styling", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -195,14 +233,20 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const description = screen.getByText('Custom description for AI services');
+      const description = screen.getByText(
+        "Custom description for AI services"
+      );
       expect(description).toBeInTheDocument();
-      expect(description).toHaveClass('max-w-2xl', 'mx-auto', 'text-muted-foreground');
+      expect(description).toHaveClass(
+        "max-w-2xl",
+        "mx-auto",
+        "text-muted-foreground"
+      );
     });
   });
 
-  describe('Props Handling', () => {
-    it('should handle empty tabs array', () => {
+  describe("Props Handling", () => {
+    it("should handle empty tabs array", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -211,12 +255,12 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByTestId('tabs-count')).toHaveTextContent('0');
+      expect(screen.getByTestId("tabs-count")).toHaveTextContent("0");
     });
 
-    it('should handle single tab', () => {
+    it("should handle single tab", () => {
       const singleTab = [mockTabs[0]];
-      
+
       render(
         <ServiceTabs
           title="Test Title"
@@ -225,11 +269,13 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByTestId('tabs-count')).toHaveTextContent('1');
-      expect(screen.getByTestId('tab-consulting')).toHaveTextContent('AI Consulting');
+      expect(screen.getByTestId("tabs-count")).toHaveTextContent("1");
+      expect(screen.getByTestId("tab-consulting")).toHaveTextContent(
+        "AI Consulting"
+      );
     });
 
-    it('should handle undefined defaultTab', () => {
+    it("should handle undefined defaultTab", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -239,25 +285,25 @@ describe('ServiceTabs', () => {
         />
       );
 
-      expect(screen.getByTestId('default-tab')).toHaveTextContent('none');
+      expect(screen.getByTestId("default-tab")).toHaveTextContent("none");
     });
 
-    it('should handle null defaultTab', () => {
+    it("should handle undefined defaultTab", () => {
       render(
         <ServiceTabs
           title="Test Title"
           description="Test Description"
           tabs={mockTabs}
-          defaultTab={null as any}
+          defaultTab={undefined}
         />
       );
 
-      expect(screen.getByTestId('default-tab')).toHaveTextContent('none');
+      expect(screen.getByTestId("default-tab")).toHaveTextContent("none");
     });
   });
 
-  describe('Accessibility', () => {
-    it('should have proper heading structure', () => {
+  describe("Accessibility", () => {
+    it("should have proper heading structure", () => {
       render(
         <ServiceTabs
           title="Accessible AI Services"
@@ -266,11 +312,11 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const heading = screen.getByRole('heading', { level: 2 });
-      expect(heading).toHaveTextContent('Accessible AI Services');
+      const heading = screen.getByRole("heading", { level: 2 });
+      expect(heading).toHaveTextContent("Accessible AI Services");
     });
 
-    it('should have proper semantic structure', () => {
+    it("should have proper semantic structure", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -280,13 +326,13 @@ describe('ServiceTabs', () => {
       );
 
       // Check for proper section structure
-      const section = screen.getByRole('region', { hidden: true });
+      const section = screen.getByRole("region", { hidden: true });
       expect(section).toBeInTheDocument();
     });
   });
 
-  describe('Animation Integration', () => {
-    it('should render FadeInUp animation wrapper', () => {
+  describe("Animation Integration", () => {
+    it("should render FadeInUp animation wrapper", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -295,11 +341,11 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const fadeInUpElements = screen.getAllByTestId('fade-in-up');
+      const fadeInUpElements = screen.getAllByTestId("fade-in-up");
       expect(fadeInUpElements).toHaveLength(2); // One for title section, one for interactive component
     });
 
-    it('should pass proper className to FadeInUp', () => {
+    it("should pass proper className to FadeInUp", () => {
       render(
         <ServiceTabs
           title="Test Title"
@@ -308,8 +354,10 @@ describe('ServiceTabs', () => {
         />
       );
 
-      const titleFadeInUp = screen.getByText('Test Title').closest('[data-testid="fade-in-up"]');
-      expect(titleFadeInUp).toHaveClass('text-center', 'space-y-6', 'mb-12');
+      const titleFadeInUp = screen
+        .getByText("Test Title")
+        .closest('[data-testid="fade-in-up"]');
+      expect(titleFadeInUp).toHaveClass("text-center", "space-y-6", "mb-12");
     });
   });
 });

@@ -3,8 +3,15 @@
  * Following the development methodology for robust error handling
  */
 
-import { APIError, NetworkError, AuthError, NotFoundError, RateLimitError, logError } from './errors';
-import type { ErrorContext, HttpStatus } from './types';
+import {
+  APIError,
+  NetworkError,
+  AuthError,
+  NotFoundError,
+  RateLimitError,
+  logError,
+} from "./errors";
+import type { ErrorContext, HttpStatus } from "./types";
 
 interface RequestConfig extends RequestInit {
   timeout?: number;
@@ -46,7 +53,7 @@ export async function apiRequest<T = unknown>(
         ...fetchConfig,
         signal: controller.signal,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...fetchConfig.headers,
         },
       });
@@ -60,38 +67,41 @@ export async function apiRequest<T = unknown>(
         switch (response.status) {
           case 401:
             throw new AuthError(
-              errorData.message || 'Authentication required',
+              errorData.message || "Authentication required",
               { url, status: response.status, attempt }
             );
           case 403:
-            throw new AuthError(
-              errorData.message || 'Access denied',
-              { url, status: response.status, attempt }
-            );
+            throw new AuthError(errorData.message || "Access denied", {
+              url,
+              status: response.status,
+              attempt,
+            });
           case 404:
-            throw new NotFoundError(
-              errorData.message || 'Resource not found',
-              { url, status: response.status, attempt }
-            );
+            throw new NotFoundError(errorData.message || "Resource not found", {
+              url,
+              status: response.status,
+              attempt,
+            });
           case 429:
-            const retryAfter = response.headers.get('Retry-After');
+            const retryAfter = response.headers.get("Retry-After");
             throw new RateLimitError(
-              errorData.message || 'Rate limit exceeded',
+              errorData.message || "Rate limit exceeded",
               retryAfter ? parseInt(retryAfter) : undefined,
               { url, status: response.status, attempt }
             );
           default:
             throw new APIError(
-              errorData.message || `Request failed with status ${response.status}`,
+              errorData.message ||
+                `Request failed with status ${response.status}`,
               response.status,
               url,
-              fetchConfig.method || 'GET',
+              fetchConfig.method || "GET",
               { ...errorData, attempt }
             );
         }
       }
 
-      const data = await response.json().catch(() => null) as T;
+      const data = (await response.json().catch(() => null)) as T;
 
       return {
         data,
@@ -99,7 +109,6 @@ export async function apiRequest<T = unknown>(
         statusText: response.statusText,
         headers: response.headers,
       };
-
     } catch (error) {
       lastError = error as Error;
 
@@ -107,7 +116,9 @@ export async function apiRequest<T = unknown>(
       if (
         error instanceof AuthError ||
         error instanceof NotFoundError ||
-        (error instanceof APIError && error.statusCode >= 400 && error.statusCode < 500)
+        (error instanceof APIError &&
+          error.statusCode >= 400 &&
+          error.statusCode < 500)
       ) {
         break;
       }
@@ -118,22 +129,24 @@ export async function apiRequest<T = unknown>(
       }
 
       // Wait before retry
-      await new Promise(resolve => setTimeout(resolve, retryDelay * (attempt + 1)));
+      await new Promise(resolve =>
+        setTimeout(resolve, retryDelay * (attempt + 1))
+      );
     }
   }
 
   // Handle network errors
-  if (lastError?.name === 'AbortError') {
-    throw new NetworkError(
-      `Request timeout after ${timeout}ms`,
-      lastError,
-      { url, timeout, attempts: retries + 1 }
-    );
+  if (lastError?.name === "AbortError") {
+    throw new NetworkError(`Request timeout after ${timeout}ms`, lastError, {
+      url,
+      timeout,
+      attempts: retries + 1,
+    });
   }
 
-  if (lastError?.name === 'TypeError' && lastError.message.includes('fetch')) {
+  if (lastError?.name === "TypeError" && lastError.message.includes("fetch")) {
     throw new NetworkError(
-      'Network error - please check your connection',
+      "Network error - please check your connection",
       lastError,
       { url, attempts: retries + 1 }
     );
@@ -148,9 +161,9 @@ export async function apiRequest<T = unknown>(
  */
 export async function apiGet<T = unknown>(
   url: string,
-  config: Omit<RequestConfig, 'method' | 'body'> = {}
+  config: Omit<RequestConfig, "method" | "body"> = {}
 ): Promise<APIResponse<T>> {
-  return apiRequest<T>(url, { ...config, method: 'GET' });
+  return apiRequest<T>(url, { ...config, method: "GET" });
 }
 
 /**
@@ -159,11 +172,11 @@ export async function apiGet<T = unknown>(
 export async function apiPost<T = unknown>(
   url: string,
   data: unknown,
-  config: Omit<RequestConfig, 'method' | 'body'> = {}
+  config: Omit<RequestConfig, "method" | "body"> = {}
 ): Promise<APIResponse<T>> {
   return apiRequest<T>(url, {
     ...config,
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(data),
   });
 }
@@ -174,11 +187,11 @@ export async function apiPost<T = unknown>(
 export async function apiPut<T = unknown>(
   url: string,
   data: unknown,
-  config: Omit<RequestConfig, 'method' | 'body'> = {}
+  config: Omit<RequestConfig, "method" | "body"> = {}
 ): Promise<APIResponse<T>> {
   return apiRequest<T>(url, {
     ...config,
-    method: 'PUT',
+    method: "PUT",
     body: JSON.stringify(data),
   });
 }
@@ -188,9 +201,9 @@ export async function apiPut<T = unknown>(
  */
 export async function apiDelete<T = unknown>(
   url: string,
-  config: Omit<RequestConfig, 'method' | 'body'> = {}
+  config: Omit<RequestConfig, "method" | "body"> = {}
 ): Promise<APIResponse<T>> {
-  return apiRequest<T>(url, { ...config, method: 'DELETE' });
+  return apiRequest<T>(url, { ...config, method: "DELETE" });
 }
 
 /**
@@ -215,7 +228,7 @@ export async function safeApiCall<T>(
 export async function submitForm<T = unknown>(
   url: string,
   formData: Record<string, unknown>,
-  config: Omit<RequestConfig, 'method' | 'body'> = {}
+  config: Omit<RequestConfig, "method" | "body"> = {}
 ): Promise<APIResponse<T>> {
   try {
     return await apiPost<T>(url, formData, config);
@@ -223,7 +236,7 @@ export async function submitForm<T = unknown>(
     logError(error, {
       formData,
       url,
-      action: 'form_submission'
+      action: "form_submission",
     });
     throw error;
   }

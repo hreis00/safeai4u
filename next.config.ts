@@ -3,15 +3,15 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     // Enable image optimization
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
 
     // Allow external domains for images
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'safe-ai-4u.eu',
-        port: '',
-        pathname: '/wp-content/uploads/**',
+        protocol: "https",
+        hostname: "safe-ai-4u.eu",
+        port: "",
+        pathname: "/wp-content/uploads/**",
       },
     ],
 
@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
 
   // Enable experimental features for better performance
   experimental: {
-    optimizePackageImports: ['@radix-ui/react-icons'],
+    optimizePackageImports: ["@radix-ui/react-icons"],
   },
 };
 

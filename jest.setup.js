@@ -1,13 +1,13 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 // Mock Next.js environment
-Object.defineProperty(global, 'Request', {
-  value: global.Request || class Request { },
+Object.defineProperty(global, "Request", {
+  value: global.Request || class Request {},
   writable: true,
 });
 
-Object.defineProperty(global, 'Response', {
-  value: global.Response || class Response { },
+Object.defineProperty(global, "Response", {
+  value: global.Response || class Response {},
   writable: true,
 });
 
@@ -30,7 +30,7 @@ global.RequestCookies = class RequestCookies {
 global.NextRequest = class NextRequest {
   constructor(url, init = {}) {
     this.url = url;
-    this.method = init.method || 'GET';
+    this.method = init.method || "GET";
     this.headers = new Map();
     this.body = init.body;
     this.cookies = new global.RequestCookies();
@@ -85,18 +85,18 @@ global.NextResponse = {
 };
 
 // Mock Next.js router
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
     replace: jest.fn(),
     prefetch: jest.fn(),
   }),
   useSearchParams: () => new URLSearchParams(),
-  usePathname: () => '/',
+  usePathname: () => "/",
 }));
 
 // Mock Framer Motion
-jest.mock('framer-motion', () => ({
+jest.mock("framer-motion", () => ({
   motion: {
     div: ({ children, className, ...props }) => (
       <div className={className} {...props}>
@@ -118,7 +118,7 @@ jest.mock('framer-motion', () => ({
 }));
 
 // Mock react-hot-toast
-jest.mock('react-hot-toast', () => ({
+jest.mock("react-hot-toast", () => ({
   toast: {
     success: jest.fn(),
     error: jest.fn(),
@@ -126,7 +126,7 @@ jest.mock('react-hot-toast', () => ({
 }));
 
 // Mock Radix UI components
-jest.mock('@radix-ui/react-progress', () => ({
+jest.mock("@radix-ui/react-progress", () => ({
   Root: ({ children, value, ...props }) => (
     <div data-testid="progress-root" data-value={value} {...props}>
       {children}
@@ -139,13 +139,15 @@ jest.mock('@radix-ui/react-progress', () => ({
   ),
 }));
 
-jest.mock('@radix-ui/react-tabs', () => {
-  const React = require('react');
+jest.mock("@radix-ui/react-tabs", () => {
+  const React = require("react");
   return {
     Root: ({ children, value, onValueChange, defaultValue, ...props }) => {
-      const [currentValue, setCurrentValue] = React.useState(value || defaultValue);
+      const [currentValue, setCurrentValue] = React.useState(
+        value || defaultValue
+      );
 
-      const handleValueChange = (newValue) => {
+      const handleValueChange = newValue => {
         setCurrentValue(newValue);
         onValueChange?.(newValue);
       };
@@ -160,7 +162,7 @@ jest.mock('@radix-ui/react-tabs', () => {
           {React.Children.map(children, child =>
             React.cloneElement(child, {
               currentValue,
-              onValueChange: handleValueChange
+              onValueChange: handleValueChange,
             })
           )}
         </div>
@@ -177,7 +179,7 @@ jest.mock('@radix-ui/react-tabs', () => {
         <button
           data-testid="tabs-trigger"
           data-value={value}
-          data-state={isActive ? 'active' : 'inactive'}
+          data-state={isActive ? "active" : "inactive"}
           role="tab"
           onClick={() => onValueChange?.(value)}
           {...props}
@@ -192,7 +194,7 @@ jest.mock('@radix-ui/react-tabs', () => {
         <div
           data-testid="tabs-content"
           data-value={value}
-          data-state={isActive ? 'active' : 'inactive'}
+          data-state={isActive ? "active" : "inactive"}
           role="tabpanel"
           {...props}
         >
@@ -203,9 +205,14 @@ jest.mock('@radix-ui/react-tabs', () => {
   };
 });
 
-jest.mock('@radix-ui/react-select', () => ({
+jest.mock("@radix-ui/react-select", () => ({
   Root: ({ children, value, onValueChange, ...props }) => (
-    <div data-testid="select-root" data-value={value} data-on-value-change={onValueChange} {...props}>
+    <div
+      data-testid="select-root"
+      data-value={value}
+      data-on-value-change={onValueChange}
+      {...props}
+    >
       {children}
     </div>
   ),
@@ -277,7 +284,7 @@ jest.mock('@radix-ui/react-select', () => ({
   ),
 }));
 
-jest.mock('@radix-ui/react-checkbox', () => ({
+jest.mock("@radix-ui/react-checkbox", () => ({
   Root: ({ children, checked, onCheckedChange, ...props }) => (
     <button
       data-testid="checkbox-root"
@@ -295,7 +302,7 @@ jest.mock('@radix-ui/react-checkbox', () => ({
   ),
 }));
 
-jest.mock('@radix-ui/react-label', () => ({
+jest.mock("@radix-ui/react-label", () => ({
   Root: ({ children, ...props }) => (
     <label data-testid="label-root" {...props}>
       {children}
@@ -304,7 +311,7 @@ jest.mock('@radix-ui/react-label', () => ({
 }));
 
 // Mock Lucide React icons
-jest.mock('lucide-react', () => ({
+jest.mock("lucide-react", () => ({
   CheckIcon: () => <span data-testid="check-icon">✓</span>,
   ChevronDownIcon: () => <span data-testid="chevron-down-icon">▼</span>,
   ChevronUpIcon: () => <span data-testid="chevron-up-icon">▲</span>,
@@ -314,26 +321,37 @@ jest.mock('lucide-react', () => ({
 }));
 
 // Mock React Hook Form
-jest.mock('react-hook-form', () => ({
+jest.mock("react-hook-form", () => ({
   useForm: () => ({
     register: jest.fn(),
-    handleSubmit: jest.fn((fn) => fn),
+    handleSubmit: jest.fn(fn => fn),
     formState: { errors: {} },
     control: {},
     watch: jest.fn(),
     setValue: jest.fn(),
     getValues: jest.fn(),
     reset: jest.fn(),
-    getFieldState: jest.fn(() => ({ error: undefined, isDirty: false, isTouched: false, invalid: false })),
+    getFieldState: jest.fn(() => ({
+      error: undefined,
+      isDirty: false,
+      isTouched: false,
+      invalid: false,
+    })),
   }),
-  Controller: ({ render }) => render({ field: { onChange: jest.fn(), value: '' } }),
+  Controller: ({ render }) =>
+    render({ field: { onChange: jest.fn(), value: "" } }),
   FormProvider: ({ children }) => children,
   useFormContext: () => ({
     register: jest.fn(),
-    handleSubmit: jest.fn((fn) => fn),
+    handleSubmit: jest.fn(fn => fn),
     formState: { errors: {} },
     control: {},
-    getFieldState: jest.fn(() => ({ error: undefined, isDirty: false, isTouched: false, invalid: false })),
+    getFieldState: jest.fn(() => ({
+      error: undefined,
+      isDirty: false,
+      isTouched: false,
+      invalid: false,
+    })),
   }),
   useFormState: () => ({ errors: {} }),
 }));
@@ -349,46 +367,50 @@ jest.mock('react-hook-form', () => ({
 // If specific tests need location mocking, they can do it individually
 
 // Mock class-variance-authority
-jest.mock('class-variance-authority', () => ({
-  cva: jest.fn(() => jest.fn((props) => {
-    // Return a mock className based on props
-    const classes = ['inline-flex', 'items-center', 'justify-center'];
-    if (props?.variant === 'default') classes.push('bg-primary', 'text-primary-foreground');
-    if (props?.size === 'default') classes.push('h-9', 'px-4', 'py-2');
-    if (props?.className) classes.push(props.className);
-    return classes.join(' ');
-  })),
+jest.mock("class-variance-authority", () => ({
+  cva: jest.fn(() =>
+    jest.fn(props => {
+      // Return a mock className based on props
+      const classes = ["inline-flex", "items-center", "justify-center"];
+      if (props?.variant === "default")
+        classes.push("bg-primary", "text-primary-foreground");
+      if (props?.size === "default") classes.push("h-9", "px-4", "py-2");
+      if (props?.className) classes.push(props.className);
+      return classes.join(" ");
+    })
+  ),
 }));
 
 // Mock @radix-ui/react-slot
-jest.mock('@radix-ui/react-slot', () => ({
+jest.mock("@radix-ui/react-slot", () => ({
   Slot: ({ children, ...props }) => <div {...props}>{children}</div>,
 }));
 
 // Mock Button component
-jest.mock('@/components/ui/button', () => ({
+jest.mock("@/components/ui/button", () => ({
   Button: ({ children, className, variant, size, asChild, ...props }) => {
-    const classes = ['inline-flex', 'items-center', 'justify-center'];
-    if (variant === 'default') classes.push('bg-primary', 'text-primary-foreground');
-    if (size === 'default') classes.push('h-9', 'px-4', 'py-2');
+    const classes = ["inline-flex", "items-center", "justify-center"];
+    if (variant === "default")
+      classes.push("bg-primary", "text-primary-foreground");
+    if (size === "default") classes.push("h-9", "px-4", "py-2");
     if (className) classes.push(className);
 
-    const Component = asChild ? 'div' : 'button';
+    const Component = asChild ? "div" : "button";
     return (
-      <Component className={classes.join(' ')} {...props}>
+      <Component className={classes.join(" ")} {...props}>
         {children}
       </Component>
     );
   },
-  buttonVariants: jest.fn(() => 'mock-button-classes'),
+  buttonVariants: jest.fn(() => "mock-button-classes"),
 }));
 
 // Mock React hooks for stable function references
 const mockCallbacks = new Map();
 const mockMemos = new Map();
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
   useCallback: jest.fn((fn, deps) => {
     const key = JSON.stringify(deps || []);
     if (!mockCallbacks.has(key)) {

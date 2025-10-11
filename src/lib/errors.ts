@@ -3,7 +3,7 @@
  * Following the development methodology for robust error handling
  */
 
-import type { ErrorContext } from './types';
+import type { ErrorContext } from "./types";
 
 // Base error class for all custom errors
 export class AppError extends Error {
@@ -32,7 +32,11 @@ export class AppError extends Error {
 export class ValidationError extends AppError {
   public readonly field: string;
 
-  constructor(message: string, field: string, context?: Record<string, unknown>) {
+  constructor(
+    message: string,
+    field: string,
+    context?: Record<string, unknown>
+  ) {
     super(message, 400, true, context);
     this.field = field;
   }
@@ -60,7 +64,11 @@ export class APIError extends AppError {
 export class NetworkError extends AppError {
   public readonly originalError?: Error;
 
-  constructor(message: string, originalError?: Error, context?: Record<string, unknown>) {
+  constructor(
+    message: string,
+    originalError?: Error,
+    context?: Record<string, unknown>
+  ) {
     super(message, 503, true, context);
     this.originalError = originalError;
   }
@@ -68,13 +76,19 @@ export class NetworkError extends AppError {
 
 // Authentication and authorization errors
 export class AuthError extends AppError {
-  constructor(message: string = "Authentication failed", context?: Record<string, unknown>) {
+  constructor(
+    message: string = "Authentication failed",
+    context?: Record<string, unknown>
+  ) {
     super(message, 401, true, context);
   }
 }
 
 export class AuthorizationError extends AppError {
-  constructor(message: string = "Access denied", context?: Record<string, unknown>) {
+  constructor(
+    message: string = "Access denied",
+    context?: Record<string, unknown>
+  ) {
     super(message, 403, true, context);
   }
 }
@@ -90,7 +104,11 @@ export class NotFoundError extends AppError {
 export class RateLimitError extends AppError {
   public readonly retryAfter?: number;
 
-  constructor(message: string = "Rate limit exceeded", retryAfter?: number, context?: Record<string, unknown>) {
+  constructor(
+    message: string = "Rate limit exceeded",
+    retryAfter?: number,
+    context?: Record<string, unknown>
+  ) {
     super(message, 429, true, context);
     this.retryAfter = retryAfter;
   }
@@ -138,11 +156,11 @@ export function getErrorMessage(error: unknown): string {
     return error.message;
   }
 
-  if (typeof error === 'string') {
+  if (typeof error === "string") {
     return error;
   }
 
-  return 'An unexpected error occurred';
+  return "An unexpected error occurred";
 }
 
 export function getErrorStatusCode(error: unknown): number {
@@ -153,7 +171,9 @@ export function getErrorStatusCode(error: unknown): number {
   return 500;
 }
 
-export function getErrorContext(error: unknown): Record<string, unknown> | undefined {
+export function getErrorContext(
+  error: unknown
+): Record<string, unknown> | undefined {
   if (isAppError(error)) {
     return error.context;
   }
@@ -173,8 +193,8 @@ export function logError(error: unknown, context?: ErrorContext): void {
   };
 
   // In development, log to console
-  if (process.env.NODE_ENV === 'development') {
-    console.error('Error occurred:', errorContext);
+  if (process.env.NODE_ENV === "development") {
+    console.error("Error occurred:", errorContext);
   }
 
   // In production, you would typically send to a logging service
@@ -203,7 +223,10 @@ export interface ErrorBoundaryState {
 }
 
 // Form validation error helper
-export function createValidationError(field: string, message: string): ValidationError {
+export function createValidationError(
+  field: string,
+  message: string
+): ValidationError {
   return new ValidationError(message, field, { field, message });
 }
 

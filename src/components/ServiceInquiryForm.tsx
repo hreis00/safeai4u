@@ -86,25 +86,27 @@ export function ServiceInquiryForm({
 
     try {
       // Submit form to API endpoint
-      const response = await submitForm('/api/contact', data);
-      
+      const response = await submitForm("/api/contact", data);
+
       console.log("Form submitted successfully:", response.data);
-      
+
       setIsSubmitting(false);
       setSubmitted(true);
-      
+
       // Type-safe access to response data
       const responseData = response.data as { message?: string };
-      toast.success(responseData.message || "Thank you! We'll respond within 24 hours.");
+      toast.success(
+        responseData.message || "Thank you! We'll respond within 24 hours."
+      );
     } catch (error) {
-      logError(error, { 
-        formData: data, 
-        component: 'ServiceInquiryForm',
-        action: 'form_submission'
+      logError(error, {
+        formData: data,
+        component: "ServiceInquiryForm",
+        action: "form_submission",
       });
-      
+
       setIsSubmitting(false);
-      
+
       // Show user-friendly error message
       if (error instanceof APIError) {
         toast.error(error.message);
@@ -173,10 +175,10 @@ export function ServiceInquiryForm({
                     <FormItem>
                       <FormLabel>Email Address *</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="email" 
-                          placeholder="Enter your email address" 
-                          {...field} 
+                        <Input
+                          type="email"
+                          placeholder="Enter your email address"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -193,7 +195,10 @@ export function ServiceInquiryForm({
                     <FormItem>
                       <FormLabel>Company/Organization</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your company name" {...field} />
+                        <Input
+                          placeholder="Enter your company name"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -206,10 +211,10 @@ export function ServiceInquiryForm({
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="tel" 
-                          placeholder="Enter your phone number" 
-                          {...field} 
+                        <Input
+                          type="tel"
+                          placeholder="Enter your phone number"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -225,7 +230,10 @@ export function ServiceInquiryForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Service of Interest *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a service" />
@@ -241,7 +249,9 @@ export function ServiceInquiryForm({
                         <SelectItem value="education-training">
                           AI Education & Training
                         </SelectItem>
-                        <SelectItem value="multiple">Multiple Services</SelectItem>
+                        <SelectItem value="multiple">
+                          Multiple Services
+                        </SelectItem>
                         <SelectItem value="not-sure">
                           Not Sure - Need Guidance
                         </SelectItem>
@@ -260,18 +270,31 @@ export function ServiceInquiryForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Estimated Budget</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="under-10k">Under €10,000</SelectItem>
-                          <SelectItem value="10k-25k">€10,000 - €25,000</SelectItem>
-                          <SelectItem value="25k-50k">€25,000 - €50,000</SelectItem>
-                          <SelectItem value="50k-100k">€50,000 - €100,000</SelectItem>
-                          <SelectItem value="over-100k">Over €100,000</SelectItem>
+                          <SelectItem value="under-10k">
+                            Under €10,000
+                          </SelectItem>
+                          <SelectItem value="10k-25k">
+                            €10,000 - €25,000
+                          </SelectItem>
+                          <SelectItem value="25k-50k">
+                            €25,000 - €50,000
+                          </SelectItem>
+                          <SelectItem value="50k-100k">
+                            €50,000 - €100,000
+                          </SelectItem>
+                          <SelectItem value="over-100k">
+                            Over €100,000
+                          </SelectItem>
                           <SelectItem value="flexible">
                             Flexible/To be determined
                           </SelectItem>
@@ -287,18 +310,31 @@ export function ServiceInquiryForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Desired Timeline</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select timeline" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="asap">As soon as possible</SelectItem>
-                          <SelectItem value="1-month">Within 1 month</SelectItem>
-                          <SelectItem value="3-months">Within 3 months</SelectItem>
-                          <SelectItem value="6-months">Within 6 months</SelectItem>
-                          <SelectItem value="flexible">Flexible timeline</SelectItem>
+                          <SelectItem value="asap">
+                            As soon as possible
+                          </SelectItem>
+                          <SelectItem value="1-month">
+                            Within 1 month
+                          </SelectItem>
+                          <SelectItem value="3-months">
+                            Within 3 months
+                          </SelectItem>
+                          <SelectItem value="6-months">
+                            Within 6 months
+                          </SelectItem>
+                          <SelectItem value="flexible">
+                            Flexible timeline
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -360,7 +396,8 @@ export function ServiceInquiryForm({
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-sm font-normal">
-                          Subscribe to our newsletter for AI insights and updates
+                          Subscribe to our newsletter for AI insights and
+                          updates
                         </FormLabel>
                       </div>
                     </FormItem>
@@ -380,9 +417,10 @@ export function ServiceInquiryForm({
 
               {/* Privacy Notice */}
               <p className="text-xs text-muted-foreground text-center">
-                By submitting this form, you agree to our privacy policy. We will
-                never share your information and will only use it to respond to
-                your inquiry and provide relevant updates if requested.
+                By submitting this form, you agree to our privacy policy. We
+                will never share your information and will only use it to
+                respond to your inquiry and provide relevant updates if
+                requested.
               </p>
             </form>
           </Form>

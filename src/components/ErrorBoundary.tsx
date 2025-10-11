@@ -2,10 +2,21 @@
 
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { AlertTriangle, RefreshCw, Home } from "lucide-react";
 import Link from "next/link";
-import { logError, isAppError, getErrorMessage, getErrorStatusCode } from "@/lib/errors";
+import {
+  logError,
+  isAppError,
+  getErrorMessage,
+  getErrorStatusCode,
+} from "@/lib/errors";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -24,7 +35,10 @@ interface ErrorBoundaryState {
  * Error Boundary component for catching and handling React errors
  * Follows the development methodology for robust error handling
  */
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -32,10 +46,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
     // Update state so the next render will show the fallback UI
-    return { 
-      hasError: true, 
+    return {
+      hasError: true,
       error,
-      errorId: `error-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+      errorId: `error-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     };
   }
 
@@ -80,14 +94,17 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               </div>
               <CardTitle className="text-xl">Something went wrong</CardTitle>
               <CardDescription>
-                We encountered an unexpected error. Please try again or contact support if the problem persists.
+                We encountered an unexpected error. Please try again or contact
+                support if the problem persists.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Error details in development */}
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <div className="rounded-md bg-muted p-3 text-sm">
-                  <p className="font-medium text-destructive mb-2">Error Details:</p>
+                  <p className="font-medium text-destructive mb-2">
+                    Error Details:
+                  </p>
                   <p className="text-muted-foreground mb-2">
                     {getErrorMessage(this.state.error)}
                   </p>
@@ -110,7 +127,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                   <RefreshCw className="mr-2 h-4 w-4" />
                   Try Again
                 </Button>
-                <Button onClick={this.handleReload} variant="outline" className="w-full">
+                <Button
+                  onClick={this.handleReload}
+                  variant="outline"
+                  className="w-full"
+                >
                   <RefreshCw className="mr-2 h-4 w-4" />
                   Reload Page
                 </Button>
@@ -126,7 +147,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               <div className="text-center text-sm text-muted-foreground">
                 <p>
                   If this problem continues, please{" "}
-                  <Link href="/contact" className="text-primary hover:underline">
+                  <Link
+                    href="/contact"
+                    className="text-primary hover:underline"
+                  >
                     contact our support team
                   </Link>
                   {this.state.errorId && (
@@ -155,7 +179,7 @@ export function useErrorHandler() {
   }, []);
 
   const handleError = React.useCallback((error: Error) => {
-    logError(error, { hook: 'useErrorHandler' });
+    logError(error, { hook: "useErrorHandler" });
     setError(error);
   }, []);
 
@@ -172,7 +196,7 @@ export function useErrorHandler() {
  */
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  errorBoundaryProps?: Omit<ErrorBoundaryProps, 'children'>
+  errorBoundaryProps?: Omit<ErrorBoundaryProps, "children">
 ) {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary {...errorBoundaryProps}>

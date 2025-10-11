@@ -22,7 +22,10 @@ export function Hero({
 }: HeroProps) {
   return (
     <FadeInUp>
-      <section role="region" className="container mx-auto px-4 py-16 relative z-10">
+      <section
+        role="region"
+        className="container mx-auto px-4 py-16 relative z-10"
+      >
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <FadeInUp delay={0.1}>
             <PulsingBadge>

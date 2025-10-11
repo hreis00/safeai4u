@@ -29,9 +29,7 @@ export function HeroAnimations({
           >
             {primaryButton.href ? (
               <Button size="lg" asChild>
-                <Link href={primaryButton.href}>
-                  {primaryButton.text}
-                </Link>
+                <Link href={primaryButton.href}>{primaryButton.text}</Link>
               </Button>
             ) : (
               <Button size="lg" onClick={primaryButton.onClick}>
@@ -51,12 +49,14 @@ export function HeroAnimations({
           >
             {secondaryButton.href ? (
               <Button size="lg" variant="outline" asChild>
-                <Link href={secondaryButton.href}>
-                  {secondaryButton.text}
-                </Link>
+                <Link href={secondaryButton.href}>{secondaryButton.text}</Link>
               </Button>
             ) : (
-              <Button size="lg" variant="outline" onClick={secondaryButton.onClick}>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={secondaryButton.onClick}
+              >
                 {secondaryButton.text}
               </Button>
             )}

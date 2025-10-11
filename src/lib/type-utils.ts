@@ -17,17 +17,26 @@ export type PartialExcept<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 /**
  * Create a type that makes all properties required except specified ones
  */
-export type RequiredExcept<T, K extends keyof T> = Required<T> & Partial<Pick<T, K>>;
+export type RequiredExcept<T, K extends keyof T> = Required<T> &
+  Partial<Pick<T, K>>;
 
 /**
  * Extract the return type of a function
  */
-export type ReturnType<T extends (...args: unknown[]) => unknown> = T extends (...args: unknown[]) => infer R ? R : never;
+export type ReturnType<T extends (...args: unknown[]) => unknown> = T extends (
+  ...args: unknown[]
+) => infer R
+  ? R
+  : never;
 
 /**
  * Extract the parameter types of a function
  */
-export type Parameters<T extends (...args: unknown[]) => unknown> = T extends (...args: infer P) => unknown ? P : never;
+export type Parameters<T extends (...args: unknown[]) => unknown> = T extends (
+  ...args: infer P
+) => unknown
+  ? P
+  : never;
 
 /**
  * Create a union type from an array of string literals
@@ -51,17 +60,21 @@ export type AtLeastOne<T> = [T, ...T[]];
 /**
  * Extract props from a React component
  */
-export type ComponentProps<T extends React.ComponentType<unknown>> = React.ComponentProps<T>;
+export type ComponentProps<T extends React.ComponentType<unknown>> =
+  React.ComponentProps<T>;
 
 /**
  * Extract props from a React component, excluding children
  */
-export type ComponentPropsWithoutChildren<T extends React.ComponentType<unknown>> = Omit<ComponentProps<T>, 'children'>;
+export type ComponentPropsWithoutChildren<
+  T extends React.ComponentType<unknown>,
+> = Omit<ComponentProps<T>, "children">;
 
 /**
  * Create a type for component props with default values
  */
-export type PropsWithDefaults<T, D extends Partial<T>> = Omit<T, keyof D> & Required<Pick<T, keyof D & keyof T>>;
+export type PropsWithDefaults<T, D extends Partial<T>> = Omit<T, keyof D> &
+  Required<Pick<T, keyof D & keyof T>>;
 
 // ============================================================================
 // FORM TYPE UTILITIES
@@ -76,7 +89,9 @@ export type FormErrors<T> = Partial<Record<keyof T, string>>;
  * Create a type for form field values
  */
 export type FormValues<T> = {
-  [K in keyof T]: T[K] extends string | number | boolean | null | undefined ? T[K] : never;
+  [K in keyof T]: T[K] extends string | number | boolean | null | undefined
+    ? T[K]
+    : never;
 };
 
 /**
@@ -100,7 +115,9 @@ export type ValidationRules<T> = {
  * Create a type for API request parameters
  */
 export type ApiRequestParams<T = Record<string, unknown>> = {
-  [K in keyof T]: T[K] extends string | number | boolean | null | undefined ? T[K] : never;
+  [K in keyof T]: T[K] extends string | number | boolean | null | undefined
+    ? T[K]
+    : never;
 };
 
 /**
@@ -153,8 +170,10 @@ export const isNotNullish = <T>(value: T | null | undefined): value is T => {
 /**
  * Type guard to check if a value is a function
  */
-export const isFunction = (value: unknown): value is (...args: unknown[]) => unknown => {
-  return typeof value === 'function';
+export const isFunction = (
+  value: unknown
+): value is (...args: unknown[]) => unknown => {
+  return typeof value === "function";
 };
 
 /**
@@ -196,7 +215,7 @@ export const isUrl = (value: string): boolean => {
  */
 export const isPhoneNumber = (value: string): boolean => {
   const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-  return phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''));
+  return phoneRegex.test(value.replace(/[\s\-\(\)]/g, ""));
 };
 
 // ============================================================================
@@ -221,17 +240,17 @@ export const HTTP_STATUS = {
   SERVICE_UNAVAILABLE: 503,
 } as const;
 
-export type HttpStatus = typeof HTTP_STATUS[keyof typeof HTTP_STATUS];
+export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS];
 
 /**
  * Common content types
  */
 export const CONTENT_TYPES = {
-  JSON: 'application/json',
-  FORM_DATA: 'multipart/form-data',
-  URL_ENCODED: 'application/x-www-form-urlencoded',
-  TEXT: 'text/plain',
-  HTML: 'text/html',
+  JSON: "application/json",
+  FORM_DATA: "multipart/form-data",
+  URL_ENCODED: "application/x-www-form-urlencoded",
+  TEXT: "text/plain",
+  HTML: "text/html",
 } as const;
 
-export type ContentType = typeof CONTENT_TYPES[keyof typeof CONTENT_TYPES];
+export type ContentType = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];

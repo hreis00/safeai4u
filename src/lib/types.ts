@@ -3,7 +3,7 @@
  * Following TypeScript best practices and development methodology
  */
 
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 // ============================================================================
 // UTILITY TYPES
@@ -24,7 +24,8 @@ export type RequireFields<T, K extends keyof T> = T & Required<Pick<T, K>>;
 /**
  * Make specific properties optional
  */
-export type OptionalFields<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+export type OptionalFields<T, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>;
 
 /**
  * Extract the value type from an object
@@ -72,8 +73,14 @@ export interface ButtonAction {
   text: string;
   href?: string;
   onClick?: () => void;
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
 }
 
 // ============================================================================
@@ -195,7 +202,7 @@ export interface ContentSEO {
  * Theme configuration
  */
 export interface ThemeConfig {
-  mode: 'light' | 'dark' | 'system';
+  mode: "light" | "dark" | "system";
   primaryColor: string;
   accentColor: string;
   fontFamily: string;
@@ -221,7 +228,7 @@ export interface ErrorContext {
 /**
  * Error severity levels
  */
-export type ErrorSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type ErrorSeverity = "low" | "medium" | "high" | "critical";
 
 // ============================================================================
 // TYPE GUARDS
@@ -231,28 +238,28 @@ export type ErrorSeverity = 'low' | 'medium' | 'high' | 'critical';
  * Type guard to check if a value is a string
  */
 export const isString = (value: unknown): value is string => {
-  return typeof value === 'string';
+  return typeof value === "string";
 };
 
 /**
  * Type guard to check if a value is a number
  */
 export const isNumber = (value: unknown): value is number => {
-  return typeof value === 'number' && !isNaN(value);
+  return typeof value === "number" && !isNaN(value);
 };
 
 /**
  * Type guard to check if a value is a boolean
  */
 export const isBoolean = (value: unknown): value is boolean => {
-  return typeof value === 'boolean';
+  return typeof value === "boolean";
 };
 
 /**
  * Type guard to check if a value is an object
  */
 export const isObject = (value: unknown): value is Record<string, unknown> => {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
+  return value !== null && typeof value === "object" && !Array.isArray(value);
 };
 
 /**
@@ -270,13 +277,13 @@ export const isArray = <T>(value: unknown): value is T[] => {
  * Common status types
  */
 export const STATUS_TYPES = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  SUCCESS: 'success',
-  ERROR: 'error',
+  IDLE: "idle",
+  LOADING: "loading",
+  SUCCESS: "success",
+  ERROR: "error",
 } as const;
 
-export type StatusType = typeof STATUS_TYPES[keyof typeof STATUS_TYPES];
+export type StatusType = (typeof STATUS_TYPES)[keyof typeof STATUS_TYPES];
 
 /**
  * HTTP status codes
@@ -296,16 +303,16 @@ export const HTTP_STATUS = {
   SERVICE_UNAVAILABLE: 503,
 } as const;
 
-export type HttpStatus = typeof HTTP_STATUS[keyof typeof HTTP_STATUS];
+export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS];
 
 /**
  * Common size types
  */
 export const SIZE_TYPES = {
-  SMALL: 'sm',
-  MEDIUM: 'md',
-  LARGE: 'lg',
-  EXTRA_LARGE: 'xl',
+  SMALL: "sm",
+  MEDIUM: "md",
+  LARGE: "lg",
+  EXTRA_LARGE: "xl",
 } as const;
 
-export type SizeType = typeof SIZE_TYPES[keyof typeof SIZE_TYPES];
+export type SizeType = (typeof SIZE_TYPES)[keyof typeof SIZE_TYPES];

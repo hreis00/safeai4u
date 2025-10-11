@@ -64,7 +64,7 @@ export default function ProjectsPage() {
                         machine learning models using graph networks. By
                         connecting data from multiple sources and integrating
                         synthetic data, gives rise to models with more informed
-                        outputs, while guaranteeing patients' privacy.
+                        outputs, while guaranteeing patients&apos; privacy.
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { FadeInUp } from "@/components/animations/FadeInUp";
 import Link from "next/link";
-import type { BaseComponentProps, ButtonAction } from '@/lib/types';
+import type { BaseComponentProps, ButtonAction } from "@/lib/types";
 
 export interface CallToActionProps extends BaseComponentProps {
   title: string;
@@ -50,14 +50,16 @@ export function CallToAction({
                 {primaryButton.text}
               </Button>
             )}
-            {secondaryButton && (
-              secondaryButton.href ? (
+            {secondaryButton &&
+              (secondaryButton.href ? (
                 <Button
                   size="lg"
                   variant={secondaryButton.variant || "outline"}
                   asChild
                 >
-                  <Link href={secondaryButton.href}>{secondaryButton.text}</Link>
+                  <Link href={secondaryButton.href}>
+                    {secondaryButton.text}
+                  </Link>
                 </Button>
               ) : (
                 <Button
@@ -67,8 +69,7 @@ export function CallToAction({
                 >
                   {secondaryButton.text}
                 </Button>
-              )
-            )}
+              ))}
           </CardContent>
         </Card>
       </FadeInUp>

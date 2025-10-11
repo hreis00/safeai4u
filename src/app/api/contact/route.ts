@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 // Validation schema for contact form
 const contactSchema = z.object({
@@ -45,11 +45,10 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Thank you for your inquiry. We'll respond within 24 hours.",
-        id: `inquiry-${Date.now()}`
+        id: `inquiry-${Date.now()}`,
       },
       { status: 200 }
     );
-
   } catch (error) {
     console.error("Contact form error:", error);
 
@@ -58,9 +57,9 @@ export async function POST(request: NextRequest) {
         {
           error: "Validation failed",
           details: error.issues.map(issue => ({
-            field: issue.path.join('.'),
-            message: issue.message
-          }))
+            field: issue.path.join("."),
+            message: issue.message,
+          })),
         },
         { status: 400 }
       );
