@@ -17,7 +17,7 @@ export function QuoteHighlight({
 }: QuoteHighlightProps) {
   return (
     <section
-      className={`container mx-auto px-4 py-16 bg-muted/50 ${className}`}
+      className={`container mx-auto px-4 py-16 bg-section-muted ${className}`}
     >
       <FadeInUp className="max-w-4xl mx-auto text-center space-y-6">
         <blockquote className="text-2xl font-semibold italic">
