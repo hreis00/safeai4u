@@ -41,15 +41,15 @@ export default function Home() {
       />
       {/* Hero Section */}
       <Hero
-        badgeText="Responsible AI Consulting • Healthcare & Education"
-        title="Expert AI Consulting Services for Ethical Implementation"
-        description="Transform your organization with responsible AI solutions. Professional AI consulting, custom development, and comprehensive training programs for healthcare, education, and enterprise applications across Europe."
+        badgeText="RESPONSIBLE A.I. 4 ALL • Shaping the Future of Technology"
+        title="Pioneers in Responsible AI Solutions"
+        description="We are pioneers in developing responsible AI solutions that are shaping the future of technology. Embracing responsible AI practices, we ensure that our solutions are not only powerful but also safe, unbiased, and inclusive for healthcare, education, and society."
         primaryButton={{
-          text: "Explore AI Consulting Services",
+          text: "Explore Our AI Solutions",
           href: "/services",
         }}
         secondaryButton={{
-          text: "Schedule AI Consultation",
+          text: "Join Our Mission",
           href: "/contact",
         }}
       />
@@ -60,13 +60,13 @@ export default function Home() {
           <FadeInUp>
             <div className="text-center space-y-6 mb-12">
               <h2 className="text-3xl font-bold">
-                Proven Results in Responsible AI Implementation
+                Leading the Way in Responsible AI Development
               </h2>
               <p className="max-w-2xl mx-auto text-muted-foreground">
-                Our expertise in responsible AI consulting and healthcare AI
-                solutions drives measurable impact across organizations
-                implementing ethical AI practices in Portugal and throughout
-                Europe
+                With cutting-edge expertise, we harness the power of artificial
+                intelligence to create innovative and ethical solutions that
+                positively impact healthcare, education, and society across
+                Portugal and throughout Europe
               </p>
             </div>
           </FadeInUp>
@@ -137,51 +137,51 @@ export default function Home() {
 
       {/* Services Overview */}
       <ServiceShowcase
-        title="Comprehensive AI Consulting Services for Responsible Implementation"
-        description="Expert AI consulting, healthcare AI solutions, and professional AI education programs designed for ethical AI implementation across healthcare, education, and enterprise sectors"
+        title="Our Core AI Solutions"
+        description="From healthcare innovation to educational empowerment and ethical AI development, we create solutions that serve humanity with conscience and responsibility"
         background="default"
         columns={3}
         items={[
           {
             icon: "❤️",
             title: "SAI [4Health]",
-            description: "Healthcare AI Consulting & Development",
+            description: "Solutions for Healthcare",
             content:
-              "Specialized healthcare AI consulting services that enhance diagnostic accuracy, support clinical decision-making, and improve patient outcomes through responsible AI implementation with strict ethical standards and data privacy compliance.",
+              "With our cutting-edge services, we open the door to a new era of medical possibilities. From enhancing diagnostics to personalized treatment plans, our AI solutions revolutionize healthcare delivery, optimize healthcare processes, and unlock medical insights that were once hidden.",
             features: [
-              "Healthcare AI strategy consulting",
-              "Medical AI system development",
-              "Clinical AI implementation support",
+              "Enhanced diagnostic accuracy",
+              "Personalized treatment plans",
+              "Healthcare delivery optimization",
             ],
-            buttonText: "Explore Healthcare AI Services",
+            buttonText: "Explore Healthcare Solutions",
             buttonHref: "/services",
           },
           {
             icon: "🧠",
             title: "SAI [4Mind]",
-            description: "Professional AI Education & Training",
+            description: "Empowering Minds",
             content:
-              "Comprehensive AI education programs and professional training workshops designed to build responsible AI expertise. Our AI certification programs empower professionals with ethical AI development skills and practical implementation knowledge.",
+              "Unveil the wonders of AI with us! Our engaging teaching services will equip you with the skills and knowledge to conquer the boundless possibilities of Artificial Intelligence. Let's embark on this thrilling journey together and pave the way for a smarter future.",
             features: [
-              "Professional AI training workshops",
-              "Responsible AI certification programs",
-              "Custom AI education curriculum",
+              "AI skills and knowledge development",
+              "Professional training workshops",
+              "Educational AI mastery programs",
             ],
-            buttonText: "Discover AI Training Programs",
+            buttonText: "Join the AI Journey",
             buttonHref: "/workshops",
           },
           {
             icon: "🛡️",
             title: "SAI [4Trust]",
-            description: "AI Ethics & Governance Consulting",
+            description: "Responsible AI for All",
             content:
-              "Expert AI governance consulting that builds organizational trust through ethical AI frameworks, compliance strategies, and responsible AI development practices ensuring AI implementations serve business objectives while maintaining ethical standards.",
+              "Step into the world of Responsible AI! Join us to explore the ethical side of technology and make a positive impact. Let's shape a better future together, harmonizing innovation with social consciousness. Embrace the power of AI with a conscience.",
             features: [
-              "AI ethics consulting services",
-              "Responsible AI governance frameworks",
-              "AI compliance and risk management",
+              "Ethical AI development",
+              "Social consciousness integration",
+              "Responsible AI frameworks",
             ],
-            buttonText: "Learn About AI Ethics Consulting",
+            buttonText: "Discover Responsible AI",
             buttonHref: "/services",
           },
         ]}
@@ -227,30 +227,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Philosophy Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <FadeInUp>
+            <blockquote className="text-2xl md:text-3xl font-medium text-primary italic">
+              &ldquo;We should stop playing with AI and use it with
+              conscience.&rdquo;
+            </blockquote>
+            <div className="text-muted-foreground mt-4">
+              <p className="font-medium">David Belo</p>
+              <p className="text-sm">Founder & CEO, SAFE AI [4U]</p>
+            </div>
+          </FadeInUp>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <ServiceShowcase
-        title="Why Choose Our AI Consulting Services?"
-        description="Leading AI consulting firm in Portugal combining deep AI research expertise with proven responsible AI implementation methodologies for healthcare and enterprise applications"
+        title="Why Choose SAFE AI [4U]?"
+        description="Leading the transformation towards a more responsible and sustainable AI future, making a difference in the world through cutting-edge technology with conscience"
         items={[
           {
-            title: "Expert AI Research Background",
+            title: "Pioneers in Responsible AI",
             description:
-              "15+ years of AI research experience in responsible AI development, healthcare AI applications, and ethical AI implementation ensuring scientifically sound consulting services",
+              "15+ years of AI research experience dedicated to developing responsible AI solutions that are safe, unbiased, and inclusive, ensuring technology serves humanity with conscience and responsibility",
           },
           {
-            title: "Responsible AI Development Focus",
+            title: "Cutting-Edge Expertise",
             description:
-              "Every AI consulting project guided by ethical AI principles and responsible development practices, ensuring AI implementations serve organizational goals while maintaining human-centered values",
+              "We harness the power of artificial intelligence to create innovative and ethical solutions that positively impact healthcare, education, and society while maintaining the highest standards of responsible development",
           },
           {
-            title: "Healthcare AI Specialization",
+            title: "Healthcare Innovation Focus",
             description:
-              "Specialized expertise in healthcare AI consulting, medical AI system development, and clinical AI implementation with deep understanding of healthcare industry requirements",
+              "Specialized in opening new medical possibilities through enhanced diagnostics, personalized treatment plans, and healthcare delivery optimization that unlocks previously hidden medical insights",
           },
           {
-            title: "Comprehensive AI Education",
+            title: "Educational Excellence",
             description:
-              "Professional AI training programs and workshops that build organizational AI capabilities through hands-on education in responsible AI practices and implementation strategies",
+              "Our engaging teaching services equip professionals with the skills and knowledge to conquer AI possibilities, embarking on a thrilling journey together to pave the way for a smarter future",
           },
         ]}
         columns={2}
@@ -258,15 +274,15 @@ export default function Home() {
 
       {/* CTA Section */}
       <CallToAction
-        title="Ready for Professional AI Consulting Services?"
-        description="Partner with Portugal's leading AI consulting firm for responsible AI implementation. Expert AI development, healthcare AI solutions, and comprehensive AI training programs designed for your organization's success."
+        title="Join Us in This Journey of Transformation"
+        description="Ready to shape a better future together? Let's harmonize innovation with social consciousness and create AI solutions that serve humanity with conscience and responsibility."
         primaryButton={{
-          text: "Schedule AI Consultation",
+          text: "Start Your AI Journey",
           href: "/contact",
           variant: "default",
         }}
         secondaryButton={{
-          text: "Explore AI Services",
+          text: "Explore Our Solutions",
           href: "/services",
           variant: "outline",
         }}

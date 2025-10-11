@@ -8,19 +8,13 @@ import {
 } from "@/components/ui/card";
 import { FadeInUp } from "@/components/animations/FadeInUp";
 import Link from "next/link";
+import type { BaseComponentProps, ButtonAction } from "@/lib/types";
 
-export interface CTAButton {
-  text: string;
-  href: string;
-  variant?: "default" | "outline";
-}
-
-export interface CallToActionProps {
+export interface CallToActionProps extends BaseComponentProps {
   title: string;
   description: string;
-  primaryButton: CTAButton;
-  secondaryButton?: CTAButton;
-  className?: string;
+  primaryButton: ButtonAction;
+  secondaryButton?: ButtonAction;
 }
 
 export function CallToAction({
@@ -39,22 +33,43 @@ export function CallToAction({
             <CardDescription className="text-lg">{description}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Button
-              size="lg"
-              variant={primaryButton.variant || "default"}
-              asChild
-            >
-              <Link href={primaryButton.href}>{primaryButton.text}</Link>
-            </Button>
-            {secondaryButton && (
+            {primaryButton.href ? (
               <Button
                 size="lg"
-                variant={secondaryButton.variant || "outline"}
+                variant={primaryButton.variant || "default"}
                 asChild
               >
-                <Link href={secondaryButton.href}>{secondaryButton.text}</Link>
+                <Link href={primaryButton.href}>{primaryButton.text}</Link>
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                variant={primaryButton.variant || "default"}
+                onClick={primaryButton.onClick}
+              >
+                {primaryButton.text}
               </Button>
             )}
+            {secondaryButton &&
+              (secondaryButton.href ? (
+                <Button
+                  size="lg"
+                  variant={secondaryButton.variant || "outline"}
+                  asChild
+                >
+                  <Link href={secondaryButton.href}>
+                    {secondaryButton.text}
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  variant={secondaryButton.variant || "outline"}
+                  onClick={secondaryButton.onClick}
+                >
+                  {secondaryButton.text}
+                </Button>
+              ))}
           </CardContent>
         </Card>
       </FadeInUp>

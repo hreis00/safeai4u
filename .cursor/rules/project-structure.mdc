@@ -1,0 +1,81 @@
+---
+alwaysApply: true
+description: Project structure and architecture guidelines for SAFE AI [4U]
+---
+
+# Project Structure & Architecture
+
+## Overview
+SAFE AI [4U] is a Next.js 15.3.4 professional website for an AI company focused on responsible and ethical AI solutions.
+
+## Core Technologies
+- **Framework**: Next.js 15.3.4 with TypeScript
+- **Styling**: Tailwind CSS v4 with @theme inline directive
+- **UI Components**: shadcn/ui (Radix UI primitives)
+- **Animations**: Framer Motion 12.19.2
+- **Forms**: React Hook Form with Zod validation
+- **Color System**: OKLCH color space for cyberpunk theming
+
+## File Structure
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── globals.css        # Main theming system (cyberpunk colors)
+│   ├── layout.tsx         # Root layout with navigation and error boundary
+│   ├── page.tsx           # Home page
+│   ├── about/page.tsx     # About page with team info
+│   ├── contact/page.tsx   # Contact form page
+│   ├── projects/page.tsx  # Projects showcase
+│   ├── services/page.tsx  # Services overview
+│   ├── workshops/page.tsx # Educational workshops
+│   └── api/              # API routes
+│       └── contact/      # Contact form API endpoint
+├── components/
+│   ├── animations/        # Framer Motion animation components
+│   ├── navigation/        # Navigation components
+│   ├── ui/               # shadcn/ui components (optimized with Next.js Image)
+│   ├── CallToAction.tsx  # Reusable CTA component
+│   ├── ErrorBoundary.tsx # Error boundary component
+│   ├── Hero.tsx          # Hero section component (server component)
+│   ├── HeroAnimations.tsx # Hero animations (client component)
+│   ├── ServiceInquiryForm.tsx # Form with Zod validation and error handling
+│   ├── ServiceTabs.tsx   # Service tabs (server component)
+│   ├── ServiceTabsInteractive.tsx # Service tabs interactions (client component)
+│   └── ThemeToggle.tsx   # Light/dark mode toggle
+├── hooks/
+│   └── useErrorHandler.ts # Custom error handling hooks
+└── lib/
+    ├── api-client.ts     # Enhanced API client with error handling
+    ├── errors.ts         # Custom error types and utilities
+    ├── types.ts          # Centralized type definitions
+    ├── type-utils.ts     # TypeScript utility functions
+    ├── image-optimization.ts # Image optimization utilities
+    ├── seo.ts            # SEO configuration and structured data
+    ├── utils.ts          # Utility functions
+    ├── content/          # Content management utilities
+    ├── content-*.ts      # Content management modules
+    ├── pricing-data.ts   # Pricing configuration
+    ├── services-data.ts  # Services configuration
+    └── typescript-guide.md # TypeScript best practices guide
+```
+
+## Key Configuration Files
+- [package.json](mdc:package.json) - Dependencies and scripts
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration with path aliases
+- [components.json](mdc:components.json) - shadcn/ui configuration
+- [eslint.config.mjs](mdc:eslint.config.mjs) - ESLint configuration
+- [next.config.ts](mdc:next.config.ts) - Next.js configuration
+
+## Path Aliases
+- `@/*` maps to `./src/*`
+- `@/components` for component imports
+- `@/lib` for utility functions
+- `@/hooks` for custom hooks
+
+## Pages Overview
+1. **Home** (`/`): Hero, services preview, testimonials, CTA
+2. **About** (`/about`): Mission, team (David Belo), approach, partnerships
+3. **Services** (`/services`): AI consulting, development, education
+4. **Projects** (`/projects`): Case studies and implementations
+5. **Workshops** (`/workshops`): Educational programs and training
+6. **Contact** (`/contact`): Contact form and information

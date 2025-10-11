@@ -38,15 +38,15 @@ export default function WorkshopsPage() {
       />
       {/* Hero Section */}
       <Hero
-        badgeText="Professional AI Training Programs • Europe"
-        title="Expert AI Education & Responsible AI Training Workshops"
-        description="Transform your AI expertise through professional AI training programs, hands-on workshops, and comprehensive AI education designed for healthcare professionals, technology teams, and business leaders across Europe."
+        badgeText="WORKSHOPS - EMPOWERING MINDS • Europe"
+        title="Gateway to Acquiring Profound AI Knowledge & Insights"
+        description="From the realms of Artificial Intelligence and cutting-edge technology to the intricacies of ethical business practices, our workshops inspire, educate, and fuel your drive for personal and professional growth. Expand your expertise and become part of a community devoted to continuous improvement."
         primaryButton={{
-          text: "Register for AI Training",
+          text: "Join Our AI Community",
           href: "/contact?subject=workshop",
         }}
         secondaryButton={{
-          text: "Browse AI Programs",
+          text: "Explore Programs",
           href: "#programs",
         }}
       />
@@ -67,9 +67,11 @@ export default function WorkshopsPage() {
               <div className="text-center space-y-6 mb-12">
                 <h2 className="text-3xl font-bold">Workshop Programs</h2>
                 <p className="max-w-2xl mx-auto text-muted-foreground">
-                  From beginners to advanced practitioners, our workshops
-                  provide comprehensive AI education tailored to your learning
-                  goals.
+                  Each session is carefully curated to inspire, educate, and
+                  fuel your drive for personal and professional growth. Engage
+                  with industry experts and become part of a community devoted
+                  to continuous improvement. Your next voyage of discovery
+                  awaits.
                 </p>
               </div>
             </FadeInUp>
@@ -577,16 +579,16 @@ export default function WorkshopsPage() {
 
       {/* CTA Section */}
       <CallToAction
-        title="Ready to Start Your AI Journey?"
-        description="Join hundreds of professionals who have transformed their careers through our comprehensive AI education programs."
+        title="Ready to Embark on This Thrilling Journey?"
+        description="Let's pave the way for a smarter future together! Join our community of AI professionals and unlock the boundless possibilities of Artificial Intelligence with conscience and responsibility."
         primaryButton={{
-          text: "Register for Workshop",
+          text: "Start Your AI Adventure",
           href: "/contact?subject=workshop-inquiry",
           variant: "default",
         }}
         secondaryButton={{
-          text: "Learn More",
-          href: "/services/mind",
+          text: "Discover AI Magic",
+          href: "/services",
           variant: "outline",
         }}
       />
