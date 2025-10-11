@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
+import { generatePageMetadata, generateCourseStructuredData } from "@/lib/seo";
 
 // Animation Components
 import {
@@ -23,26 +23,30 @@ import { Hero } from "@/components/Hero";
 import { QuoteHighlight } from "@/components/QuoteHighlight";
 import { CallToAction } from "@/components/CallToAction";
 
-export const metadata: Metadata = {
-  title: "Workshops - SAFE AI [4U]",
-  description:
-    "Empowering minds through AI workshops and educational programs.",
-};
+export const metadata = generatePageMetadata("workshops");
 
 export default function WorkshopsPage() {
+  const courseStructuredData = generateCourseStructuredData();
+
   return (
     <div className="space-y-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(courseStructuredData),
+        }}
+      />
       {/* Hero Section */}
       <Hero
-        badgeText="Workshops & Training"
-        title="Empowering Minds"
-        description="Transform your understanding of AI through hands-on workshops, expert-led training, and comprehensive educational programs designed for all skill levels."
+        badgeText="Professional AI Training Programs • Europe"
+        title="Expert AI Education & Responsible AI Training Workshops"
+        description="Transform your AI expertise through professional AI training programs, hands-on workshops, and comprehensive AI education designed for healthcare professionals, technology teams, and business leaders across Europe."
         primaryButton={{
-          text: "Register Now",
+          text: "Register for AI Training",
           href: "/contact?subject=workshop",
         }}
         secondaryButton={{
-          text: "Browse Programs",
+          text: "Browse AI Programs",
           href: "#programs",
         }}
       />
@@ -91,36 +95,65 @@ export default function WorkshopsPage() {
                           What You&apos;ll Learn:
                         </h4>
                         <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Fundamentals of AI and Machine Learning</li>
-                          <li>• Practical applications across industries</li>
-                          <li>• Hands-on coding with Python</li>
-                          <li>• Ethics and responsible AI principles</li>
-                          <li>• Real-world case studies and projects</li>
+                          <li>
+                            • AI fundamentals: ML, Deep Learning, NLP basics
+                          </li>
+                          <li>• Healthcare AI applications and case studies</li>
+                          <li>
+                            • Python programming for AI (scikit-learn, pandas)
+                          </li>
+                          <li>
+                            • Responsible AI frameworks and bias detection
+                          </li>
+                          <li>• Hands-on project: Build your first AI model</li>
+                          <li>
+                            • Industry applications in healthcare and education
+                          </li>
                         </ul>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <div className="font-medium">Duration</div>
-                          <div className="text-muted-foreground">2 Days</div>
+                          <div className="text-muted-foreground">
+                            16 Hours (2 Days)
+                          </div>
                         </div>
                         <div>
                           <div className="font-medium">Format</div>
-                          <div className="text-muted-foreground">Hybrid</div>
+                          <div className="text-muted-foreground">
+                            In-Person/Online
+                          </div>
                         </div>
                         <div>
                           <div className="font-medium">Group Size</div>
-                          <div className="text-muted-foreground">Max 20</div>
+                          <div className="text-muted-foreground">
+                            12-16 people
+                          </div>
                         </div>
                         <div>
-                          <div className="font-medium">Certificate</div>
-                          <div className="text-muted-foreground">Included</div>
+                          <div className="font-medium">Prerequisites</div>
+                          <div className="text-muted-foreground">
+                            Basic programming
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="space-y-3">
-                      <div className="text-2xl font-bold">€299</div>
+                      <div className="flex items-baseline gap-2">
+                        <div className="text-2xl font-bold">€450</div>
+                        <div className="text-sm text-muted-foreground line-through">
+                          €550
+                        </div>
+                        <Badge variant="secondary" className="text-xs">
+                          Early Bird
+                        </Badge>
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Includes materials, certificate, and 30-day email
+                        support
+                      </div>
                       <Button className="w-full" asChild>
                         <Link href="/contact?workshop=foundations">
                           Register Now
@@ -153,36 +186,63 @@ export default function WorkshopsPage() {
                           What You&apos;ll Learn:
                         </h4>
                         <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Advanced machine learning algorithms</li>
-                          <li>• Model deployment and scaling strategies</li>
-                          <li>• Performance optimization techniques</li>
-                          <li>• MLOps and production workflows</li>
-                          <li>• Portfolio project development</li>
+                          <li>
+                            • Advanced ML: Neural Networks, Ensemble Methods
+                          </li>
+                          <li>
+                            • Model deployment with Docker and cloud platforms
+                          </li>
+                          <li>
+                            • Performance optimization and model monitoring
+                          </li>
+                          <li>• MLOps pipelines with CI/CD integration</li>
+                          <li>
+                            • Healthcare AI project: End-to-end development
+                          </li>
+                          <li>
+                            • API development and model serving strategies
+                          </li>
                         </ul>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <div className="font-medium">Duration</div>
-                          <div className="text-muted-foreground">3 Days</div>
+                          <div className="text-muted-foreground">
+                            24 Hours (3 Days)
+                          </div>
                         </div>
                         <div>
                           <div className="font-medium">Format</div>
-                          <div className="text-muted-foreground">In-Person</div>
+                          <div className="text-muted-foreground">
+                            In-Person Only
+                          </div>
                         </div>
                         <div>
                           <div className="font-medium">Group Size</div>
-                          <div className="text-muted-foreground">Max 15</div>
+                          <div className="text-muted-foreground">
+                            8-12 people
+                          </div>
                         </div>
                         <div>
-                          <div className="font-medium">Mentorship</div>
-                          <div className="text-muted-foreground">3 Months</div>
+                          <div className="font-medium">Prerequisites</div>
+                          <div className="text-muted-foreground">
+                            Python + ML basics
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="space-y-3">
-                      <div className="text-2xl font-bold">€499</div>
+                      <div className="flex items-baseline gap-2">
+                        <div className="text-2xl font-bold">€750</div>
+                        <div className="text-sm text-muted-foreground line-through">
+                          €900
+                        </div>
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Includes 3-month mentorship and project portfolio review
+                      </div>
                       <Button className="w-full" asChild>
                         <Link href="/contact?workshop=applied">
                           Register Now
@@ -215,36 +275,62 @@ export default function WorkshopsPage() {
                           What You&apos;ll Learn:
                         </h4>
                         <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Ethical AI frameworks and principles</li>
-                          <li>• Bias detection and mitigation strategies</li>
-                          <li>• AI governance and risk management</li>
-                          <li>• Regulatory compliance and standards</li>
-                          <li>• Leadership in AI transformation</li>
+                          <li>• EU AI Act compliance and implementation</li>
+                          <li>
+                            • Bias auditing tools and mitigation frameworks
+                          </li>
+                          <li>
+                            • AI governance structures and risk assessment
+                          </li>
+                          <li>• Healthcare AI ethics and patient privacy</li>
+                          <li>
+                            • Strategic AI leadership and change management
+                          </li>
+                          <li>
+                            • Building responsible AI culture in organizations
+                          </li>
                         </ul>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <div className="font-medium">Duration</div>
-                          <div className="text-muted-foreground">2 Days</div>
+                          <div className="text-muted-foreground">
+                            16 Hours (2 Days)
+                          </div>
                         </div>
                         <div>
                           <div className="font-medium">Format</div>
-                          <div className="text-muted-foreground">Executive</div>
+                          <div className="text-muted-foreground">
+                            Executive Retreat
+                          </div>
                         </div>
                         <div>
                           <div className="font-medium">Group Size</div>
-                          <div className="text-muted-foreground">Max 12</div>
+                          <div className="text-muted-foreground">
+                            6-10 executives
+                          </div>
                         </div>
                         <div>
-                          <div className="font-medium">Certification</div>
-                          <div className="text-muted-foreground">Advanced</div>
+                          <div className="font-medium">Prerequisites</div>
+                          <div className="text-muted-foreground">
+                            Leadership role
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="space-y-3">
-                      <div className="text-2xl font-bold">€799</div>
+                      <div className="flex items-baseline gap-2">
+                        <div className="text-2xl font-bold">€1,200</div>
+                        <Badge variant="outline" className="text-xs">
+                          Executive Level
+                        </Badge>
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Includes executive certificate and 6-month advisory
+                        access
+                      </div>
                       <Button className="w-full" asChild>
                         <Link href="/contact?workshop=ethics">
                           Register Now
@@ -269,8 +355,9 @@ export default function WorkshopsPage() {
                   Custom Training Solutions
                 </h2>
                 <p className="max-w-2xl mx-auto text-muted-foreground">
-                  Tailored training programs designed specifically for your
-                  organization&apos;s needs
+                  Specialized AI training programs designed for healthcare
+                  organizations, technology companies, and academic institutions
+                  across Portugal and Europe
                 </p>
               </div>
             </FadeInUp>
@@ -281,22 +368,44 @@ export default function WorkshopsPage() {
                   <CardHeader>
                     <CardTitle>Corporate Training</CardTitle>
                     <CardDescription>
-                      On-site training programs for teams and organizations
+                      Tailored AI training programs for healthcare
+                      organizations, tech companies, and educational
+                      institutions
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <ul className="text-sm text-muted-foreground space-y-2">
-                      <li>• Customized curriculum based on your industry</li>
-                      <li>• Expert trainers with real-world experience</li>
-                      <li>• Flexible scheduling and delivery formats</li>
-                      <li>• Post-training support and mentorship</li>
-                      <li>• Progress tracking and assessment</li>
-                    </ul>
-                    <Button variant="outline" className="w-full" asChild>
-                      <Link href="/contact?service=corporate-training">
-                        Get Quote
-                      </Link>
-                    </Button>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="font-medium text-sm mb-1">
+                          Healthcare Organizations
+                        </h4>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>• Medical AI implementation and ethics</li>
+                          <li>• Patient data privacy and AI compliance</li>
+                          <li>• Clinical decision support systems</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-sm mb-1">
+                          Technology Companies
+                        </h4>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>• Responsible AI development practices</li>
+                          <li>• EU AI Act compliance strategies</li>
+                          <li>• Bias detection and mitigation</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t">
+                      <div className="text-xs text-muted-foreground mb-3">
+                        Starting from €2,500 per day (up to 20 participants)
+                      </div>
+                      <Button variant="outline" className="w-full" asChild>
+                        <Link href="/contact?service=corporate-training">
+                          Request Proposal
+                        </Link>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </FloatingCard>
@@ -306,22 +415,45 @@ export default function WorkshopsPage() {
                   <CardHeader>
                     <CardTitle>Academic Partnerships</CardTitle>
                     <CardDescription>
-                      University and educational institution collaborations
+                      Collaborations with Portuguese and European universities
+                      in AI education and research
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <ul className="text-sm text-muted-foreground space-y-2">
-                      <li>• Curriculum development and integration</li>
-                      <li>• Guest lectures and workshops</li>
-                      <li>• Research collaboration opportunities</li>
-                      <li>• Student internship programs</li>
-                      <li>• Faculty development workshops</li>
-                    </ul>
-                    <Button variant="outline" className="w-full" asChild>
-                      <Link href="/contact?service=academic-partnership">
-                        Partner with Us
-                      </Link>
-                    </Button>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="font-medium text-sm mb-1">
+                          Current Partnerships
+                        </h4>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>• University of Porto - AI Ethics curriculum</li>
+                          <li>• NOVA University - Healthcare AI research</li>
+                          <li>• IST Lisbon - Responsible AI frameworks</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-sm mb-1">
+                          Partnership Opportunities
+                        </h4>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>• Guest lectures on responsible AI</li>
+                          <li>• Joint research projects in healthcare AI</li>
+                          <li>• Student thesis supervision and mentorship</li>
+                          <li>• Faculty development in AI ethics</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t">
+                      <div className="text-xs text-muted-foreground mb-3">
+                        Special academic rates available for educational
+                        institutions
+                      </div>
+                      <Button variant="outline" className="w-full" asChild>
+                        <Link href="/contact?service=academic-partnership">
+                          Explore Partnership
+                        </Link>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </FloatingCard>
@@ -338,32 +470,41 @@ export default function WorkshopsPage() {
               <div className="text-center space-y-6 mb-12">
                 <h2 className="text-3xl font-bold">Success Stories</h2>
                 <p className="max-w-2xl mx-auto text-muted-foreground">
-                  Hear from participants who have transformed their careers
-                  through our workshops
+                  Professionals from healthcare, academia, and technology
+                  sectors share how our responsible AI training has impacted
+                  their organizations
                 </p>
               </div>
             </FadeInUp>
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <FloatingCard delay={0.1}>
                 <Card>
                   <CardContent className="p-6 space-y-4">
                     <div className="flex items-center gap-3">
                       <Avatar>
-                        <AvatarFallback>MR</AvatarFallback>
+                        <AvatarFallback>DR</AvatarFallback>
                       </Avatar>
                       <div>
-                        <div className="font-medium">Maria Rodriguez</div>
+                        <div className="font-medium">Dr. Ricardo Santos</div>
                         <div className="text-sm text-muted-foreground">
-                          Healthcare Manager
+                          Medical Director, Hospital São João
                         </div>
                       </div>
                     </div>
                     <blockquote className="text-sm italic">
-                      &ldquo;The AI Foundations workshop opened my eyes to the
-                      possibilities of AI in healthcare. Now I&apos;m leading
-                      our digital transformation initiative.&rdquo;
+                      &ldquo;SAFE AI [4U]&apos;s healthcare-focused AI training
+                      helped our team understand how to implement responsible AI
+                      solutions in clinical settings while maintaining patient
+                      privacy and safety.&rdquo;
                     </blockquote>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Badge variant="outline" className="text-xs">
+                        AI Foundations
+                      </Badge>
+                      <span>•</span>
+                      <span>Healthcare Sector</span>
+                    </div>
                   </CardContent>
                 </Card>
               </FloatingCard>
@@ -373,20 +514,28 @@ export default function WorkshopsPage() {
                   <CardContent className="p-6 space-y-4">
                     <div className="flex items-center gap-3">
                       <Avatar>
-                        <AvatarFallback>JS</AvatarFallback>
+                        <AvatarFallback>CP</AvatarFallback>
                       </Avatar>
                       <div>
-                        <div className="font-medium">João Silva</div>
+                        <div className="font-medium">Prof. Carla Pereira</div>
                         <div className="text-sm text-muted-foreground">
-                          Software Developer
+                          Computer Science, University of Porto
                         </div>
                       </div>
                     </div>
                     <blockquote className="text-sm italic">
-                      &ldquo;The Applied AI workshop gave me the practical
-                      skills I needed to transition into machine learning
-                      engineering.&rdquo;
+                      &ldquo;The Applied AI Development workshop provided our
+                      research team with practical skills to implement ethical
+                      AI solutions. The focus on responsible development aligns
+                      perfectly with our academic values.&rdquo;
                     </blockquote>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Badge variant="outline" className="text-xs">
+                        Applied AI
+                      </Badge>
+                      <span>•</span>
+                      <span>Academic Partnership</span>
+                    </div>
                   </CardContent>
                 </Card>
               </FloatingCard>
@@ -396,18 +545,28 @@ export default function WorkshopsPage() {
                   <CardContent className="p-6 space-y-4">
                     <div className="flex items-center gap-3">
                       <Avatar>
-                        <AvatarFallback>AL</AvatarFallback>
+                        <AvatarFallback>MS</AvatarFallback>
                       </Avatar>
                       <div>
-                        <div className="font-medium">Ana Lopes</div>
-                        <div className="text-sm text-muted-foreground">CTO</div>
+                        <div className="font-medium">Miguel Sousa</div>
+                        <div className="text-sm text-muted-foreground">
+                          CTO, TechHealth Solutions
+                        </div>
                       </div>
                     </div>
                     <blockquote className="text-sm italic">
-                      &ldquo;The Ethics & Leadership workshop helped me
-                      establish responsible AI practices across our entire
-                      organization.&rdquo;
+                      &ldquo;David Belo&apos;s Ethics & Leadership workshop
+                      transformed how we approach AI governance. The practical
+                      frameworks for EU AI Act compliance were invaluable for
+                      our healthcare AI products.&rdquo;
                     </blockquote>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Badge variant="outline" className="text-xs">
+                        Ethics & Leadership
+                      </Badge>
+                      <span>•</span>
+                      <span>HealthTech Industry</span>
+                    </div>
                   </CardContent>
                 </Card>
               </FloatingCard>

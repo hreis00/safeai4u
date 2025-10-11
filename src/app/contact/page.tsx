@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { generatePageMetadata } from "@/lib/seo";
 
 // Animation Components
 import { FloatingCard, FadeInUp } from "@/components/animations";
@@ -24,20 +24,16 @@ import { FloatingCard, FadeInUp } from "@/components/animations";
 // Components
 import { Hero } from "@/components/Hero";
 
-export const metadata: Metadata = {
-  title: "Contact Us - SAFE AI [4U]",
-  description:
-    "Get in touch with our team for AI consultations and partnerships.",
-};
+export const metadata = generatePageMetadata("contact");
 
 export default function ContactPage() {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
       <Hero
-        badgeText="Contact Us"
-        title="Let's Shape the Future of AI Together"
-        description="Ready to explore responsible AI solutions? We're here to help you navigate the possibilities and implement ethical AI that drives real impact."
+        badgeText="AI Consulting Contact • Portugal & Europe"
+        title="Contact Our AI Consulting Experts"
+        description="Ready to implement responsible AI solutions? Contact our expert AI consulting team for healthcare AI projects, AI training programs, and strategic AI implementation services across Portugal and Europe."
       />
 
       {/* Contact Form & Info */}
@@ -91,22 +87,34 @@ export default function ContactPage() {
                         <SelectValue placeholder="What can we help you with?" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="healthcare">
-                          Healthcare AI Solutions
+                        <SelectItem value="ai-consulting">
+                          AI Strategy & Consulting
                         </SelectItem>
-                        <SelectItem value="education">
-                          AI Education & Training
+                        <SelectItem value="healthcare-ai">
+                          SAI [4Health] - Healthcare AI Solutions
                         </SelectItem>
-                        <SelectItem value="ethics">
-                          AI Ethics Consulting
+                        <SelectItem value="ai-education">
+                          SAI [4Mind] - AI Education & Training
+                        </SelectItem>
+                        <SelectItem value="responsible-ai">
+                          SAI [4Trust] - Responsible AI Implementation
+                        </SelectItem>
+                        <SelectItem value="custom-development">
+                          Custom AI Development
+                        </SelectItem>
+                        <SelectItem value="workshops">
+                          Corporate Workshops & Training
                         </SelectItem>
                         <SelectItem value="partnership">
-                          Partnership Opportunity
+                          Business Partnership
                         </SelectItem>
                         <SelectItem value="research">
                           Research Collaboration
                         </SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="speaking">
+                          Speaking Engagement
+                        </SelectItem>
+                        <SelectItem value="other">Other Inquiry</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -125,10 +133,28 @@ export default function ContactPage() {
                     Send Message
                   </Button>
 
-                  <p className="text-sm text-muted-foreground text-center">
-                    We typically respond within 24 hours. For urgent inquiries,
-                    please call us directly.
-                  </p>
+                  <div className="space-y-3 text-sm text-muted-foreground">
+                    <p className="text-center">
+                      <strong>Response Time:</strong> We respond to all
+                      inquiries within 24 hours during business days. Complex
+                      project discussions may require 48-72 hours for detailed
+                      proposals.
+                    </p>
+
+                    <div className="border-t pt-3 space-y-2">
+                      <p className="text-xs">
+                        <strong>Privacy Notice:</strong> Your information is
+                        protected under GDPR and our strict privacy policy. We
+                        never share personal data with third parties and use it
+                        solely for responding to your inquiry.
+                      </p>
+                      <p className="text-xs">
+                        By submitting this form, you consent to us contacting
+                        you about your inquiry using the information provided.
+                        You can unsubscribe at any time.
+                      </p>
+                    </div>
+                  </div>
                 </form>
               </CardContent>
             </Card>
@@ -147,19 +173,45 @@ export default function ContactPage() {
                   <div>
                     <div className="font-medium">General Inquiries</div>
                     <div className="text-muted-foreground">
-                      info@safe-ai-4u.eu
+                      <a
+                        href="mailto:info@safe-ai-4u.eu"
+                        className="hover:text-primary transition-colors"
+                      >
+                        info@safe-ai-4u.eu
+                      </a>
                     </div>
                   </div>
                   <div>
-                    <div className="font-medium">Partnership Opportunities</div>
+                    <div className="font-medium">Business Development</div>
                     <div className="text-muted-foreground">
-                      partnerships@safe-ai-4u.eu
+                      <a
+                        href="mailto:business@safe-ai-4u.eu"
+                        className="hover:text-primary transition-colors"
+                      >
+                        business@safe-ai-4u.eu
+                      </a>
                     </div>
                   </div>
                   <div>
-                    <div className="font-medium">Technical Support</div>
+                    <div className="font-medium">AI Consulting</div>
                     <div className="text-muted-foreground">
-                      support@safe-ai-4u.eu
+                      <a
+                        href="mailto:consulting@safe-ai-4u.eu"
+                        className="hover:text-primary transition-colors"
+                      >
+                        consulting@safe-ai-4u.eu
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-medium">Education & Training</div>
+                    <div className="text-muted-foreground">
+                      <a
+                        href="mailto:education@safe-ai-4u.eu"
+                        className="hover:text-primary transition-colors"
+                      >
+                        education@safe-ai-4u.eu
+                      </a>
                     </div>
                   </div>
                 </CardContent>
@@ -176,18 +228,21 @@ export default function ContactPage() {
                     <div className="flex justify-between">
                       <span>Monday - Friday</span>
                       <span className="text-muted-foreground">
-                        9:00 - 18:00 CET
+                        9:00 - 18:00 WET/WEST
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Saturday</span>
                       <span className="text-muted-foreground">
-                        10:00 - 14:00 CET
+                        By appointment only
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Sunday</span>
                       <span className="text-muted-foreground">Closed</span>
+                    </div>
+                    <div className="mt-3 pt-2 border-t text-xs text-muted-foreground">
+                      Portugal Time Zone (UTC+0/+1)
                     </div>
                   </div>
                 </CardContent>
@@ -201,8 +256,9 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
-                    While based in Portugal, we serve clients worldwide through
-                    remote consultations and digital solutions.
+                    Based in Portugal, we serve clients across Europe, North
+                    America, and globally through remote consultations and
+                    digital AI solutions.
                   </p>
                   <div className="space-y-2 text-sm">
                     <div>
@@ -212,9 +268,15 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div>
-                      <div className="font-medium">Service Areas</div>
+                      <div className="font-medium">Primary Service Areas</div>
                       <div className="text-muted-foreground">
-                        Global (Remote & On-site)
+                        EU, UK, North America
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-medium">Delivery Methods</div>
+                      <div className="text-muted-foreground">
+                        Remote consultations, on-site workshops, hybrid projects
                       </div>
                     </div>
                   </div>
@@ -224,17 +286,24 @@ export default function ContactPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    🔐 Privacy & Ethics
+                    🔐 Privacy & Compliance
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
-                    All communications are treated with strict confidentiality.
-                    We adhere to GDPR and international privacy standards.
+                    All communications are treated with strict confidentiality
+                    under NDA when required. We comply with GDPR, international
+                    privacy standards, and ethical AI guidelines.
                   </p>
+                  <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                    <p>• ISO 27001 information security practices</p>
+                    <p>• GDPR compliant data processing</p>
+                    <p>• Ethical AI development standards</p>
+                    <p>• Confidentiality agreements available</p>
+                  </div>
                   <Button className="w-full" asChild>
-                    <a href="mailto:ethics@safe-ai-4u.eu">
-                      Contact Ethics Team
+                    <a href="mailto:privacy@safe-ai-4u.eu">
+                      Privacy & Compliance Inquiries
                     </a>
                   </Button>
                 </CardContent>
@@ -266,10 +335,13 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="text-sm text-muted-foreground space-y-2">
-                    <li>• Initial response within 24 hours</li>
-                    <li>• Detailed proposal within 48-72 hours</li>
-                    <li>• Emergency support available</li>
-                    <li>• Multilingual support (EN, PT, ES)</li>
+                    <li>• Initial response within 24 hours (business days)</li>
+                    <li>• Detailed proposals within 3-5 business days</li>
+                    <li>• Free 30-minute consultation call</li>
+                    <li>
+                      • Multilingual support (English, Portuguese, Spanish)
+                    </li>
+                    <li>• Priority support for existing clients</li>
                   </ul>
                 </CardContent>
               </Card>
@@ -284,10 +356,13 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="text-sm text-muted-foreground space-y-2">
-                    <li>• Free initial consultation</li>
-                    <li>• Transparent pricing and timelines</li>
-                    <li>• Regular milestone check-ins</li>
-                    <li>• Ongoing support and maintenance</li>
+                    <li>• Complimentary initial consultation (30 min)</li>
+                    <li>• Transparent pricing with no hidden fees</li>
+                    <li>• Clear project timelines and milestones</li>
+                    <li>• Post-project support and maintenance options</li>
+                    <li>
+                      • Flexible engagement models (project, retainer, hourly)
+                    </li>
                   </ul>
                 </CardContent>
               </Card>

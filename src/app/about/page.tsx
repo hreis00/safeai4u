@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { generatePageMetadata, generatePersonStructuredData } from "@/lib/seo";
 
 // Animation Components
 import {
@@ -20,20 +20,24 @@ import {
 import { Hero } from "@/components/Hero";
 import { CallToAction } from "@/components/CallToAction";
 
-export const metadata: Metadata = {
-  title: "About Us - SAFE AI [4U]",
-  description:
-    "Learn about our mission to provide safe, responsible AI solutions for everyone.",
-};
+export const metadata = generatePageMetadata("about");
 
 export default function AboutPage() {
+  const personStructuredData = generatePersonStructuredData();
+
   return (
     <div className="space-y-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personStructuredData),
+        }}
+      />
       {/* Hero Section */}
       <Hero
-        badgeText="About SAFE AI [4U]"
-        title="Our Mission"
-        description="To create a future where artificial intelligence serves humanity responsibly, ethically, and equitably across healthcare, education, and society."
+        badgeText="Leading AI Consulting Firm • Portugal"
+        title="Expert AI Research & Responsible AI Development"
+        description="Founded by AI expert David Belo with 15+ years of AI research experience. Our mission: delivering responsible AI consulting services and healthcare AI solutions that serve organizations ethically across Portugal and Europe."
       />
 
       {/* Company Story */}
@@ -44,8 +48,23 @@ export default function AboutPage() {
               <div className="text-center space-y-6">
                 <h2 className="text-3xl font-bold">Our Story</h2>
                 <p className="text-lg text-muted-foreground">
-                  Founded on the principle that AI should enhance human
-                  potential while maintaining the highest ethical standards.
+                  SAFE AI [4U] was founded on the conviction that artificial
+                  intelligence must serve humanity with conscience and
+                  responsibility. Our journey began with a simple yet powerful
+                  realization: the world needs AI solutions that prioritize
+                  human welfare, ethical implementation, and societal benefit
+                  over pure technological advancement.
+                </p>
+                <blockquote className="text-xl italic font-medium text-primary border-l-4 border-primary pl-6 mx-auto max-w-2xl">
+                  &ldquo;We should stop playing with AI and use it with
+                  conscience.&rdquo;
+                </blockquote>
+                <p className="text-muted-foreground">
+                  This philosophy drives everything we do, from our research and
+                  development to our consulting services and educational
+                  programs. We believe that responsible AI implementation is not
+                  just an option—it&apos;s an imperative for creating a better
+                  future for all.
                 </p>
               </div>
             </FadeInUp>
@@ -60,10 +79,12 @@ export default function AboutPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      To be the leading force in responsible AI development,
-                      creating solutions that not only advance technology but
-                      also promote social good, equity, and human welfare across
-                      all sectors of society.
+                      To create a future where artificial intelligence serves as
+                      a force for good, enhancing human capabilities while
+                      preserving human dignity and values. We envision AI
+                      systems that are transparent, fair, and beneficial across
+                      healthcare, education, and society—always developed and
+                      deployed with conscience and responsibility.
                     </p>
                   </CardContent>
                 </Card>
@@ -79,20 +100,29 @@ export default function AboutPage() {
                   <CardContent>
                     <ul className="text-muted-foreground space-y-2">
                       <li>
-                        • <strong>Responsibility:</strong> Every AI solution we
-                        create prioritizes human welfare
+                        • <strong>Conscience:</strong> Every AI solution we
+                        create is developed with moral awareness and human
+                        welfare as the primary consideration
                       </li>
                       <li>
-                        • <strong>Transparency:</strong> Open communication
-                        about our methods and decisions
+                        • <strong>Responsibility:</strong> We take full
+                        accountability for the impact and implications of our AI
+                        systems
                       </li>
                       <li>
-                        • <strong>Innovation:</strong> Pushing boundaries while
-                        maintaining ethical standards
+                        • <strong>Transparency:</strong> Open, honest
+                        communication about our methods, limitations, and
+                        decision-making processes
                       </li>
                       <li>
-                        • <strong>Education:</strong> Empowering others to use
-                        AI responsibly
+                        • <strong>Human-Centricity:</strong> AI should augment
+                        and empower humans, never replace or diminish human
+                        value
+                      </li>
+                      <li>
+                        • <strong>Education:</strong> Sharing knowledge and
+                        empowering others to implement AI responsibly and
+                        ethically
                       </li>
                     </ul>
                   </CardContent>
@@ -136,10 +166,27 @@ export default function AboutPage() {
                     </blockquote>
                     <p className="text-muted-foreground">
                       Visionary leader with over 15 years of experience in AI
-                      research and ethical technology development. PhD in
-                      Computer Science with specialization in responsible AI
-                      systems.
+                      research, ethical technology development, and responsible
+                      AI implementation. David holds a PhD in Computer Science
+                      with specialization in artificial intelligence systems and
+                      has dedicated his career to ensuring AI serves humanity
+                      with conscience and responsibility.
                     </p>
+                    <div className="mt-4 space-y-2 text-sm text-muted-foreground">
+                      <p>
+                        <strong>Expertise:</strong> AI Ethics, Machine Learning,
+                        Healthcare AI, Educational Technology
+                      </p>
+                      <p>
+                        <strong>Focus Areas:</strong> Responsible AI
+                        Development, AI Safety, Human-Centered Design
+                      </p>
+                      <p>
+                        <strong>Mission:</strong> Bridging the gap between
+                        cutting-edge AI technology and ethical implementation
+                        across healthcare, education, and society
+                      </p>
+                    </div>
                   </div>
                   <Button variant="outline" asChild>
                     <a
@@ -242,10 +289,12 @@ export default function AboutPage() {
           <StaggerContainer>
             <FadeInUp>
               <div className="text-center space-y-6 mb-12">
-                <h2 className="text-3xl font-bold">Strategic Partnerships</h2>
+                <h2 className="text-3xl font-bold">
+                  Collaboration & Community
+                </h2>
                 <p className="max-w-2xl mx-auto text-muted-foreground">
-                  Collaborating with leading organizations to drive responsible
-                  AI adoption
+                  Building connections and contributing to the responsible AI
+                  ecosystem through research, education, and ethical practice
                 </p>
               </div>
             </FadeInUp>
@@ -254,19 +303,26 @@ export default function AboutPage() {
               <FloatingCard delay={0.1}>
                 <Card>
                   <CardHeader>
-                    <CardTitle>Research Collaborations</CardTitle>
+                    <CardTitle>Research & Development</CardTitle>
                     <CardDescription>
-                      Academic and research institution partnerships
+                      Contributing to responsible AI research and development
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ul className="text-sm text-muted-foreground space-y-2">
                       <li>
-                        • Joint research projects with leading universities
+                        • Ongoing research in AI ethics and safety frameworks
                       </li>
-                      <li>• AI safety and ethics research initiatives</li>
-                      <li>• Open-source contributions to AI community</li>
-                      <li>• Peer-reviewed publication collaborations</li>
+                      <li>
+                        • Development of responsible AI implementation
+                        methodologies
+                      </li>
+                      <li>
+                        • Contributing to open-source AI safety initiatives
+                      </li>
+                      <li>
+                        • Participating in AI ethics and governance discussions
+                      </li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -275,17 +331,24 @@ export default function AboutPage() {
               <FloatingCard delay={0.2}>
                 <Card>
                   <CardHeader>
-                    <CardTitle>Industry Alliances</CardTitle>
+                    <CardTitle>Professional Network</CardTitle>
                     <CardDescription>
-                      Strategic partnerships with leading organizations
+                      Engaging with the broader AI and technology community
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ul className="text-sm text-muted-foreground space-y-2">
-                      <li>• Healthcare technology integration</li>
-                      <li>• Space agency medical support programs</li>
-                      <li>• Corporate AI ethics consulting</li>
-                      <li>• Educational institution partnerships</li>
+                      <li>
+                        • Active participation in AI ethics and safety
+                        conferences
+                      </li>
+                      <li>
+                        • Collaboration with healthcare technology innovators
+                      </li>
+                      <li>
+                        • Engagement with educational technology communities
+                      </li>
+                      <li>• Professional consulting and advisory services</li>
                     </ul>
                   </CardContent>
                 </Card>
